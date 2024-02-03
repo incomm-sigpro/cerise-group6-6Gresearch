@@ -33,6 +33,7 @@ As seguintes tecnologias são empregadas/propostas durante este projeto:
 
 ### Servidor
 
+- [python](https://python.org)
 - [Javascript](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript)
 - [Typescript](https://www.typescriptlang.org/pt/)
 - [Node.js](https://nodejs.org/en/)
@@ -44,7 +45,6 @@ As seguintes tecnologias são empregadas/propostas durante este projeto:
 - [Multer](https://www.npmjs.com/package/multer)
 - [CORS](https://www.npmjs.com/package/cors)
 - [php](https://www.php.net/)
-- [python](https://python.org)
 
 ### Web client
 
@@ -68,6 +68,7 @@ As seguintes tecnologias são empregadas/propostas durante este projeto:
 
 ### Machine Learning & Deep Learning
 
+- [python](https://python.org)
 - [Numpy](https://numpy.org)
 - [Scipy](https://scipy.org)
 - [Pandas](https://pandas.pydata.org)
