@@ -8,7 +8,7 @@ ___
 
 O [CERISE](https://cerise.ufg.br/) é o Centro de Excelência de Redes Inteligentes Sem Fio e Serviços Avançados da Universidade Federal de Goiás ([UFG](https://ufg.br/)). Ele faz parte da vasta gama de projetos desenvolvidos na Escola de Engenharia Elétrica, Mecânica e de Computação ([EMC](https://emc.ufg.br/)) que fica situada na Av. Universitária, n.º 1488 - quadra 86 - Setor Leste Universitário | CEP: 74605-010| Goiânia-GO.
 
-![Alt text](assets\images\banner-principal.png)
+![Banner CERISE](.\assets\images\banner-principal.png)
 
 ## ⮚ Direção (Comitê Executivo)
 
