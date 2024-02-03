@@ -11,6 +11,7 @@ O [CERISE](https://cerise.ufg.br/) é o Centro de Excelência de Redes Inteligen
 ![Alt text](assets\images\banner-principal.png)
 
 ## ⮚ Direção (Comitê Executivo)
+
 - Diretor: Flávio Henrique Teles Vieira
 - Coordenador Técnico-científico: Rodrigo Pinto Lemos
 - Coordenador de Inovação (prospecção projetos, divulgação): Marcelo Stehling de Castro
@@ -81,13 +82,12 @@ As seguintes tecnologias são empregadas/propostas durante este projeto:
 
 ### Redes Móveis
 
-- [UERANSIM]()
-- [Aether-in-a-box]()
-- [Free5GC / Free5GC Compose]()
-- [OpenAirInterface]()
-- [5G-LENA]()
-- [Scapy]()
-
+- [UERANSIM](https://github.com/aligungr/UERANSIM)
+- [Aether-in-a-box](https://docs.aetherproject.org/master/intro.html)
+- [Free5GC / Free5GC Compose](https://github.com/free5gc/free5gc-compose)
+- [OpenAirInterface](https://gitlab.eurecom.fr/oai/openairinterface5g)
+- [5G-LENA](https://5g-lena.cttc.es/)
+- [Scapy](https://scapy.net/)
 
 ## 📝 Licença
 
