@@ -19,13 +19,13 @@ O [CERISE](https://cerise.ufg.br/) é o Centro de Excelência de Redes Inteligen
 
 ## 📊 Objetivos
 
-- Capacitação de profissionais (habilidades e talentos) e formação de recursos humano;
+- Capacitação de profissionais (habilidades e talentos) e formação de recursos humanos;
 - Captação de projetos de PD&I: Pesquisa orientada a problemas e negócios;
 - Laboratórios avançados (ambiente sandbox, teste de conceitos).
 
 ## 📂🛠️ Projeto de execução
 
-O projeto de execução das atividades propostas pode ser encontrado no Notion, através [DESSE LINK](https://tremendous-mum-29f.notion.site/38b6fb43468a4aa4a042ac6b5c54fa5d?v=1f969ed94b7244db98ba7e2d0d51f704).
+O projeto de execução das atividades propostas pode ser encontrado no Notion, através [DESSE LINK](https://positive-space-433.notion.site/6G-Research-Project-957c73f25f3b4282907ecb441d975bb0?pvs=4).
 
 ## 🛠 Tecnologias
 
