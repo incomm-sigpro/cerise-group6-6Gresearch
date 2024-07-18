@@ -1,6 +1,6 @@
-# bancada-didatica-iot
+# veiculo-autonomo-jammer
 
-Projeto de construção de um protótipo de sistema de controle de acesso por meio de reconhecimento facial.
+Projeto de construção de um protótipo de veículo autônomo com reconhecimento de objetos através de um ESP32Cam e capacidade de interferência no espectro eletromagnético (jamming).
 
 ## 💻 Sobre
 
@@ -73,4 +73,4 @@ Este projeto está sob a licença MIT.
 
 ___
 
-Feito com 💜 by Jonas Augusto Kunzler
+Feito com 💜 by CERISE - 6G
