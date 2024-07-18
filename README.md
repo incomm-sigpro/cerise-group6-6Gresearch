@@ -96,4 +96,4 @@ Este projeto está sob a licença MIT.
 
 ___
 
-Feito com 💜 by InComm
+Feito com 💜 by CERISE - 6G
