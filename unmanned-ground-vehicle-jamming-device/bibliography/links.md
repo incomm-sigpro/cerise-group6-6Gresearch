@@ -1,0 +1,23 @@
+# Helpful links
+
+Here are some useful links to help implement a non-tripulated car using ESP32-CAM:
+
+- ESP32-CAM Documentation: <https://docs.espressif.com/projects/esp-idf/en/latest/esp32/hw-reference/esp32-cam.html>
+
+- ESP32-CAM GitHub Repository: <https://github.com/espressif/esp32-camera>
+
+- ESP32-CAM Video Streaming Tutorial: <https://randomnerdtutorials.com/esp32-cam-video-streaming-web-server-camera-home-assistant/>
+
+- ESP32-CAM Face Recognition Tutorial: <https://randomnerdtutorials.com/esp32-cam-face-recognition-arduino-ide/>
+
+- ESP32-CAM MQTT Tutorial: <https://randomnerdtutorials.com/esp32-cam-mqtt-publish-subscribe-arduino-ide/>
+
+- Robot Zero One Editing the ESP32-CAM Camera Web Server HTML: <https://robotzero.one/esp32-cam-custom-html/>
+
+- Robot Zero One ESP32Cam remote control car: <https://robotzero.one/esp32-cam-rc-car/>; <https://github.com/robotzero1/esp32cam-rc-car/tree/main>
+
+## YouTube video references
+
+- [Código Fonte TV - WebSockets](https://youtu.be/pb4ggtC1Mh8?si=bUlzHVu3IBcuSBuK)
+
+- [Alura - Websockets](https://youtu.be/RwUbUnPdWqs?si=wUV3glp_zGNI_j8l)
