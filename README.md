@@ -83,6 +83,8 @@ As seguintes tecnologias são empregadas/propostas durante este projeto:
 
 ### Redes Móveis
 
+- [ns-3 (Network Simulator 3)](https://www.nsnam.org/)
+- [OMNeT++](https://omnetpp.org/)
 - [UERANSIM](https://github.com/aligungr/UERANSIM)
 - [Aether-in-a-box](https://docs.aetherproject.org/master/intro.html)
 - [Free5GC / Free5GC Compose](https://github.com/free5gc/free5gc-compose)
