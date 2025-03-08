@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  mysql-compose:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: "mysql"
+      MYSQL_DATABASE: "cerise_inventory"
+      MYSQL_USER: "mysql"
+      MYSQL_PASSWORD: "mysql"
+    ports:
+      - "3306:3306"
+

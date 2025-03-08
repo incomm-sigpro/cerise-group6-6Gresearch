@@ -1,0 +1,31 @@
+import { Scope, Category, Source, Inventory } from "@prisma/client";
+
+export type CreateInventoryItemsDTO = {
+  scope: Scope;
+  uf: string;
+  description: string;
+  category?: Category;
+  categoryId: string;
+  source?: Source;
+  sourceId: string;
+  quantity?: any;
+  quantityJan?: any;
+  quantityFeb?: any;
+  quantityMar?: any;
+  quantityApr?: any;
+  quantityMay?: any;
+  quantityJun?: any;
+  quantityJul?: any;
+  quantityAug?: any;
+  quantitySep?: any;
+  quantityOct?: any;
+  quantityNov?: any;
+  quantityDec?: any;
+  passenger?: any;
+  segment?: any;
+  emissions?: any;
+  total_CO2e?: any;
+  inventory?: Inventory;
+  inventoryId: string;
+  createdBy: string;
+};

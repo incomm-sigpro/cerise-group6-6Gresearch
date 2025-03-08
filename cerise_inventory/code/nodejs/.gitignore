@@ -1,0 +1,11 @@
+# Editors
+.idea
+*.iml
+.history
+
+# Dependency directories
+node_modules/
+dist/
+
+# dotenv environment variables file
+.env

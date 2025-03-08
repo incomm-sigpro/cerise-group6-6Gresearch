@@ -1,0 +1,86 @@
+# Bibliotecas de análise e manipulação de dados
+numpy==1.19.5
+pandas==1.3.0
+scipy==1.5.4
+
+# Bibliotecas para visualização de dados
+matplotlib==3.4.2
+seaborn==0.11.1
+plotly==5.1.0
+
+# Bibliotecas para banco de dados
+SQLAlchemy==2.0.34
+
+# Bibliotecas para Machine Learning e Deep Learning
+scikit-learn==0.24.2
+tensorflow==2.5.0
+torch==1.9.0
+keras==2.4.3
+xgboost==1.4.2
+
+# Bibliotecas para NLP
+nltk==3.6.3
+spacy==3.1.1
+transformers==4.9.2
+
+# Bibliotecas para processamento de imagens e visão computacional
+opencv-python==4.5.3.56
+pillow==8.3.1
+
+# Ferramentas para treinamento distribuído
+dask==2021.7.1
+ray==1.4.1
+horovod==0.22.1
+
+# Ferramentas para deployment
+bcrypt==4.2.0
+fastapi==0.68.0
+Flask==2.3.0
+Flask-Cors==3.0.10
+Flask-JWT-Extended==4.4.4
+Flask-Migrate==4.0.7
+Flask-SocketIO==5.3.6
+Flask-SQLAlchemy==3.1.1
+onnx==1.9.0
+PyJWT==2.1.0
+python-dotenv==1.0.1
+requests==2.31.0
+Werkzeug==2.3.0
+
+# Ferramentas para gerenciamento de experimentos
+jupyter==1.0.0
+mlflow==1.19.0
+wandb==0.12.1
+
+# Ferramentas para testes
+pytest==6.2.4
+pytest-cov==2.12.1
+pytest-mock==3.6.1
+pytest-sugar==0.9.4
+
+# Ferramentas para deploy
+docker==5.0.0
+gunicorn==20.1.0
+
+# Ferramentas para monitoramento
+prometheus_client==0.11.0
+psutil==5.8.0
+
+# Ferramentas para CI/CD
+black==21.6b0
+flake8==3.9.2
+
+# Ferramentas para documentação
+sphinx==4.1.2
+sphinx-rtd-theme==1.0.0
+sphinxcontrib-napoleon==0.7
+
+# Ferramentas para desenvolvimento
+autopep8==1.5.7
+ipython==7.25.0
+jupyterlab==3.1.10
+jupyterlab-git==0.32.0
+jupyterlab-tensorboard==0.3.0
+jupyterlab-widgets==1.0.0
+nbstripout==0.6.0
+pylint==2.9.6

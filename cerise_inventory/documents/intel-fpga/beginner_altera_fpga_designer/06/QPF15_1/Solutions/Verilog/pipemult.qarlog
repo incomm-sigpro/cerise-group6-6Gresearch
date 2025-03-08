@@ -1,0 +1,28 @@
+Quartus Prime Archive log --	C:/altera_trn/Quartus_Prime_Software_Foundation/golden QPF15_1/Solutions/Verilog/pipemult.qarlog
+
+Archive:	C:/altera_trn/Quartus_Prime_Software_Foundation/golden QPF15_1/Solutions/Verilog/pipemult.qar
+Date:		Wed Nov 11 14:31:31 2015
+Quartus Prime		15.1.0 Build 185 10/21/2015 SJ Standard Edition
+
+	=========== Files Selected: ===========
+C:/altera_trn/Quartus_Prime_Software_Foundation/QPF15_1/Verilog/io_assignments.tcl
+C:/altera_trn/Quartus_Prime_Software_Foundation/QPF15_1/Verilog/mult.qip
+C:/altera_trn/Quartus_Prime_Software_Foundation/QPF15_1/Verilog/mult.v
+C:/altera_trn/Quartus_Prime_Software_Foundation/QPF15_1/Verilog/mult_inst.v
+C:/altera_trn/Quartus_Prime_Software_Foundation/QPF15_1/Verilog/pipemult.qpf
+C:/altera_trn/Quartus_Prime_Software_Foundation/QPF15_1/Verilog/pipemult.qsf
+C:/altera_trn/Quartus_Prime_Software_Foundation/QPF15_1/Verilog/pipemult.sdc
+C:/altera_trn/Quartus_Prime_Software_Foundation/QPF15_1/Verilog/pipemult.v
+C:/altera_trn/Quartus_Prime_Software_Foundation/QPF15_1/Verilog/pipemult_lc.qsf
+C:/altera_trn/Quartus_Prime_Software_Foundation/QPF15_1/Verilog/pipemult_lc.sdc
+C:/altera_trn/Quartus_Prime_Software_Foundation/QPF15_1/Verilog/pipemult_migration.qsf
+C:/altera_trn/Quartus_Prime_Software_Foundation/QPF15_1/Verilog/pipemult_migration.sdc
+C:/altera_trn/Quartus_Prime_Software_Foundation/QPF15_1/Verilog/ram.hex
+C:/altera_trn/Quartus_Prime_Software_Foundation/QPF15_1/Verilog/ram.qip
+C:/altera_trn/Quartus_Prime_Software_Foundation/QPF15_1/Verilog/ram.v
+C:/altera_trn/Quartus_Prime_Software_Foundation/QPF15_1/Verilog/ram_inst.v
+c:/altera/15.1/quartus/bin64/assignment_defaults.qdf
+	======= Total: 17 files to archive =======
+
+	================ Status: ===============
+All files archived successfully.

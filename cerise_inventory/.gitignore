@@ -1,0 +1,85 @@
+# Arquivos de ambiente virtual
+venv/
+.env
+
+# Arquivos de dependências e build
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Logs e arquivos temporários
+*.log
+*.tmp
+*.out
+*.pid
+*.seed
+*.backup
+*.swp
+*.swo
+
+# Configurações do sistema operacional
+.DS_Store
+Thumbs.db
+
+# Arquivos de IDEs
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Arquivos de configuração e cache do Jupyter
+.ipynb_checkpoints
+jupyter_notebook_config.py
+
+# Arquivos de dados temporários e backups
+*.bak
+*.old
+*.orig
+
+# Dados sensíveis ou variáveis de ambiente
+credentials.json
+config.yaml
+
+# Diretório de armazenamento do pipenv e pyenv
+.pipenv/
+.pipfile.lock
+.python-version
+
+# Configurações de Docker e containers
+docker-compose.override.yml
+.dockerignore
+*.tar
+
+# Arquivos de relatórios de teste e cobertura
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+.pytest_cache/
+.nox/
+
+# Arquivos gerados por Sphinx
+docs/_build/
+docs/api/
+
+# Dados de projeto e de laboratório
+data/
+*.csv
+*.db
+*.sqlite3
+*.h5
+*.json
+results/
+
+# Configurações específicas de projeto
+*.spec
+*.cfg
+__pycache__/
+tests/__pycache__/

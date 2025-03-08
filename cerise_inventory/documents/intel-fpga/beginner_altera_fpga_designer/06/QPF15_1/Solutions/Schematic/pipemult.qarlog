@@ -1,0 +1,28 @@
+Quartus Prime Archive log --	C:/altera_trn/Quartus_Prime_Software_Foundation/golden QPF15_1/Solutions/Schematic/pipemult.qarlog
+
+Archive:	C:/altera_trn/Quartus_Prime_Software_Foundation/golden QPF15_1/Solutions/Schematic/pipemult.qar
+Date:		Thu Nov 12 13:53:23 2015
+Quartus Prime		15.1.0 Build 185 10/21/2015 SJ Standard Edition
+
+	=========== Files Selected: ===========
+C:/altera_trn/Quartus_Prime_Software_Foundation/QPF15_1/Schematic/io_assignments.tcl
+C:/altera_trn/Quartus_Prime_Software_Foundation/QPF15_1/Schematic/mult.bsf
+C:/altera_trn/Quartus_Prime_Software_Foundation/QPF15_1/Schematic/mult.qip
+C:/altera_trn/Quartus_Prime_Software_Foundation/QPF15_1/Schematic/mult.v
+C:/altera_trn/Quartus_Prime_Software_Foundation/QPF15_1/Schematic/pipemult.bdf
+C:/altera_trn/Quartus_Prime_Software_Foundation/QPF15_1/Schematic/pipemult.qpf
+C:/altera_trn/Quartus_Prime_Software_Foundation/QPF15_1/Schematic/pipemult.qsf
+C:/altera_trn/Quartus_Prime_Software_Foundation/QPF15_1/Schematic/pipemult.sdc
+C:/altera_trn/Quartus_Prime_Software_Foundation/QPF15_1/Schematic/pipemult_lc.qsf
+C:/altera_trn/Quartus_Prime_Software_Foundation/QPF15_1/Schematic/pipemult_lc.sdc
+C:/altera_trn/Quartus_Prime_Software_Foundation/QPF15_1/Schematic/pipemult_migration.qsf
+C:/altera_trn/Quartus_Prime_Software_Foundation/QPF15_1/Schematic/pipemult_migration.sdc
+C:/altera_trn/Quartus_Prime_Software_Foundation/QPF15_1/Schematic/ram.bsf
+C:/altera_trn/Quartus_Prime_Software_Foundation/QPF15_1/Schematic/ram.hex
+C:/altera_trn/Quartus_Prime_Software_Foundation/QPF15_1/Schematic/ram.qip
+C:/altera_trn/Quartus_Prime_Software_Foundation/QPF15_1/Schematic/ram.v
+c:/altera/15.1/quartus/bin64/assignment_defaults.qdf
+	======= Total: 17 files to archive =======
+
+	================ Status: ===============
+All files archived successfully.

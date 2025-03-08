@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  app:
+    image: python:3.8-slim
+    container_name: 5g_open_ran_app
+    working_dir: /usr/src/app
+    volumes:
+      - .:/usr/src/app
+    environment:
+      - PYTHONUNBUFFERED=1
+    command: bash -c "pip install -r requirements.txt && python /src/run.py"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

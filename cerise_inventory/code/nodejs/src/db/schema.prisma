@@ -1,0 +1,265 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum PermissionTypeGroup {
+  USER
+  USER_ADMIN // TODO: Vamos precisar de um tipo diferente de usuários?
+}
+
+enum Roles {
+  IS_ADMIN
+  IS_SUPPORT
+  IS_CLIENT
+}
+
+enum TelephoneType {
+  HOME
+  WORK
+  MOBILE
+}
+
+enum Scope {
+  SCOPE_01
+  SCOPE_02
+  SCOPE_03
+}
+
+enum inventoryStatus {
+  PREENCHENDO
+  ANALISANDO
+  CONSOLIDADO
+}
+
+model User {
+  id              String            @id @default(uuid())
+  createdAt       DateTime          @default(now()) @map("created_at")
+  updatedAt       DateTime          @updatedAt @map("updated_at")
+  name            String
+  email           String            @unique
+  password        String
+  isActive        Boolean           @default(true) @map("is_active")
+  session         Session[]
+  firstLogin      DateTime?         @map("first_login")
+  telephone       Telephone[]
+  contact         Contact[]
+  message         Message[]
+  avatar          String?
+  birthday        DateTime?
+  userCorporation UserCorporation[]
+  inventories     Inventory[]
+  deletedBy       String?           @map("deleted_by")
+  createdBy       String?           @map("created_by")
+
+  @@map("users")
+}
+
+model PermissionGroups {
+  id        String                 @id @default(uuid())
+  createdAt DateTime               @default(now()) @map("created_at")
+  updatedAt DateTime               @updatedAt @map("updated_at")
+  name      String                 @unique
+  type      PermissionTypeGroup    @default(USER)
+  users     UserPermissionGroups[]
+  role      Roles                  @default(IS_SUPPORT)
+
+  @@unique([type, role])
+  @@map("permission_groups")
+}
+
+model UserPermissionGroups {
+  id                String           @id @default(uuid())
+  createdAt         DateTime         @default(now()) @map("created_at")
+  deletedAt         DateTime?        @map("deleted_at")
+  userId            String?          @map("user_id")
+  permissionGroup   PermissionGroups @relation(fields: [permissionGroupId], references: [id])
+  permissionGroupId String           @map("permission_group_id")
+
+  @@unique([userId, permissionGroupId])
+  @@map("user_permission_groups")
+}
+
+model Session {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String   @map("user_id")
+  ip        String
+  userAgent String?  @map("user_agent")
+  country   String?
+  region    String?
+  language  String?
+  latitude  Float?
+  longitude Float?
+
+  @@map("sessions")
+}
+
+model Telephone {
+  id        String        @id @default(uuid())
+  createdAt DateTime      @default(now()) @map("created_at")
+  updatedAt DateTime      @updatedAt @map("updated_at")
+  type      TelephoneType
+  number    String
+  user      User          @relation(fields: [userId], references: [id])
+  userId    String        @map("user_id")
+
+  @@map("telephones")
+}
+
+model Contact {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  name      String
+  email     String?
+  telephone String?
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String   @map("user_id")
+  isActive  Boolean  @default(true) @map("is_active")
+  deletedBy String?  @map("deleted_by")
+  createdBy String?  @map("created_by")
+
+  @@map("contact")
+}
+
+model Message {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  isRead    Boolean  @default(false) @map("is_read")
+  title     String
+  content   String?
+  type      String
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String   @map("user_id")
+
+  @@map("message")
+}
+
+model UserCorporation {
+  id            String      @id @default(uuid())
+  createdAt     DateTime    @default(now()) @map("created_at")
+  updatedAt     DateTime    @updatedAt @map("updated_at")
+  user          User        @relation(fields: [userId], references: [id])
+  userId        String      @map("user_id")
+  corporation   Corporation @relation(fields: [corporationId], references: [id])
+  corporationId String      @map("corporation_id")
+
+  @@map("user_corporations")
+}
+
+model Corporation {
+  id                     String            @id @default(uuid())
+  createdAt              DateTime          @default(now()) @map("created_at")
+  updatedAt              DateTime          @updatedAt @map("updated_at")
+  name                   String
+  cnpj                   String            @unique
+  address                Address[]
+  userCorporation        UserCorporation[]
+  inventories            Inventory[]
+  isActive               Boolean           @default(true) @map("is_active")
+  deletedBy              String?           @map("deleted_by")
+  createdBy              String?           @map("created_by")
+
+  @@map("corporations")
+}
+
+model Address {
+  id            String      @id @default(uuid())
+  createdAt     DateTime    @default(now()) @map("created_at")
+  updatedAt     DateTime    @updatedAt @map("updated_at")
+  street        String
+  number        String
+  complement    String?
+  sector        String
+  city          String
+  state         String
+  country       String
+  zipCode       String      @map("zip_code")
+  latitude      Float?
+  longitude     Float?
+  corporation   Corporation @relation(fields: [corporationId], references: [id])
+  corporationId String      @map("corporation_id")
+
+  @@unique([corporationId], name: "corporation_address_unique")
+  @@map("addresses")
+}
+
+model Inventory {
+  id             String           @id @default(uuid())
+  createdAt      DateTime         @default(now()) @map("created_at")
+  updatedAt      DateTime         @updatedAt @map("updated_at")
+  user           User             @relation(fields: [userId], references: [id])
+  userId         String           @map("user_id")
+  year           Int
+  corporation    Corporation      @relation(fields: [corporationId], references: [id])
+  corporationId  String           @map("corporation_id")
+  name           String
+  status         inventoryStatus
+  inventoryItems InventoryItems[]
+  isActive       Boolean          @default(true) @map("is_active")
+  notes          Note[]
+  deletedBy      String?          @map("deleted_by")
+  createdBy      String?          @map("created_by")
+
+  @@map("inventories")
+}
+
+model Note {
+  id          String    @id @default(uuid())
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+  content     String
+  inventory   Inventory @relation(fields: [inventoryId], references: [id])
+  inventoryId String    @map("inventory_id")
+  isActive    Boolean   @default(true) @map("is_active")
+  deletedBy   String?   @map("deleted_by")
+  createdBy   String?   @map("created_by")
+
+  @@map("notes")
+}
+
+model InventoryItems {
+  id          String    @id @default(uuid())
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+  scope       Scope
+  uf          String
+  description String?   @db.VarChar(2048)
+  category    Category  @relation(fields: [categoryId], references: [id])
+  categoryId  String    @map("category_id")
+  quantity    Decimal   @default(0) @db.Decimal(65, 2)
+  inventory   Inventory @relation(fields: [inventoryId], references: [id])
+  inventoryId String    @map("inventory_id")
+  isActive    Boolean   @default(true) @map("is_active")
+  deletedBy   String?   @map("deleted_by")
+  createdBy   String?   @map("created_by")
+
+  @@map("inventory_items")
+}
+
+model Category {
+  id             String           @id
+  createdAt      DateTime         @default(now()) @map("created_at")
+  updatedAt      DateTime         @updatedAt @map("updated_at")
+  name           String
+  description    String?          @db.VarChar(2048)
+  scope          Scope
+  inventoryItems InventoryItems[]
+  isActive       Boolean          @default(true) @map("is_active")
+  deletedBy      String?          @map("deleted_by")
+  createdBy      String?          @map("created_by")
+
+  @@map("categories")
+}
+

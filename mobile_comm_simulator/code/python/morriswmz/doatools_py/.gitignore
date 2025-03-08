@@ -1,0 +1,13 @@
+.vscode/
+
+__pycache__/
+*.egg-info/
+
+*.py[cod]
+*$py.class
+*.ipynb_checkpoints
+
+dist/
+examples/wip/
+docs/build/
+doatools.code-workspace
