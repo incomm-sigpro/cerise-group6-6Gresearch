@@ -13,12 +13,12 @@
 TFT_eSPI tft = TFT_eSPI();
 #include <TFT_eFEX.h>
 TFT_eFEX  fex = TFT_eFEX(&tft);
-//
-//const char* ssid = "XT1635-02 9425";
-//const char* password = "HotSpotKunzler22024";
 
-const char* ssid = "LaboratorioH3";
-const char* password = "TelecomH3";
+const char* ssid = "XT1635-02 9425";
+const char* password = "HotSpotKunzler22024";
+
+//const char* ssid = "LaboratorioH3";
+//const char* password = "TelecomH3";
 
 #define ENROLL_CONFIRM_TIMES 5
 #define FACE_ID_SAVE_NUMBER 7
