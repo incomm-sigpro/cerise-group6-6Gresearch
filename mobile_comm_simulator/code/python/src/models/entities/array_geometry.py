@@ -2,7 +2,7 @@ import uuid
 from sqlalchemy import Column, String, DateTime
 from configs.base import Base
 
-class ArrayGeometry(Base):
+class ArrayGeometryModel(Base):
     __tablename__ = "array_geometries"
 
     id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))

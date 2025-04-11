@@ -1,0 +1,868 @@
+ok: [magma]
+
+TASK [gai_config : Prefer ipv4 over ipv6 in getaddrinfo] ***********************
+Friday 21 March 2025  19:51:21 +0000 (0:00:04.133)       0:00:04.295 ********** 
+ok: [magma] => {"changed": false, "msg": "", "rc": 0}
+
+TASK [gateway_dev : Check if role variables are defined] ***********************
+Friday 21 March 2025  19:51:21 +0000 (0:00:00.816)       0:00:05.112 ********** 
+skipping: [magma] => {"changed": false, "skip_reason": "Conditional result was False"}
+
+TASK [pkgrepo : Collect all registries] ****************************************
+Friday 21 March 2025  19:51:22 +0000 (0:00:00.067)       0:00:05.179 ********** 
+ok: [magma] => {"changed": false, "examined": 0, "files": [], "matched": 0, "msg": "All paths examined", "skipped_paths": {}}
+
+TASK [pkgrepo : Remove all old registries] *************************************
+Friday 21 March 2025  19:51:22 +0000 (0:00:00.920)       0:00:06.099 ********** 
+
+TASK [pkgrepo : Adding the key for the registry] *******************************
+Friday 21 March 2025  19:51:22 +0000 (0:00:00.035)       0:00:06.134 ********** 
+ok: [magma] => {"changed": false, "checksum": "0dda62c01dc0fdcc9b175b851217488081ef5a43", "dest": "/etc/apt/trusted.gpg.d/magma.asc", "gid": 0, "group": "root", "mode": "0644", "owner": "root", "path": "/etc/apt/trusted.gpg.d/magma.asc", "size": 2459, "state": "file", "uid": 0}
+
+TASK [pkgrepo : Configuring the registry in sources.list.d] ********************
+Friday 21 March 2025  19:51:25 +0000 (0:00:02.524)       0:00:08.659 ********** 
+fatal: [magma]: FAILED! => {"changed": false, "msg": "Failed to update apt cache: unknown reason"}
+
+PLAY RECAP *********************************************************************
+magma                      : ok=4    changed=0    unreachable=0    failed=1    skipped=2    rescued=0    ignored=0   
+
+Friday 21 March 2025  19:53:02 +0000 (0:01:37.313)       0:01:45.973 ********** 
+=============================================================================== 
+pkgrepo : Configuring the registry in sources.list.d ------------------- 97.31s
+Gathering Facts --------------------------------------------------------- 4.13s
+pkgrepo : Adding the key for the registry ------------------------------- 2.52s
+pkgrepo : Collect all registries ---------------------------------------- 0.92s
+gai_config : Prefer ipv4 over ipv6 in getaddrinfo ----------------------- 0.82s
+gateway_dev : Check if role variables are defined ----------------------- 0.07s
+pkgrepo : Remove all old registries ------------------------------------- 0.04s
+Ansible failed to complete successfully. Any error output should be
+visible above. Please fix these errors and try again.
+user_magma_h3@magmacoreh3:~/magma/lte/gateway$ vagrant ssh magma
+Welcome to Ubuntu 20.04.5 LTS (GNU/Linux 5.4.0-135-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+virtualenvwrapper.user_scripts creating /home/vagrant/.virtualenvs/premkproject
+virtualenvwrapper.user_scripts creating /home/vagrant/.virtualenvs/postmkproject
+virtualenvwrapper.user_scripts creating /home/vagrant/.virtualenvs/initialize
+virtualenvwrapper.user_scripts creating /home/vagrant/.virtualenvs/premkvirtualenv
+virtualenvwrapper.user_scripts creating /home/vagrant/.virtualenvs/postmkvirtualenv
+virtualenvwrapper.user_scripts creating /home/vagrant/.virtualenvs/prermvirtualenv
+virtualenvwrapper.user_scripts creating /home/vagrant/.virtualenvs/postrmvirtualenv
+virtualenvwrapper.user_scripts creating /home/vagrant/.virtualenvs/predeactivate
+virtualenvwrapper.user_scripts creating /home/vagrant/.virtualenvs/postdeactivate
+virtualenvwrapper.user_scripts creating /home/vagrant/.virtualenvs/preactivate
+virtualenvwrapper.user_scripts creating /home/vagrant/.virtualenvs/postactivate
+virtualenvwrapper.user_scripts creating /home/vagrant/.virtualenvs/get_env_details
+vagrant@magma-dev:~$ cd magma
+vagrant@magma-dev:~/magma$ cd lte/gateway/
+vagrant@magma-dev:~/magma/lte/gateway$ make run
+MAIN_FEATURE agw_of
+OAI_FLAGS -DS6A_OVER_GRPC=True -DEMBEDDED_SGW=True
+
+Warning: As part of the Make to Bazel switch-over of the AGW this Makefile
+will be deprecated soon, see https://github.com/magma/magma/issues/14971.
+Do not add any new Make targets for the AGW!
+All new targets should be integrated with the Bazel build system,
+see https://magma.github.io/magma/docs/next/bazel/agw_with_bazel.
+
+sudo service magma@* stop
+make -C /lte/gateway/python buildenv
+make[1]: *** /lte/gateway/python: No such file or directory.  Stop.
+make: *** [Makefile:105: build_python] Error 2
+vagrant@magma-dev:~/magma/lte/gateway$ vagrant provision magma
+-bash: vagrant: command not found
+vagrant@magma-dev:~/magma/lte/gateway$ make run
+MAIN_FEATURE agw_of
+OAI_FLAGS -DS6A_OVER_GRPC=True -DEMBEDDED_SGW=True
+
+Warning: As part of the Make to Bazel switch-over of the AGW this Makefile
+will be deprecated soon, see https://github.com/magma/magma/issues/14971.
+Do not add any new Make targets for the AGW!
+All new targets should be integrated with the Bazel build system,
+see https://magma.github.io/magma/docs/next/bazel/agw_with_bazel.
+
+sudo service magma@* stop
+make -C /lte/gateway/python buildenv
+make[1]: *** /lte/gateway/python: No such file or directory.  Stop.
+make: *** [Makefile:105: build_python] Error 2
+vagrant@magma-dev:~/magma/lte/gateway$ sudo service magma@magmad status
+Unit magma@magmad.service could not be found.
+vagrant@magma-dev:~/magma/lte/gateway$ Connection to 127.0.0.1 closed by remote host.
+Connection to 127.0.0.1 closed.
+user_magma_h3@magmacoreh3:~/magma/lte/gateway$ vagrant ssh magma
+user_magma_h3@magmacoreh3:~/magma/lte/gateway$ vagrant ssh magma
+Welcome to Ubuntu 20.04.5 LTS (GNU/Linux 5.4.0-135-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+Last login: Fri Mar 21 19:53:37 2025 from 10.0.2.2
+vagrant@magma-dev:~$ sudo systemctl status magma@magmad
+Unit magma@magmad.service could not be found.
+vagrant@magma-dev:~$ cd magma/lte/gateway/deploy/
+vagrant@magma-dev:~/magma/lte/gateway/deploy$ sudo bash agw_install_ubuntu.sh
++ addr1=
++ gw_addr=
++ MAGMA_USER=magma
++ AGW_INSTALL_CONFIG_LINK=/etc/systemd/system/multi-user.target.wants/agw_installation.service
++ AGW_INSTALL_CONFIG=/lib/systemd/system/agw_installation.service
++ AGW_SCRIPT_PATH=/root/agw_install_ubuntu.sh
++ DEPLOY_PATH=/home/magma/magma/lte/gateway/deploy
++ SUCCESS_MESSAGE=ok
++ NEED_REBOOT=0
+++ whoami
++ WHOAMI=root
++ MAGMA_VERSION=v1.8
++ CLOUD_INSTALL=cloud
++ GIT_URL=https://github.com/magma/magma.git
++ INTERFACE_DIR=/etc/network/interfaces.d
++ echo 'Checking if the script has been executed by root user'
+Checking if the script has been executed by root user
++ '[' root '!=' root ']'
++ echo 'Checking if Ubuntu is installed'
+Checking if Ubuntu is installed
++ grep -q Ubuntu /etc/issue
++ '[' '' '!=' ok ']'
++ wget https://raw.githubusercontent.com/magma/magma/v1.8/lte/gateway/deploy/agw_pre_check_ubuntu.sh
+--2025-03-21 20:10:25--  https://raw.githubusercontent.com/magma/magma/v1.8/lte/gateway/deploy/agw_pre_check_ubuntu.sh
+Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 185.199.111.133, 185.199.109.133, 185.199.108.133, ...
+Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|185.199.111.133|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 1399 (1.4K) [text/plain]
+Saving to: 'agw_pre_check_ubuntu.sh.1'
+
+agw_pre_check_ubuntu 100%[====================>]   1.37K  --.-KB/s    in 0.001s  
+
+2025-03-21 20:10:26 (1.84 MB/s) - 'agw_pre_check_ubuntu.sh.1' saved [1399/1399]
+
++ [[ -f ./agw_pre_check_ubuntu.sh ]]
++ bash agw_pre_check_ubuntu.sh
+- Check if Ubuntu is installed
+Ubuntu is installed
+- Check for magma user
+magma user is not Installed
+- Check if both interfaces are named eth0 and eth1
++ true
++ read -p 'Do you accept those modifications and want to proceed with magma installation?(y/n)' yn
+Do you accept those modifications and want to proceed with magma installation?(y/n)y
++ case $yn in
++ break
++ apt-get update
+Hit:1 http://security.ubuntu.com/ubuntu focal-security InRelease
+Hit:2 http://us.archive.ubuntu.com/ubuntu focal InRelease
+Get:3 http://us.archive.ubuntu.com/ubuntu focal-updates InRelease [128 kB]
+Get:4 http://us.archive.ubuntu.com/ubuntu focal-backports InRelease [128 kB]
+Fetched 256 kB in 6s (45.6 kB/s)
+Reading package lists... Done
++ echo 'Need to check if both interfaces are named eth0 and eth1'
+Need to check if both interfaces are named eth0 and eth1
+++ ip -br a
++ INTERFACES='lo               UNKNOWN        127.0.0.1/8 ::1/128 
+eth0             UP             10.0.2.15/24 fe80::a00:27ff:febb:58d1/64 
+eth1             UP             192.168.60.142/24 fe80::a00:27ff:fe2f:85e9/64 
+eth2             UP             192.168.129.1/24 fe80::a00:27ff:feff:363e/64 
+eth3             UP             3001::10/64 fe80::a00:27ff:fef3:ab39/64 
+docker0          DOWN           172.17.0.1/16 '
++ [[ '' != \c\l\o\u\d ]]
++ [[ ! lo               UNKNOWN        127.0.0.1/8 ::1/128 
+eth0             UP             10.0.2.15/24 fe80::a00:27ff:febb:58d1/64 
+eth1             UP             192.168.60.142/24 fe80::a00:27ff:fe2f:85e9/64 
+eth2             UP             192.168.129.1/24 fe80::a00:27ff:feff:363e/64 
+eth3             UP             3001::10/64 fe80::a00:27ff:fef3:ab39/64 
+docker0          DOWN           172.17.0.1/16  == *\e\t\h\0* ]]
++ [[ ! lo               UNKNOWN        127.0.0.1/8 ::1/128 
+eth0             UP             10.0.2.15/24 fe80::a00:27ff:febb:58d1/64 
+eth1             UP             192.168.60.142/24 fe80::a00:27ff:fe2f:85e9/64 
+eth2             UP             192.168.129.1/24 fe80::a00:27ff:feff:363e/64 
+eth3             UP             3001::10/64 fe80::a00:27ff:fef3:ab39/64 
+docker0          DOWN           172.17.0.1/16  == *\e\t\h\1* ]]
++ grep -q 'GRUB_CMDLINE_LINUX="net.ifnames=0 biosdevname=0"' /etc/default/grub
++ echo 'Interfaces name are correct, let'\''s check if network and DNS are up'
+Interfaces name are correct, let's check if network and DNS are up
++ nslookup google.com
+Server:         8.8.8.8
+Address:        8.8.8.8#53
+
+Non-authoritative answer:
+Name:   google.com
+Address: 172.217.28.78
+Name:   google.com
+Address: 2800:3f0:4001:806::200e
+
++ ping -c 1 -W 1 -I eth0 8.8.8.8
+PING 8.8.8.8 (8.8.8.8) from 10.0.2.15 eth0: 56(84) bytes of data.
+64 bytes from 8.8.8.8: icmp_seq=1 ttl=63 time=22.6 ms
+
+--- 8.8.8.8 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 22.631/22.631/22.631/0.000 ms
++ echo 'Making sure magma user is sudoers'
+Making sure magma user is sudoers
++ grep -q 'magma ALL=(ALL) NOPASSWD:ALL' /etc/sudoers
++ apt install -y sudo
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+The following packages will be upgraded:
+  sudo
+1 upgraded, 0 newly installed, 0 to remove and 281 not upgraded.
+Need to get 515 kB of archives.
+After this operation, 0 B of additional disk space will be used.
+Get:1 http://us.archive.ubuntu.com/ubuntu focal-updates/main amd64 sudo amd64 1.8.31-1ubuntu1.5 [515 kB]
+Fetched 515 kB in 1s (431 kB/s)
+(Reading database ... 148190 files and directories currently installed.)
+Preparing to unpack .../sudo_1.8.31-1ubuntu1.5_amd64.deb ...
+Unpacking sudo (1.8.31-1ubuntu1.5) over (1.8.31-1ubuntu1.2) ...
+Setting up sudo (1.8.31-1ubuntu1.5) ...
+Processing triggers for man-db (2.9.1-1) ...
++ adduser --disabled-password --gecos '' magma
+Adding user `magma' ...
+Adding new group `magma' (1000) ...
+Adding new user `magma' (1000) with group `magma' ...
+Creating home directory `/home/magma' ...
+Copying files from `/etc/skel' ...
++ adduser magma sudo
+Adding user `magma' to group `sudo' ...
+Adding user magma to group sudo
+Done.
++ echo 'magma ALL=(ALL) NOPASSWD:ALL'
++ '[' 0 = 1 ']'
++ echo 'Checking if magma has been installed'
+Checking if magma has been installed
+++ apt-cache show magma echo ok
++ MAGMA_INSTALLED=
++ '[' '' '!=' ok ']'
++ echo 'Magma not installed, processing installation'
+Magma not installed, processing installation
++ apt-get -y install curl make virtualenv zip rsync git software-properties-common python3-pip python-dev apt-transport-https
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+Note, selecting 'python-dev-is-python2' instead of 'python-dev'
+make is already the newest version (4.2.1-1.2).
+zip is already the newest version (3.0-11build1).
+python-dev-is-python2 is already the newest version (2.7.17-4).
+virtualenv is already the newest version (20.0.17-1ubuntu0.4).
+Suggested packages:
+  git-daemon-run | git-daemon-sysvinit git-doc git-el git-email git-gui gitk
+  gitweb git-cvs git-mediawiki git-svn libcurl4-doc libidn11-dev libldap2-dev
+  librtmp-dev libssh2-1-dev
+Recommended packages:
+  unattended-upgrades
+The following packages will be upgraded:
+  apt-transport-https curl git libcurl4 libcurl4-openssl-dev python-pip-whl
+  python3-pip python3-software-properties rsync software-properties-common
+10 upgraded, 0 newly installed, 0 to remove and 271 not upgraded.
+Need to get 7,728 kB of archives.
+After this operation, 326 kB of additional disk space will be used.
+Get:1 http://us.archive.ubuntu.com/ubuntu focal-updates/main amd64 rsync amd64 3.1.3-8ubuntu0.9 [323 kB]
+Get:2 http://us.archive.ubuntu.com/ubuntu focal-updates/universe amd64 apt-transport-https all 2.0.10 [1,704 B]
+Get:3 http://us.archive.ubuntu.com/ubuntu focal-updates/main amd64 libcurl4-openssl-dev amd64 7.68.0-1ubuntu2.25 [322 kB]
+Get:4 http://us.archive.ubuntu.com/ubuntu focal-updates/main amd64 curl amd64 7.68.0-1ubuntu2.25 [162 kB]
+Get:5 http://us.archive.ubuntu.com/ubuntu focal-updates/main amd64 libcurl4 amd64 7.68.0-1ubuntu2.25 [235 kB]
+Get:6 http://us.archive.ubuntu.com/ubuntu focal-updates/main amd64 git amd64 1:2.25.1-1ubuntu3.14 [4,613 kB]
+Get:7 http://us.archive.ubuntu.com/ubuntu focal-updates/universe amd64 python3-pip all 20.0.2-5ubuntu1.11 [231 kB]
+Get:8 http://us.archive.ubuntu.com/ubuntu focal-updates/universe amd64 python-pip-whl all 20.0.2-5ubuntu1.11 [1,808 kB]
+Get:9 http://us.archive.ubuntu.com/ubuntu focal-updates/main amd64 software-properties-common all 0.99.9.12 [10.4 kB]
+Get:10 http://us.archive.ubuntu.com/ubuntu focal-updates/main amd64 python3-software-properties all 0.99.9.12 [21.7 kB]
+Fetched 7,728 kB in 3s (2,960 kB/s)                      
+(Reading database ... 148190 files and directories currently installed.)
+Preparing to unpack .../0-rsync_3.1.3-8ubuntu0.9_amd64.deb ...
+Unpacking rsync (3.1.3-8ubuntu0.9) over (3.1.3-8ubuntu0.4) ...
+Preparing to unpack .../1-apt-transport-https_2.0.10_all.deb ...
+Unpacking apt-transport-https (2.0.10) over (2.0.9) ...
+Preparing to unpack .../2-libcurl4-openssl-dev_7.68.0-1ubuntu2.25_amd64.deb ...
+Unpacking libcurl4-openssl-dev:amd64 (7.68.0-1ubuntu2.25) over (7.68.0-1ubuntu2.14) ...
+Preparing to unpack .../3-curl_7.68.0-1ubuntu2.25_amd64.deb ...
+Unpacking curl (7.68.0-1ubuntu2.25) over (7.68.0-1ubuntu2.14) ...
+Preparing to unpack .../4-libcurl4_7.68.0-1ubuntu2.25_amd64.deb ...
+Unpacking libcurl4:amd64 (7.68.0-1ubuntu2.25) over (7.68.0-1ubuntu2.14) ...
+Preparing to unpack .../5-git_1%3a2.25.1-1ubuntu3.14_amd64.deb ...
+Unpacking git (1:2.25.1-1ubuntu3.14) over (1:2.25.1-1ubuntu3.6) ...
+Preparing to unpack .../6-python3-pip_20.0.2-5ubuntu1.11_all.deb ...
+Unpacking python3-pip (20.0.2-5ubuntu1.11) over (20.0.2-5ubuntu1.6) ...
+Preparing to unpack .../7-python-pip-whl_20.0.2-5ubuntu1.11_all.deb ...
+Unpacking python-pip-whl (20.0.2-5ubuntu1.11) over (20.0.2-5ubuntu1.6) ...
+Preparing to unpack .../8-software-properties-common_0.99.9.12_all.deb ...
+Unpacking software-properties-common (0.99.9.12) over (0.99.9.8) ...
+Preparing to unpack .../9-python3-software-properties_0.99.9.12_all.deb ...
+Unpacking python3-software-properties (0.99.9.12) over (0.99.9.8) ...
+Setting up apt-transport-https (2.0.10) ...
+Setting up python3-software-properties (0.99.9.12) ...
+Setting up git (1:2.25.1-1ubuntu3.14) ...
+Setting up libcurl4:amd64 (7.68.0-1ubuntu2.25) ...
+Setting up python-pip-whl (20.0.2-5ubuntu1.11) ...
+Setting up curl (7.68.0-1ubuntu2.25) ...
+Setting up rsync (3.1.3-8ubuntu0.9) ...
+Setting up software-properties-common (0.99.9.12) ...
+Setting up libcurl4-openssl-dev:amd64 (7.68.0-1ubuntu2.25) ...
+Setting up python3-pip (20.0.2-5ubuntu1.11) ...
+Processing triggers for systemd (245.4-4ubuntu3.19) ...
+Processing triggers for man-db (2.9.1-1) ...
+Processing triggers for dbus (1.12.16-2ubuntu2.3) ...
+Processing triggers for libc-bin (2.31-0ubuntu9.9) ...
+/sbin/ldconfig.real: /usr/local/lib/liblfds710.so.1 is not a symbolic link
+
++ alias python=python3
++ pip3 install ansible==5.10.0
+Collecting ansible==5.10.0
+  Downloading ansible-5.10.0.tar.gz (36.9 MB)
+     |################################| 36.9 MB 30 kB/s 
+Collecting ansible-core~=2.12.7
+  Downloading ansible-core-2.12.10.tar.gz (7.8 MB)
+     |################################| 7.8 MB 5.9 MB/s 
+ERROR: Exception:
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/pip/_internal/cli/base_command.py", line 186, in _main
+    status = self.run(options, args)
+  File "/usr/lib/python3/dist-packages/pip/_internal/commands/install.py", line 357, in run
+    resolver.resolve(requirement_set)
+  File "/usr/lib/python3/dist-packages/pip/_internal/legacy_resolve.py", line 177, in resolve
+    discovered_reqs.extend(self._resolve_one(requirement_set, req))
+  File "/usr/lib/python3/dist-packages/pip/_internal/legacy_resolve.py", line 333, in _resolve_one
+    abstract_dist = self._get_abstract_dist_for(req_to_install)
+  File "/usr/lib/python3/dist-packages/pip/_internal/legacy_resolve.py", line 282, in _get_abstract_dist_for
+    abstract_dist = self.preparer.prepare_linked_requirement(req)
+  File "/usr/lib/python3/dist-packages/pip/_internal/operations/prepare.py", line 480, in prepare_linked_requirement
+    local_path = unpack_url(
+  File "/usr/lib/python3/dist-packages/pip/_internal/operations/prepare.py", line 282, in unpack_url
+    return unpack_http_url(
+  File "/usr/lib/python3/dist-packages/pip/_internal/operations/prepare.py", line 164, in unpack_http_url
+    unpack_file(from_path, location, content_type)
+  File "/usr/lib/python3/dist-packages/pip/_internal/utils/unpacking.py", line 261, in unpack_file
+    untar_file(filename, location)
+  File "/usr/lib/python3/dist-packages/pip/_internal/utils/unpacking.py", line 222, in untar_file
+    with open(path, 'wb') as destfp:
+UnicodeEncodeError: 'latin-1' codec can't encode characters in position 104-107: ordinal not in range(256)
++ git clone https://github.com/magma/magma.git /home/magma/magma
+Cloning into '/home/magma/magma'...
+remote: Enumerating objects: 322040, done.
+remote: Counting objects: 100% (870/870), done.
+remote: Compressing objects: 100% (517/517), done.
+remote: Total 322040 (delta 496), reused 353 (delta 353), pack-reused 321170 (from 4)
+Receiving objects: 100% (322040/322040), 270.58 MiB | 9.14 MiB/s, done.
+Resolving deltas: 100% (215922/215922), done.
+Updating files: 100% (9265/9265), done.
++ cd /home/magma/magma
++ git checkout v1.8
+Updating files: 100% (3655/3655), done.
+Branch 'v1.8' set up to track remote branch 'v1.8' from 'origin'.
+Switched to a new branch 'v1.8'
++ echo 'Generating localhost hostfile for Ansible'
+Generating localhost hostfile for Ansible
++ echo '[magma_deploy]
+  127.0.0.1 ansible_connection=local'
++ su - magma -c 'ansible-playbook -e "MAGMA_ROOT='\''/home/magma/magma'\'' OUTPUT_DIR='\''/tmp'\''" -i /home/magma/magma/lte/gateway/deploy/agw_hosts /home/magma/magma/lte/gateway/deploy/magma_deploy.yml'
+-bash: ansible-playbook: command not found
++ echo 'Cleanup temp files'
+Cleanup temp files
++ cd /root
++ rm -rf /lib/systemd/system/agw_installation.service
++ rm -rf /home/magma/build
++ rm -rf /home/magma/magma
++ echo 'AGW installation is done, Run agw_post_install_ubuntu.sh install script after reboot to finish installation'
+AGW installation is done, Run agw_post_install_ubuntu.sh install script after reboot to finish installation
++ wget https://raw.githubusercontent.com/magma/magma/v1.8/lte/gateway/deploy/agw_post_install_ubuntu.sh -P /root/
+--2025-03-21 20:14:27--  https://raw.githubusercontent.com/magma/magma/v1.8/lte/gateway/deploy/agw_post_install_ubuntu.sh
+Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 185.199.110.133, 185.199.108.133, 185.199.109.133, ...
+Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|185.199.110.133|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 4565 (4.5K) [text/plain]
+Saving to: '/root/agw_post_install_ubuntu.sh'
+
+agw_post_install_ubu 100%[====================>]   4.46K  --.-KB/s    in 0.001s  
+
+2025-03-21 20:14:28 (4.85 MB/s) - '/root/agw_post_install_ubuntu.sh' saved [4565/4565]
+
++ reboot
+Connection to 127.0.0.1 closed by remote host.
+Connection to 127.0.0.1 closed.
+user_magma_h3@magmacoreh3:~/magma/lte/gateway$ vagrant ssh magma
+user_magma_h3@magmacoreh3:~/magma/lte/gateway$ vagrant ssh magma
+Welcome to Ubuntu 20.04.5 LTS (GNU/Linux 5.4.0-135-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+Last login: Fri Mar 21 20:05:14 2025 from 10.0.2.2
+vagrant@magma-dev:~$ sudo systemctl status magma@magmad
+Unit magma@magmad.service could not be found.
+vagrant@magma-dev:~$ cd magma/lte/gateway/       
+vagrant@magma-dev:~/magma/lte/gateway$ make run
+MAIN_FEATURE agw_of
+OAI_FLAGS -DS6A_OVER_GRPC=True -DEMBEDDED_SGW=True
+
+Warning: As part of the Make to Bazel switch-over of the AGW this Makefile
+will be deprecated soon, see https://github.com/magma/magma/issues/14971.
+Do not add any new Make targets for the AGW!
+All new targets should be integrated with the Bazel build system,
+see https://magma.github.io/magma/docs/next/bazel/agw_with_bazel.
+
+sudo service magma@* stop
+make -C /lte/gateway/python buildenv
+make[1]: *** /lte/gateway/python: No such file or directory.  Stop.
+make: *** [Makefile:105: build_python] Error 2
+vagrant@magma-dev:~/magma/lte/gateway$ ls
+ansible.cfg  configs  dev_tools.py  fabfile.py  pytest.ini  release
+c            deploy   docker        Makefile    python      Vagrantfile
+vagrant@magma-dev:~/magma/lte/gateway$ ^C
+vagrant@magma-dev:~/magma/lte/gateway$ echo $PWD
+/home/vagrant/magma/lte/gateway
+vagrant@magma-dev:~/magma/lte/gateway$ make -C ~/magma/lte/gateway/python/ buildenv
+make: Entering directory '/home/vagrant/magma/lte/gateway/python'
+Makefile:3: /orc8r/gateway/python/python.mk: No such file or directory
+make: *** No rule to make target '/orc8r/gateway/python/python.mk'.  Stop.
+make: Leaving directory '/home/vagrant/magma/lte/gateway/python'
+vagrant@magma-dev:~/magma/lte/gateway$ make run
+MAIN_FEATURE agw_of
+OAI_FLAGS -DS6A_OVER_GRPC=True -DEMBEDDED_SGW=True
+
+Warning: As part of the Make to Bazel switch-over of the AGW this Makefile
+will be deprecated soon, see https://github.com/magma/magma/issues/14971.
+Do not add any new Make targets for the AGW!
+All new targets should be integrated with the Bazel build system,
+see https://magma.github.io/magma/docs/next/bazel/agw_with_bazel.
+
+sudo service magma@* stop
+make -C /lte/gateway/python buildenv
+make[1]: *** /lte/gateway/python: No such file or directory.  Stop.
+make: *** [Makefile:105: build_python] Error 2
+vagrant@magma-dev:~/magma/lte/gateway$ sudo service magma@*
+magma@*: unrecognized service
+vagrant@magma-dev:~/magma/lte/gateway$ sudo service magma@* restart
+vagrant@magma-dev:~/magma/lte/gateway$ sudo service magma@* stop   
+vagrant@magma-dev:~/magma/lte/gateway$ sudo service magma@* restart
+vagrant@magma-dev:~/magma/lte/gateway$ nano ~/magma/lte/gateway/python/Makefile
+
+
+Use "fg" to return to nano.
+
+[1]+  Stopped                 nano ~/magma/lte/gateway/python/Makefile
+vagrant@magma-dev:~/magma/lte/gateway$ ^C
+vagrant@magma-dev:~/magma/lte/gateway$ nano ~/magma/lte/gateway/python/Makefile
+vagrant@magma-dev:~/magma/lte/gateway$ fg
+nano ~/magma/lte/gateway/python/Makefile
+vagrant@magma-dev:~/magma/lte/gateway$ nano ~/magma/lte/gateway/python/Makefile
+vagrant@magma-dev:~/magma/lte/gateway$ echo $MAGMA_ROOT
+
+vagrant@magma-dev:~/magma/lte/gateway$ pwd           
+/home/vagrant/magma/lte/gateway
+vagrant@magma-dev:~/magma/lte/gateway$ export "MAGMA_ROOT=/home/vagrant/magma"
+vagrant@magma-dev:~/magma/lte/gateway$ echo $MAGMA_ROOT
+/home/vagrant/magma
+vagrant@magma-dev:~/magma/lte/gateway$ make run
+MAIN_FEATURE agw_of
+OAI_FLAGS -DS6A_OVER_GRPC=True -DEMBEDDED_SGW=True
+
+Warning: As part of the Make to Bazel switch-over of the AGW this Makefile
+will be deprecated soon, see https://github.com/magma/magma/issues/14971.
+Do not add any new Make targets for the AGW!
+All new targets should be integrated with the Bazel build system,
+see https://magma.github.io/magma/docs/next/bazel/agw_with_bazel.
+
+sudo service magma@* stop
+make -C /home/vagrant/magma/lte/gateway/python buildenv
+make[1]: Entering directory '/home/vagrant/magma/lte/gateway/python'
+mkdir -p /home/vagrant/build/python
+sudo apt-get -y install python3-dev
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+python3-dev is already the newest version (3.8.2-0ubuntu2).
+python3-dev set to manually installed.
+0 upgraded, 0 newly installed, 0 to remove and 271 not upgraded.
+touch /home/vagrant/build/python/sysdeps
+Initializing virtualenv with python version 3.8
+virtualenv --system-site-packages --python=/usr/bin/python3.8 /home/vagrant/build/python
+created virtual environment CPython3.8.10.final.0-64 in 1364ms
+  creator CPython3Posix(dest=/home/vagrant/build/python, clear=False, global=True)
+  seeder FromAppData(download=False, pip=latest, setuptools=latest, wheel=latest, pkg_resources=latest, via=copy, app_data_dir=/home/vagrant/.local/share/virtualenv/seed-app-data/v1.0.1.debian.1)
+  activators BashActivator,CShellActivator,FishActivator,PowerShellActivator,PythonActivator,XonshActivator
+. /home/vagrant/build/python/bin/activate;
+/home/vagrant/build/python/bin/pip3 install -q -U --cache-dir ~/.pipcache "pip>=20.3.2"
+/home/vagrant/build/python/bin/pip3 install -q -U --cache-dir ~/.pipcache "setuptools==49.6.0"  # newer than 41.0.1
+WARNING: Error parsing dependencies of bcc: Invalid version: '0.23.0-67f59ee8'
+WARNING: Error parsing dependencies of distro-info: Invalid version: '0.23ubuntu1'
+WARNING: Error parsing dependencies of python-debian: Invalid version: '0.1.36ubuntu1'
+/home/vagrant/build/python/bin/pip3 install -q -U --cache-dir ~/.pipcache "grpcio-tools>=1.46.3,<1.49.0"
+WARNING: Error parsing dependencies of bcc: Invalid version: '0.23.0-67f59ee8'
+WARNING: Error parsing dependencies of distro-info: Invalid version: '0.23ubuntu1'
+WARNING: Error parsing dependencies of python-debian: Invalid version: '0.1.36ubuntu1'
+Generating python code for orc8r .proto files
+/home/vagrant/build/python/bin/python3.8 /home/vagrant/magma/protos/gen_protos.py /home/vagrant/magma/orc8r/protos/ /home/vagrant/magma,/home/vagrant/magma/orc8r/protos/prometheus /home/vagrant/magma /home/vagrant/build/python/gen/
+Writing mypy to orc8r/protos/bootstrapper_pb2.pyi
+Writing mypy to orc8r/protos/mconfig_pb2.pyi
+Writing mypy to orc8r/protos/ctraced_pb2.pyi
+Writing mypy to orc8r/protos/common_pb2.pyi
+Writing mypy to orc8r/protos/magmad_pb2.pyi
+Writing mypy to orc8r/protos/sync_rpc_service_pb2.pyi
+Writing mypy to orc8r/protos/eventd_pb2.pyi
+Writing mypy to orc8r/protos/streamer_pb2.pyi
+Writing mypy to orc8r/protos/service303_pb2.pyi
+Writing mypy to orc8r/protos/certifier_pb2.pyi
+Writing mypy to orc8r/protos/state_pb2.pyi
+Writing mypy to orc8r/protos/service_status_pb2.pyi
+Writing mypy to orc8r/protos/identity_pb2.pyi
+Writing mypy to orc8r/protos/service_registry_pb2.pyi
+Writing mypy to orc8r/protos/redis_pb2.pyi
+Writing mypy to orc8r/protos/digest_pb2.pyi
+Writing mypy to orc8r/protos/metricsd_pb2.pyi
+Writing mypy to orc8r/protos/directoryd_pb2.pyi
+Writing mypy to orc8r/protos/mconfig/mconfigs_pb2.pyi
+Generating python code for lte .proto files
+/home/vagrant/build/python/bin/python3.8 /home/vagrant/magma/protos/gen_protos.py /home/vagrant/magma/lte/protos/ /home/vagrant/magma,/home/vagrant/magma/orc8r/protos/prometheus /home/vagrant/magma /home/vagrant/build/python/gen/
+Writing mypy to lte/protos/ha_orc8r_pb2.pyi
+Writing mypy to lte/protos/subscriberauth_pb2.pyi
+Writing mypy to lte/protos/abort_session_pb2.pyi
+Writing mypy to lte/protos/mobilityd_pb2.pyi
+Writing mypy to lte/protos/s6a_service_pb2.pyi
+Writing mypy to lte/protos/sms_orc8r_pb2.pyi
+Writing mypy to lte/protos/diam_errors_pb2.pyi
+Writing mypy to lte/protos/apn_pb2.pyi
+Writing mypy to lte/protos/s1ap_service_pb2.pyi
+Writing mypy to lte/protos/ha_service_pb2.pyi
+Writing mypy to lte/protos/keyval_pb2.pyi
+Writing mypy to lte/protos/session_manager_pb2.pyi
+Writing mypy to lte/protos/spgw_service_pb2.pyi
+Writing mypy to lte/protos/enodebd_pb2.pyi
+Writing mypy to lte/protos/sctpd_pb2.pyi
+Writing mypy to lte/protos/policydb_pb2.pyi
+Writing mypy to lte/protos/pipelined_pb2.pyi
+Writing mypy to lte/protos/subscriberdb_pb2.pyi
+Writing mypy to lte/protos/oai/nas_state_pb2.pyi
+Writing mypy to lte/protos/oai/common_types_pb2.pyi
+Writing mypy to lte/protos/oai/sgw_state_pb2.pyi
+Writing mypy to lte/protos/oai/mme_nas_state_pb2.pyi
+Writing mypy to lte/protos/oai/std_3gpp_types_pb2.pyi
+Writing mypy to lte/protos/oai/ngap_state_pb2.pyi
+Writing mypy to lte/protos/oai/spgw_state_pb2.pyi
+Writing mypy to lte/protos/oai/s1ap_state_pb2.pyi
+Writing mypy to lte/protos/mconfig/mconfigs_pb2.pyi
+Generating python code for feg .proto files
+/home/vagrant/build/python/bin/python3.8 /home/vagrant/magma/protos/gen_protos.py /home/vagrant/magma/feg/protos/ /home/vagrant/magma,/home/vagrant/magma/orc8r/protos/prometheus /home/vagrant/magma /home/vagrant/build/python/gen/
+Writing mypy to feg/protos/hello_pb2.pyi
+Writing mypy to feg/protos/hss_service_pb2.pyi
+Writing mypy to feg/protos/csfb_pb2.pyi
+Writing mypy to feg/protos/s8_proxy_pb2.pyi
+Writing mypy to feg/protos/swx_proxy_pb2.pyi
+Writing mypy to feg/protos/mock_core_pb2.pyi
+Writing mypy to feg/protos/health_pb2.pyi
+Writing mypy to feg/protos/service_health_pb2.pyi
+Writing mypy to feg/protos/s6a_proxy_pb2.pyi
+Writing mypy to feg/protos/basic_acct_pb2.pyi
+Writing mypy to feg/protos/envoy_controller_pb2.pyi
+Writing mypy to feg/protos/hlr/hlr_proxy_pb2.pyi
+Writing mypy to feg/protos/mconfig/mconfigs_pb2.pyi
+Generating python code for dp .proto files
+/home/vagrant/build/python/bin/python3.8 /home/vagrant/magma/protos/gen_protos.py /home/vagrant/magma/dp/protos/ /home/vagrant/magma,/home/vagrant/magma/orc8r/protos/prometheus /home/vagrant/magma /home/vagrant/build/python/gen/
+Writing mypy to dp/protos/active_mode_pb2.pyi
+Writing mypy to dp/protos/cbsd_pb2.pyi
+/home/vagrant/build/python/bin/python3.8 /home/vagrant/magma/protos/gen_prometheus_proto.py /home/vagrant/magma /home/vagrant/build/python/gen
+test -f /usr/bin/java # Java exists
+test -n "" # SWAGGER_CODEGEN_JAR set
+make[1]: *** [/home/vagrant/magma/orc8r/gateway/python/python.mk:71: swagger_prereqs] Error 1
+make[1]: Leaving directory '/home/vagrant/magma/lte/gateway/python'
+make: *** [Makefile:105: build_python] Error 2
+vagrant@magma-dev:~/magma/lte/gateway$ find ~/magma -name "*swagger-codegen*.jar"
+
+vagrant@magma-dev:~/magma/lte/gateway$ 
+vagrant@magma-dev:~/magma/lte/gateway$ cd ~
+vagrant@magma-dev:~$ wget https://repo1.maven.org/maven2/io/swagger/swagger-codegen-cli/2.4.21/swagger-codegen-cli-2.4.21.jar -O ~/swagger-codegen-cli.jar
+--2025-03-21 20:39:22--  https://repo1.maven.org/maven2/io/swagger/swagger-codegen-cli/2.4.21/swagger-codegen-cli-2.4.21.jar
+Resolving repo1.maven.org (repo1.maven.org)... 199.232.196.209, 199.232.192.209, 2a04:4e42:4d::209, ...
+Connecting to repo1.maven.org (repo1.maven.org)|199.232.196.209|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 15093692 (14M) [application/java-archive]
+Saving to: '/home/vagrant/swagger-codegen-cli.jar'
+
+/home/vagrant/swagge 100%[====================>]  14.39M  6.32MB/s    in 2.3s    
+
+2025-03-21 20:39:25 (6.32 MB/s) - '/home/vagrant/swagger-codegen-cli.jar' saved [15093692/15093692]
+
+vagrant@magma-dev:~$ export SWAGGER_CODEGEN_JAR=~/swagger-codegen-cli.jar
+vagrant@magma-dev:~$ cd ~/magma/lte/gateway
+vagrant@magma-dev:~/magma/lte/gateway$ make run
+MAIN_FEATURE agw_of
+OAI_FLAGS -DS6A_OVER_GRPC=True -DEMBEDDED_SGW=True
+
+Warning: As part of the Make to Bazel switch-over of the AGW this Makefile
+will be deprecated soon, see https://github.com/magma/magma/issues/14971.
+Do not add any new Make targets for the AGW!
+All new targets should be integrated with the Bazel build system,
+see https://magma.github.io/magma/docs/next/bazel/agw_with_bazel.
+
+sudo service magma@* stop
+make -C /home/vagrant/magma/lte/gateway/python buildenv
+make[1]: Entering directory '/home/vagrant/magma/lte/gateway/python'
+sudo apt-get -y install python3-dev
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+python3-dev is already the newest version (3.8.2-0ubuntu2).
+0 upgraded, 0 newly installed, 0 to remove and 271 not upgraded.
+touch /home/vagrant/build/python/sysdeps
+Initializing virtualenv with python version 3.8
+virtualenv --system-site-packages --python=/usr/bin/python3.8 /home/vagrant/build/python
+created virtual environment CPython3.8.10.final.0-64 in 492ms
+  creator CPython3Posix(dest=/home/vagrant/build/python, clear=False, global=True)
+  seeder FromAppData(download=False, pip=latest, setuptools=latest, wheel=latest, pkg_resources=latest, via=copy, app_data_dir=/home/vagrant/.local/share/virtualenv/seed-app-data/v1.0.1.debian.1)
+  activators BashActivator,CShellActivator,FishActivator,PowerShellActivator,PythonActivator,XonshActivator
+. /home/vagrant/build/python/bin/activate;
+/home/vagrant/build/python/bin/pip3 install -q -U --cache-dir ~/.pipcache "pip>=20.3.2"
+/home/vagrant/build/python/bin/pip3 install -q -U --cache-dir ~/.pipcache "setuptools==49.6.0"  # newer than 41.0.1
+/home/vagrant/build/python/bin/pip3 install -q -U --cache-dir ~/.pipcache "grpcio-tools>=1.46.3,<1.49.0"
+Generating python code for orc8r .proto files
+/home/vagrant/build/python/bin/python3.8 /home/vagrant/magma/protos/gen_protos.py /home/vagrant/magma/orc8r/protos/ /home/vagrant/magma,/home/vagrant/magma/orc8r/protos/prometheus /home/vagrant/magma /home/vagrant/build/python/gen/
+Writing mypy to orc8r/protos/bootstrapper_pb2.pyi
+Writing mypy to orc8r/protos/mconfig_pb2.pyi
+Writing mypy to orc8r/protos/ctraced_pb2.pyi
+Writing mypy to orc8r/protos/common_pb2.pyi
+Writing mypy to orc8r/protos/magmad_pb2.pyi
+Writing mypy to orc8r/protos/sync_rpc_service_pb2.pyi
+Writing mypy to orc8r/protos/eventd_pb2.pyi
+Writing mypy to orc8r/protos/streamer_pb2.pyi
+Writing mypy to orc8r/protos/service303_pb2.pyi
+Writing mypy to orc8r/protos/certifier_pb2.pyi
+Writing mypy to orc8r/protos/state_pb2.pyi
+Writing mypy to orc8r/protos/service_status_pb2.pyi
+Writing mypy to orc8r/protos/identity_pb2.pyi
+Writing mypy to orc8r/protos/service_registry_pb2.pyi
+Writing mypy to orc8r/protos/redis_pb2.pyi
+Writing mypy to orc8r/protos/digest_pb2.pyi
+Writing mypy to orc8r/protos/metricsd_pb2.pyi
+Writing mypy to orc8r/protos/directoryd_pb2.pyi
+Writing mypy to orc8r/protos/mconfig/mconfigs_pb2.pyi
+Generating python code for lte .proto files
+/home/vagrant/build/python/bin/python3.8 /home/vagrant/magma/protos/gen_protos.py /home/vagrant/magma/lte/protos/ /home/vagrant/magma,/home/vagrant/magma/orc8r/protos/prometheus /home/vagrant/magma /home/vagrant/build/python/gen/
+Writing mypy to lte/protos/ha_orc8r_pb2.pyi
+Writing mypy to lte/protos/subscriberauth_pb2.pyi
+Writing mypy to lte/protos/abort_session_pb2.pyi
+Writing mypy to lte/protos/mobilityd_pb2.pyi
+Writing mypy to lte/protos/s6a_service_pb2.pyi
+Writing mypy to lte/protos/sms_orc8r_pb2.pyi
+Writing mypy to lte/protos/diam_errors_pb2.pyi
+Writing mypy to lte/protos/apn_pb2.pyi
+Writing mypy to lte/protos/s1ap_service_pb2.pyi
+Writing mypy to lte/protos/ha_service_pb2.pyi
+Writing mypy to lte/protos/keyval_pb2.pyi
+Writing mypy to lte/protos/session_manager_pb2.pyi
+Writing mypy to lte/protos/spgw_service_pb2.pyi
+Writing mypy to lte/protos/enodebd_pb2.pyi
+Writing mypy to lte/protos/sctpd_pb2.pyi
+Writing mypy to lte/protos/policydb_pb2.pyi
+Writing mypy to lte/protos/pipelined_pb2.pyi
+Writing mypy to lte/protos/subscriberdb_pb2.pyi
+Writing mypy to lte/protos/oai/nas_state_pb2.pyi
+Writing mypy to lte/protos/oai/common_types_pb2.pyi
+Writing mypy to lte/protos/oai/sgw_state_pb2.pyi
+Writing mypy to lte/protos/oai/mme_nas_state_pb2.pyi
+Writing mypy to lte/protos/oai/std_3gpp_types_pb2.pyi
+Writing mypy to lte/protos/oai/ngap_state_pb2.pyi
+Writing mypy to lte/protos/oai/spgw_state_pb2.pyi
+Writing mypy to lte/protos/oai/s1ap_state_pb2.pyi
+Writing mypy to lte/protos/mconfig/mconfigs_pb2.pyi
+Generating python code for feg .proto files
+/home/vagrant/build/python/bin/python3.8 /home/vagrant/magma/protos/gen_protos.py /home/vagrant/magma/feg/protos/ /home/vagrant/magma,/home/vagrant/magma/orc8r/protos/prometheus /home/vagrant/magma /home/vagrant/build/python/gen/
+Writing mypy to feg/protos/hello_pb2.pyi
+Writing mypy to feg/protos/hss_service_pb2.pyi
+Writing mypy to feg/protos/csfb_pb2.pyi
+Writing mypy to feg/protos/s8_proxy_pb2.pyi
+Writing mypy to feg/protos/swx_proxy_pb2.pyi
+Writing mypy to feg/protos/mock_core_pb2.pyi
+Writing mypy to feg/protos/health_pb2.pyi
+Writing mypy to feg/protos/service_health_pb2.pyi
+Writing mypy to feg/protos/s6a_proxy_pb2.pyi
+Writing mypy to feg/protos/basic_acct_pb2.pyi
+Writing mypy to feg/protos/envoy_controller_pb2.pyi
+Writing mypy to feg/protos/hlr/hlr_proxy_pb2.pyi
+Writing mypy to feg/protos/mconfig/mconfigs_pb2.pyi
+Generating python code for dp .proto files
+/home/vagrant/build/python/bin/python3.8 /home/vagrant/magma/protos/gen_protos.py /home/vagrant/magma/dp/protos/ /home/vagrant/magma,/home/vagrant/magma/orc8r/protos/prometheus /home/vagrant/magma /home/vagrant/build/python/gen/
+Writing mypy to dp/protos/active_mode_pb2.pyi
+Writing mypy to dp/protos/cbsd_pb2.pyi
+/home/vagrant/build/python/bin/python3.8 /home/vagrant/magma/protos/gen_prometheus_proto.py /home/vagrant/magma /home/vagrant/build/python/gen
+test -f /usr/bin/java # Java exists
+test -n "/home/vagrant/swagger-codegen-cli.jar" # SWAGGER_CODEGEN_JAR set
+test -f /home/vagrant/swagger-codegen-cli.jar # swagger-codegen exists
+Generating python code for lte swagger*.yml files
+cp /home/vagrant/magma/lte/swagger/*.yml /home/vagrant/build/python/gen/lte/swagger/specs
+ls /home/vagrant/build/python/gen/lte/swagger/specs \
+        | grep -e ".*\.yml" \
+        | xargs -t -I% /usr/bin/java -jar "/home/vagrant/swagger-codegen-cli.jar" generate \
+                -i /home/vagrant/build/python/gen/lte/swagger/specs/% \
+                -o /home/vagrant/build/python/gen/lte/swagger \
+                -l python \
+                -Dmodels
+/usr/bin/java -jar /home/vagrant/swagger-codegen-cli.jar generate -i /home/vagrant/build/python/gen/lte/swagger/specs/mme_events.v1.yml -o /home/vagrant/build/python/gen/lte/swagger -l python -Dmodels 
+[main] INFO io.swagger.parser.Swagger20Parser - reading from /home/vagrant/build/python/gen/lte/swagger/specs/mme_events.v1.yml
+[main] INFO io.swagger.codegen.ignore.CodegenIgnoreProcessor - No .swagger-codegen-ignore file found.
+[main] WARN io.swagger.codegen.DefaultGenerator - 'host' not defined in the spec. Default to 'localhost'.
+[main] INFO io.swagger.codegen.AbstractGenerator - writing file /home/vagrant/build/python/gen/lte/swagger/swagger_client/models/attach_reject.py
+[main] INFO io.swagger.codegen.AbstractGenerator - writing file /home/vagrant/build/python/gen/lte/swagger/test/test_attach_reject.py
+[main] INFO io.swagger.codegen.AbstractGenerator - writing file /home/vagrant/build/python/gen/lte/swagger/docs/AttachReject.md
+[main] INFO io.swagger.codegen.AbstractGenerator - writing file /home/vagrant/build/python/gen/lte/swagger/swagger_client/models/attach_success.py
+[main] INFO io.swagger.codegen.AbstractGenerator - writing file /home/vagrant/build/python/gen/lte/swagger/test/test_attach_success.py
+[main] INFO io.swagger.codegen.AbstractGenerator - writing file /home/vagrant/build/python/gen/lte/swagger/docs/AttachSuccess.md
+[main] INFO io.swagger.codegen.AbstractGenerator - writing file /home/vagrant/build/python/gen/lte/swagger/swagger_client/models/detach_success.py
+[main] INFO io.swagger.codegen.AbstractGenerator - writing file /home/vagrant/build/python/gen/lte/swagger/test/test_detach_success.py
+[main] INFO io.swagger.codegen.AbstractGenerator - writing file /home/vagrant/build/python/gen/lte/swagger/docs/DetachSuccess.md
+[main] INFO io.swagger.codegen.AbstractGenerator - writing file /home/vagrant/build/python/gen/lte/swagger/swagger_client/models/s1_setup_success.py
+[main] INFO io.swagger.codegen.AbstractGenerator - writing file /home/vagrant/build/python/gen/lte/swagger/test/test_s1_setup_success.py
+[main] INFO io.swagger.codegen.AbstractGenerator - writing file /home/vagrant/build/python/gen/lte/swagger/docs/S1SetupSuccess.md
+[main] WARN io.swagger.codegen.DefaultGenerator - 'host' not defined in the spec. Default to 'localhost'.
+/usr/bin/java -jar /home/vagrant/swagger-codegen-cli.jar generate -i /home/vagrant/build/python/gen/lte/swagger/specs/session_manager_events.v1.yml -o /home/vagrant/build/python/gen/lte/swagger -l python -Dmodels 
+[main] INFO io.swagger.parser.Swagger20Parser - reading from /home/vagrant/build/python/gen/lte/swagger/specs/session_manager_events.v1.yml
+[main] INFO io.swagger.codegen.ignore.CodegenIgnoreProcessor - No .swagger-codegen-ignore file found.
+[main] WARN io.swagger.codegen.DefaultGenerator - 'host' not defined in the spec. Default to 'localhost'.
+[main] INFO io.swagger.codegen.AbstractGenerator - writing file /home/vagrant/build/python/gen/lte/swagger/swagger_client/models/session_create_failure.py
+[main] INFO io.swagger.codegen.AbstractGenerator - writing file /home/vagrant/build/python/gen/lte/swagger/test/test_session_create_failure.py
+[main] INFO io.swagger.codegen.AbstractGenerator - writing file /home/vagrant/build/python/gen/lte/swagger/docs/SessionCreateFailure.md
+[main] INFO io.swagger.codegen.AbstractGenerator - writing file /home/vagrant/build/python/gen/lte/swagger/swagger_client/models/session_created.py
+[main] INFO io.swagger.codegen.AbstractGenerator - writing file /home/vagrant/build/python/gen/lte/swagger/test/test_session_created.py
+[main] INFO io.swagger.codegen.AbstractGenerator - writing file /home/vagrant/build/python/gen/lte/swagger/docs/SessionCreated.md
+[main] INFO io.swagger.codegen.AbstractGenerator - writing file /home/vagrant/build/python/gen/lte/swagger/swagger_client/models/session_terminated.py
+[main] INFO io.swagger.codegen.AbstractGenerator - writing file /home/vagrant/build/python/gen/lte/swagger/test/test_session_terminated.py
+[main] INFO io.swagger.codegen.AbstractGenerator - writing file /home/vagrant/build/python/gen/lte/swagger/docs/SessionTerminated.md
+[main] INFO io.swagger.codegen.AbstractGenerator - writing file /home/vagrant/build/python/gen/lte/swagger/swagger_client/models/session_terminated_list_of_service_data.py
+[main] INFO io.swagger.codegen.AbstractGenerator - writing file /home/vagrant/build/python/gen/lte/swagger/test/test_session_terminated_list_of_service_data.py
+[main] INFO io.swagger.codegen.AbstractGenerator - writing file /home/vagrant/build/python/gen/lte/swagger/docs/SessionTerminatedListOfServiceData.md
+[main] INFO io.swagger.codegen.AbstractGenerator - writing file /home/vagrant/build/python/gen/lte/swagger/swagger_client/models/session_update_failure.py
+[main] INFO io.swagger.codegen.AbstractGenerator - writing file /home/vagrant/build/python/gen/lte/swagger/test/test_session_update_failure.py
+[main] INFO io.swagger.codegen.AbstractGenerator - writing file /home/vagrant/build/python/gen/lte/swagger/docs/SessionUpdateFailure.md
+[main] INFO io.swagger.codegen.AbstractGenerator - writing file /home/vagrant/build/python/gen/lte/swagger/swagger_client/models/session_updated.py
+[main] INFO io.swagger.codegen.AbstractGenerator - writing file /home/vagrant/build/python/gen/lte/swagger/test/test_session_updated.py
+[main] INFO io.swagger.codegen.AbstractGenerator - writing file /home/vagrant/build/python/gen/lte/swagger/docs/SessionUpdated.md
+[main] WARN io.swagger.codegen.DefaultGenerator - 'host' not defined in the spec. Default to 'localhost'.
+Generating python code for orc8r swagger*.yml files
+cp /home/vagrant/magma/orc8r/swagger/*.yml /home/vagrant/build/python/gen/orc8r/swagger/specs
+ls /home/vagrant/build/python/gen/orc8r/swagger/specs \
+        | grep -e ".*\.yml" \
+        | xargs -t -I% /usr/bin/java -jar "/home/vagrant/swagger-codegen-cli.jar" generate \
+                -i /home/vagrant/build/python/gen/orc8r/swagger/specs/% \
+                -o /home/vagrant/build/python/gen/orc8r/swagger \
+                -l python \
+                -Dmodels
+/usr/bin/java -jar /home/vagrant/swagger-codegen-cli.jar generate -i /home/vagrant/build/python/gen/orc8r/swagger/specs/magmad_events.v1.yml -o /home/vagrant/build/python/gen/orc8r/swagger -l python -Dmodels 
+[main] INFO io.swagger.parser.Swagger20Parser - reading from /home/vagrant/build/python/gen/orc8r/swagger/specs/magmad_events.v1.yml
+[main] INFO io.swagger.codegen.ignore.CodegenIgnoreProcessor - No .swagger-codegen-ignore file found.
+[main] WARN io.swagger.codegen.DefaultGenerator - 'host' not defined in the spec. Default to 'localhost'.
+[main] INFO io.swagger.codegen.AbstractGenerator - writing file /home/vagrant/build/python/gen/orc8r/swagger/swagger_client/models/deleted_stored_mconfig.py
+[main] INFO io.swagger.codegen.AbstractGenerator - writing file /home/vagrant/build/python/gen/orc8r/swagger/test/test_deleted_stored_mconfig.py
+[main] INFO io.swagger.codegen.AbstractGenerator - writing file /home/vagrant/build/python/gen/orc8r/swagger/docs/DeletedStoredMconfig.md
+[main] INFO io.swagger.codegen.AbstractGenerator - writing file /home/vagrant/build/python/gen/orc8r/swagger/swagger_client/models/disconnected_sync_rpc_stream.py
+[main] INFO io.swagger.codegen.AbstractGenerator - writing file /home/vagrant/build/python/gen/orc8r/swagger/test/test_disconnected_sync_rpc_stream.py
+[main] INFO io.swagger.codegen.AbstractGenerator - writing file /home/vagrant/build/python/gen/orc8r/swagger/docs/DisconnectedSyncRpcStream.md
+[main] INFO io.swagger.codegen.AbstractGenerator - writing file /home/vagrant/build/python/gen/orc8r/swagger/swagger_client/models/established_sync_rpc_stream.py
+[main] INFO io.swagger.codegen.AbstractGenerator - writing file /home/vagrant/build/python/gen/orc8r/swagger/test/test_established_sync_rpc_stream.py
+[main] INFO io.swagger.codegen.AbstractGenerator - writing file /home/vagrant/build/python/gen/orc8r/swagger/docs/EstablishedSyncRpcStream.md
+[main] INFO io.swagger.codegen.AbstractGenerator - writing file /home/vagrant/build/python/gen/orc8r/swagger/swagger_client/models/processed_updates.py
+[main] INFO io.swagger.codegen.AbstractGenerator - writing file /home/vagrant/build/python/gen/orc8r/swagger/test/test_processed_updates.py
+[main] INFO io.swagger.codegen.AbstractGenerator - writing file /home/vagrant/build/python/gen/orc8r/swagger/docs/ProcessedUpdates.md
+[main] INFO io.swagger.codegen.AbstractGenerator - writing file /home/vagrant/build/python/gen/orc8r/swagger/swagger_client/models/processed_updates_updates.py
+[main] INFO io.swagger.codegen.AbstractGenerator - writing file /home/vagrant/build/python/gen/orc8r/swagger/test/test_processed_updates_updates.py
+[main] INFO io.swagger.codegen.AbstractGenerator - writing file /home/vagrant/build/python/gen/orc8r/swagger/docs/ProcessedUpdatesUpdates.md
+[main] INFO io.swagger.codegen.AbstractGenerator - writing file /home/vagrant/build/python/gen/orc8r/swagger/swagger_client/models/restarted_services.py
+[main] INFO io.swagger.codegen.AbstractGenerator - writing file /home/vagrant/build/python/gen/orc8r/swagger/test/test_restarted_services.py
+[main] INFO io.swagger.codegen.AbstractGenerator - writing file /home/vagrant/build/python/gen/orc8r/swagger/docs/RestartedServices.md
+[main] INFO io.swagger.codegen.AbstractGenerator - writing file /home/vagrant/build/python/gen/orc8r/swagger/swagger_client/models/updated_stored_mconfig.py
+[main] INFO io.swagger.codegen.AbstractGenerator - writing file /home/vagrant/build/python/gen/orc8r/swagger/test/test_updated_stored_mconfig.py
+[main] INFO io.swagger.codegen.AbstractGenerator - writing file /home/vagrant/build/python/gen/orc8r/swagger/docs/UpdatedStoredMconfig.md
+[main] WARN io.swagger.codegen.DefaultGenerator - 'host' not defined in the spec. Default to 'localhost'.
+/usr/bin/java -jar /home/vagrant/swagger-codegen-cli.jar generate -i /home/vagrant/build/python/gen/orc8r/swagger/specs/mock_event_definitions.v1.yml -o /home/vagrant/build/python/gen/orc8r/swagger -l python -Dmodels 
+[main] INFO io.swagger.parser.Swagger20Parser - reading from /home/vagrant/build/python/gen/orc8r/swagger/specs/mock_event_definitions.v1.yml
+[main] INFO io.swagger.codegen.ignore.CodegenIgnoreProcessor - No .swagger-codegen-ignore file found.
+[main] WARN io.swagger.codegen.DefaultGenerator - 'host' not defined in the spec. Default to 'localhost'.
+[main] INFO io.swagger.codegen.AbstractGenerator - writing file /home/vagrant/build/python/gen/orc8r/swagger/swagger_client/models/mock_subscriber_event.py
+[main] INFO io.swagger.codegen.AbstractGenerator - writing file /home/vagrant/build/python/gen/orc8r/swagger/test/test_mock_subscriber_event.py
+[main] INFO io.swagger.codegen.AbstractGenerator - writing file /home/vagrant/build/python/gen/orc8r/swagger/docs/MockSubscriberEvent.md
+[main] WARN io.swagger.codegen.DefaultGenerator - 'host' not defined in the spec. Default to 'localhost'.
+/usr/bin/java -jar /home/vagrant/swagger-codegen-cli.jar generate -i /home/vagrant/build/python/gen/orc8r/swagger/specs/test_event_definitions.yml -o /home/vagrant/build/python/gen/orc8r/swagger -l python -Dmodels 
+[main] INFO io.swagger.parser.Swagger20Parser - reading from /home/vagrant/build/python/gen/orc8r/swagger/specs/test_event_definitions.yml
+[main] INFO io.swagger.codegen.ignore.CodegenIgnoreProcessor - No .swagger-codegen-ignore file found.
+[main] WARN io.swagger.codegen.DefaultGenerator - 'host' not defined in the spec. Default to 'localhost'.
+[main] INFO io.swagger.codegen.AbstractGenerator - writing file /home/vagrant/build/python/gen/orc8r/swagger/swagger_client/models/array_and_object_event.py
+[main] INFO io.swagger.codegen.AbstractGenerator - writing file /home/vagrant/build/python/gen/orc8r/swagger/test/test_array_and_object_event.py
+[main] INFO io.swagger.codegen.AbstractGenerator - writing file /home/vagrant/build/python/gen/orc8r/swagger/docs/ArrayAndObjectEvent.md
+[main] INFO io.swagger.codegen.AbstractGenerator - writing file /home/vagrant/build/python/gen/orc8r/swagger/swagger_client/models/null_event.py
+[main] INFO io.swagger.codegen.AbstractGenerator - writing file /home/vagrant/build/python/gen/orc8r/swagger/test/test_null_event.py
+[main] INFO io.swagger.codegen.AbstractGenerator - writing file /home/vagrant/build/python/gen/orc8r/swagger/docs/NullEvent.md
+[main] INFO io.swagger.codegen.AbstractGenerator - writing file /home/vagrant/build/python/gen/orc8r/swagger/swagger_client/models/simple_event.py
+[main] INFO io.swagger.codegen.AbstractGenerator - writing file /home/vagrant/build/python/gen/orc8r/swagger/test/test_simple_event.py
+[main] INFO io.swagger.codegen.AbstractGenerator - writing file /home/vagrant/build/python/gen/orc8r/swagger/docs/SimpleEvent.md
+[main] WARN io.swagger.codegen.DefaultGenerator - 'host' not defined in the spec. Default to 'localhost'.
+
+Warning: As part of the Make to Bazel switch-over of the AGW this Makefile
+will be deprecated soon, see https://github.com/magma/magma/issues/14971.
+Do not add any new Make targets for the AGW!
+All new targets should be integrated with the Bazel build system,
+see https://magma.github.io/magma/docs/next/bazel/agw_with_bazel.
+
+make -C /home/vagrant/magma/lte/gateway/python install_egg
+make[2]: Entering directory '/home/vagrant/magma/lte/gateway/python'
+Initializing virtualenv with python version 3.8
+virtualenv --system-site-packages --python=/usr/bin/python3.8 /home/vagrant/build/python
+created virtual environment CPython3.8.10.final.0-64 in 423ms
+  creator CPython3Posix(dest=/home/vagrant/build/python, clear=False, global=True)
+  seeder FromAppData(download=False, pip=latest, setuptools=latest, wheel=latest, pkg_resources=latest, via=copy, app_data_dir=/home/vagrant/.local/share/virtualenv/seed-app-data/v1.0.1.debian.1)
+  activators BashActivator,CShellActivator,FishActivator,PowerShellActivator,PythonActivator,XonshActivator
+. /home/vagrant/build/python/bin/activate;
+/home/vagrant/build/python/bin/pip3 install -q -U --cache-dir ~/.pipcache "pip>=20.3.2"
+Installing egg link for lte
+/home/vagrant/build/python/bin/pip3 install -q -U --cache-dir ~/.pipcache --no-build-isolation -e .[dev]
+make[2]: Leaving directory '/home/vagrant/magma/lte/gateway/python'
+
+Warning: As part of the Make to Bazel switch-over of the AGW this Makefile
+will be deprecated soon, see https://github.com/magma/magma/issues/14971.
+Do not add any new Make targets for the AGW!
+All new targets should be integrated with the Bazel build system,
+see https://magma.github.io/magma/docs/next/bazel/agw_with_bazel.
+
+make -C /home/vagrant/magma/orc8r/gateway/python install_egg
+make[2]: Entering directory '/home/vagrant/magma/orc8r/gateway/python'
+Initializing virtualenv with python version 3.8
+virtualenv --system-site-packages --python=/usr/bin/python3.8 /home/vagrant/build/python
+created virtual environment CPython3.8.10.final.0-64 in 430ms
+  creator CPython3Posix(dest=/home/vagrant/build/python, clear=False, global=True)
+  seeder FromAppData(download=False, pip=latest, setuptools=latest, wheel=latest, pkg_resources=latest, via=copy, app_data_dir=/home/vagrant/.local/share/virtualenv/seed-app-data/v1.0.1.debian.1)
+  activators BashActivator,CShellActivator,FishActivator,PowerShellActivator,PythonActivator,XonshActivator
+. /home/vagrant/build/python/bin/activate;
+/home/vagrant/build/python/bin/pip3 install -q -U --cache-dir ~/.pipcache "pip>=20.3.2"
+Installing egg link for orc8r
+/home/vagrant/build/python/bin/pip3 install -q -U --cache-dir ~/.pipcache --no-build-isolation -e .[dev]
+ERROR: werkzeug 3.0.6 has requirement MarkupSafe>=2.1.1, but you'll have markupsafe 1.1.1 which is incompatible.
+ERROR: flask 2.2.5 has requirement click>=8.0, but you'll have click 7.1.2 which is incompatible.
+ERROR: flask 2.2.5 has requirement itsdangerous>=2.0, but you'll have itsdangerous 1.1.0 which is incompatible.
+ERROR: flask 2.2.5 has requirement Jinja2>=3.0, but you'll have jinja2 2.11.3 which is incompatible.
+ERROR: fakeredis 1.8.1 has requirement redis<4.4, but you'll have redis 4.4.4 which is incompatible.
+    ERROR: Command errored out with exit status 1:
+     command: /home/vagrant/build/python/bin/python -c 'import sys, setuptools, tokenize; sys.argv[0] = '"'"'/home/vagrant/magma/orc8r/gateway/python/setup.py'"'"'; __file__='"'"'/home/vagrant/magma/orc8r/gateway/python/setup.py'"'"';f=getattr(tokenize, '"'"'open'"'"', open)(__file__);code=f.read().replace('"'"'\r\n'"'"', '"'"'\n'"'"');f.close();exec(compile(code, __file__, '"'"'exec'"'"'))' develop --no-deps
+         cwd: /home/vagrant/magma/orc8r/gateway/python/
+    Complete output (19 lines):
+    Traceback (most recent call last):
+      File "<string>", line 1, in <module>
+      File "/home/vagrant/magma/orc8r/gateway/python/setup.py", line 23, in <module>
+        setup(
+      File "/home/vagrant/build/python/lib/python3.8/site-packages/setuptools/__init__.py", line 103, in setup
+        return distutils.core.setup(**attrs)
+      File "/home/vagrant/build/python/lib/python3.8/site-packages/setuptools/_distutils/core.py", line 146, in setup
+        _setup_distribution = dist = klass(attrs)
+      File "/home/vagrant/build/python/lib/python3.8/site-packages/setuptools/dist.py", line 307, in __init__
+        _Distribution.__init__(self, dist_attrs)
+      File "/home/vagrant/build/python/lib/python3.8/site-packages/setuptools/_distutils/dist.py", line 284, in __init__
+        self.finalize_options()
+      File "/home/vagrant/build/python/lib/python3.8/site-packages/setuptools/dist.py", line 658, in finalize_options
+        for ep in sorted(loaded, key=by_order):
+      File "/home/vagrant/build/python/lib/python3.8/site-packages/setuptools/dist.py", line 657, in <lambda>
+        loaded = map(lambda e: e.load(), filtered)
+      File "/home/vagrant/build/python/lib/python3.8/site-packages/setuptools/_vendor/importlib_metadata/__init__.py", line 210, in load
+        return functools.reduce(getattr, attrs, module)
+    AttributeError: type object 'Distribution' has no attribute '_finalize_feature_opts'
+    ----------------------------------------
+ERROR: Command errored out with exit status 1: /home/vagrant/build/python/bin/python -c 'import sys, setuptools, tokenize; sys.argv[0] = '"'"'/home/vagrant/magma/orc8r/gateway/python/setup.py'"'"'; __file__='"'"'/home/vagrant/magma/orc8r/gateway/python/setup.py'"'"';f=getattr(tokenize, '"'"'open'"'"', open)(__file__);code=f.read().replace('"'"'\r\n'"'"', '"'"'\n'"'"');f.close();exec(compile(code, __file__, '"'"'exec'"'"'))' develop --no-deps Check the logs for full command output.
+make[2]: *** [/home/vagrant/magma/orc8r/gateway/python/python.mk:138: install_egg] Error 1
+make[2]: Leaving directory '/home/vagrant/magma/orc8r/gateway/python'
+make[1]: *** [Makefile:32: /home/vagrant/magma/orc8r/gateway/python_build] Error 2
+make[1]: Leaving directory '/home/vagrant/magma/lte/gateway/python'
+make: *** [Makefile:105: build_python] Error 2

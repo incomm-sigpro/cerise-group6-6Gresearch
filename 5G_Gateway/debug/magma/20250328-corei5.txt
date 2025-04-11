@@ -1,0 +1,12 @@
+user-magma-h3@magma-core-h3:~$ journalctl -fu agw_installation
+-- Logs begin at Wed 2025-03-12 20:57:43 UTC. --
+Mar 17 17:47:53 magma-core-h3 bash[1127]: + echo 'Will reboot in a few seconds, loading a boot script in order to install magma'
+Mar 17 17:47:53 magma-core-h3 bash[1127]: Will reboot in a few seconds, loading a boot script in order to install magma
+Mar 17 17:47:53 magma-core-h3 bash[1127]: + '[' '!' -f /root/agw_install_ubuntu.sh ']'
+Mar 17 17:47:53 magma-core-h3 bash[1127]: + cat
+Mar 17 17:47:53 magma-core-h3 bash[1127]: + chmod 644 /lib/systemd/system/agw_installation.service
+Mar 17 17:47:53 magma-core-h3 bash[1127]: + ln -sf /lib/systemd/system/agw_installation.service /etc/systemd/system/multi-user.target.wants/agw_installation.service
+Mar 17 17:47:53 magma-core-h3 bash[1127]: + reboot
+Mar 17 17:47:53 magma-core-h3 systemd[1]: agw_installation.service: Main process exited, code=killed, status=15/TERM
+Mar 17 17:47:53 magma-core-h3 systemd[1]: agw_installation.service: Failed with result 'signal'.
+Mar 17 17:47:53 magma-core-h3 systemd[1]: Stopped AGW Installation.

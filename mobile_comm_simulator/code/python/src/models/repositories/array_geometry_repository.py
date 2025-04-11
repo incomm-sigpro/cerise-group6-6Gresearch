@@ -6,7 +6,8 @@ from dataclasses import dataclass
 from enum import Enum
 
 # from datetime import datetime
-# from models.entities.array_geometry import ArrayGeometry
+from models.entities.array_geometry import ArrayGeometryModel
+# from configs.simulation_parameters import SpacingType
 from models.interfaces.array_geometry_repository import ArrayGeometryRepositoryInterface
 
 class ArrayGeometry(Enum):
@@ -21,13 +22,17 @@ class ArrayGeometry(Enum):
 class ArrayParameters:
     """Parameters for array geometry."""
     num_sensors: int
-    spacing: float  # Inter-element spacing in wavelengths
+    num_snapshots: int
+    geometry: ArrayGeometry  # Array geometry type
+    array_elements_spacing: str  # Inter-element spacing in wavelengths
     center_frequency: float  # Hz
     speed_of_light: float = 3e8  # m/s
 
 class ArrayGeometryRepository(ArrayGeometryRepositoryInterface):
     def __init__(self, db_connection) -> None:
         self.__db_connection = db_connection
+
+    print(ArrayGeometryModel)
 
     # def create_array_geometry(
     #     self,

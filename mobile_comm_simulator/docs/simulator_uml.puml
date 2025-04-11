@@ -1,0 +1,76 @@
+@startuml
+title Simulation Configuration and Signal/Noise Components
+
+class SimulationConfig {
+  + num_snapshots: int
+  + num_sensors: int
+  + array_spacing: float
+  + center_frequency: float
+  + snr_db: float
+  + noise_type: NoiseType
+  + source_angles: List<float>
+  + source_powers: List<float>
+  + source_frequencies: List<float>
+  + seed: Optional<int>
+  + speed_of_light: float
+}
+
+class SimulationParameters {
+  - config: SimulationConfig
+  + get_noise_parameters(): NoiseParameters
+  + get_array_parameters(): ArrayParameters
+  + get_source_parameters(): SourceParameters
+  + get_noise_type(): NoiseType
+  + get_num_snapshots(): int
+  + seed: Optional<int>
+}
+
+class ArrayParameters {
+  + num_sensors: int
+  + spacing: float
+  + center_frequency: float
+  + speed_of_light: float
+}
+
+class SourceParameters {
+  + angles: List<float>
+  + powers: List<float>
+  + frequencies: List<float>
+}
+
+class NoiseParameters {
+  + num_snapshots: int
+  + num_sensors: int
+  + snr_db: float
+  + seed: Optional<int>
+}
+
+class SignalGenerator {
+  + array_params: ArrayParameters
+  + source_params: SourceParameters
+  + num_snapshots: int
+  + generate_steering_matrix(): ndarray
+  + generate_source_signals(): ndarray
+  + generate_received_signal(): ndarray
+}
+
+class NoiseGenerator {
+  + awgn(shape, noise_power=0.1): ndarray
+  + colored_noise(shape, alpha=1): ndarray
+  + correlated_noise(cov_matrix, num_samples): ndarray
+  + impulsive_noise(shape, alpha=1.5, gamma=1): ndarray
+}
+
+' Relationships
+SimulationParameters --> SimulationConfig : uses
+SimulationParameters --> ArrayParameters : creates
+SimulationParameters --> SourceParameters : creates
+SimulationParameters --> NoiseParameters : creates
+
+SignalGenerator --> ArrayParameters
+SignalGenerator --> SourceParameters
+SignalGenerator --> NoiseParameters : uses for SNR
+
+NoiseGenerator <.. SignalGenerator : calls
+
+@enduml

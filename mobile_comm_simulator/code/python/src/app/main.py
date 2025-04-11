@@ -1,12 +1,15 @@
 """
 This module contains the main function for running the DOA estimation simulation.
+It initializes the simulation parameters, generates signals and noise, and
+computes the received signal.
+It also handles logging and error management.
 """
 
 import logging
 
-from models.repositories.noise_repository import NoiseRepository, NoiseType
-from models.repositories.signal_repository import SignalRepository
 from configs.simulation_parameters import SimulationParameters, SimulationConfig
+from models.repositories.noise_repository import NoiseRepository
+from models.repositories.signal_repository import SignalRepository
 
 def setup_logging() -> None:
     """Configure logging for the simulation."""
@@ -27,39 +30,45 @@ def run_simulation() -> None:
         config = SimulationConfig(
             num_snapshots=100,
             num_sensors=10,
-            snr_db=10.0,
-            array_spacing=0.5,
+            snr_db=0.0,
+            geometry="linear",
+            array_elements_spacing='uniformly',
             center_frequency=0.8e9,
             source_angles=[-30, 0, 45],
             source_powers=[1.0, 1.0, 1.0],
-            noise_type=NoiseType.GAUSSIAN
+            noise_type="noiseless",
         )
 
-        sim_params = SimulationParameters(config)
+        simulation_parameters = SimulationParameters(config)
 
         # Initialize noise generator
         logger.info("Initializing noise generator...")
-        noise_gen = NoiseRepository(db_connection=None, parameters=sim_params.get_noise_parameters())
+        noise_generator = NoiseRepository(
+            db_connection=None,
+            parameters=simulation_parameters.get_noise_parameters()
+            )
 
         # Initialize signal generator
         logger.info("Initializing signal generator...")
         signal_gen = SignalRepository(
             db_connection=None,
-            array_params=sim_params.get_array_parameters(),
-            source_params=sim_params.get_source_parameters(),
-            seed=sim_params.seed
+            array_params=simulation_parameters.get_array_parameters(),
+            source_params=simulation_parameters.get_source_parameters()
         )
 
-        # Generate signals and noise
+        # Generate signals
         logger.info("Generating signals...")
-        X = signal_gen.generate()
+        signal_matrix_x = signal_gen.generate()
 
         logger.info("Generating noise...")
-        N = noise_gen.generate(sim_params.get_noise_type())
-        N_scaled = noise_gen.apply_snr_scaling(X, N)
+        noise_matrix_n = noise_generator.generate()
+        noise_matrix_n_scaled = noise_generator.apply_snr_scaling(signal_matrix_x, noise_matrix_n)
 
         # Final received signal
-        Y = X + (N_scaled @ N_scaled.T)
+        received_signal_y = signal_matrix_x + (noise_matrix_n_scaled @ noise_matrix_n_scaled.T)
+        
+        # Log the received signal
+        logger.info("Received signal matrix: %s", received_signal_y)
 
         logger.info("Simulation completed successfully")
 

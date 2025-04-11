@@ -1,0 +1,416 @@
+jakunzler@pop-os:~$ ip a
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host 
+       valid_lft forever preferred_lft forever
+2: wlo1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default qlen 1000
+    link/ether 58:ce:2a:0a:a0:cd brd ff:ff:ff:ff:ff:ff
+    altname wlp0s20f3
+    inet 172.16.4.183/24 brd 172.16.4.255 scope global dynamic noprefixroute wlo1
+       valid_lft 7039sec preferred_lft 7039sec
+    inet6 fd06:a1b4:b8e5::7ab/128 scope global dynamic noprefixroute 
+       valid_lft 86242sec preferred_lft 86242sec
+    inet6 fd06:a1b4:b8e5:0:4b6e:4960:1b:688/64 scope global temporary dynamic 
+       valid_lft 7042sec preferred_lft 1642sec
+    inet6 fd06:a1b4:b8e5:0:d344:4fe0:4fdb:11d3/64 scope global dynamic mngtmpaddr noprefixroute 
+       valid_lft 7042sec preferred_lft 1642sec
+    inet6 fe80::2ccc:d2c4:1b9a:183b/64 scope link noprefixroute 
+       valid_lft forever preferred_lft forever
+3: br-0d2a5b99934c: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc noqueue state DOWN group default 
+    link/ether 62:4f:9d:26:1f:e8 brd ff:ff:ff:ff:ff:ff
+    inet 172.19.0.1/16 brd 172.19.255.255 scope global br-0d2a5b99934c
+       valid_lft forever preferred_lft forever
+4: br-2b606194b96b: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc noqueue state DOWN group default 
+    link/ether 4a:79:c7:3a:84:e0 brd ff:ff:ff:ff:ff:ff
+    inet 172.18.0.1/16 brd 172.18.255.255 scope global br-2b606194b96b
+       valid_lft forever preferred_lft forever
+5: docker0: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc noqueue state DOWN group default 
+    link/ether d6:ab:81:5e:d6:0a brd ff:ff:ff:ff:ff:ff
+    inet 172.17.0.1/16 brd 172.17.255.255 scope global docker0
+       valid_lft forever preferred_lft forever
+6: br-a4b74bfb290a: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc noqueue state DOWN group default 
+    link/ether ae:3a:77:64:00:c5 brd ff:ff:ff:ff:ff:ff
+    inet 172.20.0.1/16 brd 172.20.255.255 scope global br-a4b74bfb290a
+       valid_lft forever preferred_lft forever
+7: br-e1bb46f51186: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc noqueue state DOWN group default 
+    link/ether ba:38:ca:93:51:fa brd ff:ff:ff:ff:ff:ff
+    inet 172.21.0.1/16 brd 172.21.255.255 scope global br-e1bb46f51186
+       valid_lft forever preferred_lft forever
+jakunzler@pop-os:~$ ssh -i user-magma-h3@172.16.4.99
+Warning: Identity file user-magma-h3@172.16.4.99 not accessible: No such file or directory.
+usage: ssh [-46AaCfGgKkMNnqsTtVvXxYy] [-B bind_interface]
+           [-b bind_address] [-c cipher_spec] [-D [bind_address:]port]
+           [-E log_file] [-e escape_char] [-F configfile] [-I pkcs11]
+           [-i identity_file] [-J [user@]host[:port]] [-L address]
+           [-l login_name] [-m mac_spec] [-O ctl_cmd] [-o option] [-p port]
+           [-Q query_option] [-R address] [-S ctl_path] [-W host:port]
+           [-w local_tun[:remote_tun]] destination [command [argument ...]]
+jakunzler@pop-os:~$ ssh -i ~/.ssh/id_rsa user-magma-h3@172.16.4.99
+The authenticity of host '172.16.4.99 (172.16.4.99)' can't be established.
+ED25519 key fingerprint is SHA256:oNRT0UrXhFi//fd0DgO4tIwv1hlfDmh3acoCmu6RG2g.
+This host key is known by the following other names/addresses:
+    ~/.ssh/known_hosts:7: [hashed name]
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '172.16.4.99' (ED25519) to the list of known hosts.
+user-magma-h3@172.16.4.99's password: 
+Welcome to Ubuntu 20.04.6 LTS (GNU/Linux 5.4.0-208-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/pro
+
+ System information as of Thu 13 Mar 2025 05:29:20 PM UTC
+
+  System load:           0.0
+  Usage of /:            3.3% of 219.00GB
+  Memory usage:          2%
+  Swap usage:            0%
+  Temperature:           40.0 C
+  Processes:             149
+  Users logged in:       1
+  IPv4 address for eth0: 172.16.4.99
+  IPv6 address for eth0: fd06:a1b4:b8e5:0:d227:88ff:fec2:1464
+
+ * Strictly confined Kubernetes makes edge and IoT secure. Learn how MicroK8s
+   just raised the bar for easy, resilient and secure K8s cluster deployment.
+
+   https://ubuntu.com/engage/secure-kubernetes-at-the-edge
+
+Expanded Security Maintenance for Applications is not enabled.
+
+0 updates can be applied immediately.
+
+Enable ESM Apps to receive additional future security updates.
+See https://ubuntu.com/esm or run: sudo pro status
+
+Failed to connect to https://changelogs.ubuntu.com/meta-release-lts. Check your Internet connection or proxy settings
+
+
+Last login: Thu Mar 13 17:21:59 2025
+user-magma-h3@magma-core-h3:~$ journalctl -b -1 -n 50 --no-pager
+-- Logs begin at Wed 2025-03-12 20:57:43 UTC, end at Thu 2025-03-13 17:29:20 UTC. --
+Mar 13 17:19:19 magma-core-h3 dhclient[1226]: Sending on   Socket/fallback
+Mar 13 17:19:19 magma-core-h3 dhclient[1226]: DHCPRELEASE of 172.16.4.99 on eth0 to 172.16.4.2 port 67 (xid=0x3469d4f9)
+Mar 13 17:19:19 magma-core-h3 ifdown[1226]: DHCPRELEASE of 172.16.4.99 on eth0 to 172.16.4.2 port 67 (xid=0x3469d4f9)
+Mar 13 17:19:19 magma-core-h3 systemd[1]: Requested transaction contradicts existing jobs: Transaction for systemd-networkd.service/start is destructive (reboot.target has 'start' job queued, but 'stop' is included in transaction).
+Mar 13 17:19:19 magma-core-h3 systemd[1]: systemd-networkd.socket: Failed to queue service startup job (Maybe the service file is missing or not a non-template unit?): Transaction for systemd-networkd.service/start is destructive (reboot.target has 'start' job queued, but 'stop' is included in transaction).
+Mar 13 17:19:19 magma-core-h3 systemd[1]: systemd-networkd.socket: Failed with result 'resources'.
+Mar 13 17:19:19 magma-core-h3 systemd[1]: ifup@eth0.service: Succeeded.
+Mar 13 17:19:19 magma-core-h3 systemd[1]: Stopped ifup for eth0.
+Mar 13 17:19:19 magma-core-h3 systemd[1]: Stopped target Local File Systems.
+Mar 13 17:19:19 magma-core-h3 kernel: e1000e: eth0 NIC Link is Down
+Mar 13 17:19:19 magma-core-h3 systemd[1]: Unmounting Mount unit for lxd, revision 32662...
+Mar 13 17:19:19 magma-core-h3 systemd[1]: systemd-sysctl.service: Succeeded.
+Mar 13 17:19:19 magma-core-h3 systemd[1]: Stopped Apply Kernel Variables.
+Mar 13 17:19:19 magma-core-h3 systemd[1]: systemd-modules-load.service: Succeeded.
+Mar 13 17:19:19 magma-core-h3 systemd[1]: Stopped Load Kernel Modules.
+Mar 13 17:19:19 magma-core-h3 systemd[1]: snap-lxd-32662.mount: Succeeded.
+Mar 13 17:19:19 magma-core-h3 systemd[1]: Unmounted Mount unit for lxd, revision 32662.
+Mar 13 17:19:19 magma-core-h3 systemd[1]: Stopped target Local File Systems (Pre).
+Mar 13 17:19:19 magma-core-h3 systemd[1]: Reached target Unmount All Filesystems.
+Mar 13 17:19:19 magma-core-h3 systemd[1]: Stopping Monitoring of LVM2 mirrors, snapshots etc. using dmeventd or progress polling...
+Mar 13 17:19:19 magma-core-h3 multipathd[680]: exit (signal)
+Mar 13 17:19:19 magma-core-h3 multipathd[680]: --------shut down-------
+Mar 13 17:19:19 magma-core-h3 systemd[1]: Stopping Device-Mapper Multipath Device Controller...
+Mar 13 17:19:19 magma-core-h3 systemd[1]: systemd-tmpfiles-setup-dev.service: Succeeded.
+Mar 13 17:19:19 magma-core-h3 systemd[1]: Stopped Create Static Device Nodes in /dev.
+Mar 13 17:19:19 magma-core-h3 systemd[1]: systemd-sysusers.service: Succeeded.
+Mar 13 17:19:19 magma-core-h3 systemd[1]: Stopped Create System Users.
+Mar 13 17:19:19 magma-core-h3 systemd[1]: systemd-remount-fs.service: Succeeded.
+Mar 13 17:19:19 magma-core-h3 systemd[1]: Stopped Remount Root and Kernel File Systems.
+Mar 13 17:19:19 magma-core-h3 systemd[1]: multipathd.service: Succeeded.
+Mar 13 17:19:19 magma-core-h3 systemd[1]: Stopped Device-Mapper Multipath Device Controller.
+Mar 13 17:19:19 magma-core-h3 lvm[1716]:   /dev/sdb: open failed: No medium found
+Mar 13 17:19:19 magma-core-h3 lvm[1716]:   /dev/sdc: open failed: No medium found
+Mar 13 17:19:19 magma-core-h3 lvm[1716]:   /dev/sdd: open failed: No medium found
+Mar 13 17:19:19 magma-core-h3 lvm[1716]:   /dev/sde: open failed: No medium found
+Mar 13 17:19:19 magma-core-h3 lvm[1716]:   /dev/sdb: open failed: No medium found
+Mar 13 17:19:19 magma-core-h3 lvm[1716]:   /dev/sdc: open failed: No medium found
+Mar 13 17:19:19 magma-core-h3 lvm[1716]:   /dev/sdd: open failed: No medium found
+Mar 13 17:19:19 magma-core-h3 lvm[1716]:   /dev/sde: open failed: No medium found
+Mar 13 17:19:19 magma-core-h3 systemd[1]: lvm2-monitor.service: Succeeded.
+Mar 13 17:19:19 magma-core-h3 systemd[1]: Stopped Monitoring of LVM2 mirrors, snapshots etc. using dmeventd or progress polling.
+Mar 13 17:19:19 magma-core-h3 systemd[1]: Reached target Shutdown.
+Mar 13 17:19:19 magma-core-h3 systemd[1]: Reached target Final Step.
+Mar 13 17:19:19 magma-core-h3 systemd[1]: systemd-reboot.service: Succeeded.
+Mar 13 17:19:19 magma-core-h3 systemd[1]: Finished Reboot.
+Mar 13 17:19:19 magma-core-h3 systemd[1]: Reached target Reboot.
+Mar 13 17:19:19 magma-core-h3 systemd[1]: Shutting down.
+Mar 13 17:19:19 magma-core-h3 systemd-shutdown[1]: Syncing filesystems and block devices.
+Mar 13 17:19:20 magma-core-h3 systemd-shutdown[1]: Sending SIGTERM to remaining processes...
+Mar 13 17:19:20 magma-core-h3 systemd-journald[432]: Journal stopped
+user-magma-h3@magma-core-h3:~$ Connection to 172.16.4.99 closed by remote host.
+Connection to 172.16.4.99 closed.
+jakunzler@pop-os:~$ ssh -i ~/.ssh/id_rsa user-magma-h3@172.16.4.99
+user-magma-h3@172.16.4.99's password: 
+Welcome to Ubuntu 20.04.6 LTS (GNU/Linux 5.4.0-208-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/pro
+
+ System information as of Thu 13 Mar 2025 05:39:00 PM UTC
+
+  System load:           0.12
+  Usage of /:            3.3% of 219.00GB
+  Memory usage:          1%
+  Swap usage:            0%
+  Temperature:           41.0 C
+  Processes:             163
+  Users logged in:       1
+  IPv4 address for eth0: 172.16.4.99
+  IPv6 address for eth0: fd06:a1b4:b8e5:0:d227:88ff:fec2:1464
+
+ * Strictly confined Kubernetes makes edge and IoT secure. Learn how MicroK8s
+   just raised the bar for easy, resilient and secure K8s cluster deployment.
+
+   https://ubuntu.com/engage/secure-kubernetes-at-the-edge
+
+Expanded Security Maintenance for Applications is not enabled.
+
+0 updates can be applied immediately.
+
+Enable ESM Apps to receive additional future security updates.
+See https://ubuntu.com/esm or run: sudo pro status
+
+Failed to connect to https://changelogs.ubuntu.com/meta-release-lts. Check your Internet connection or proxy settings
+
+
+Last login: Thu Mar 13 17:37:30 2025
+user-magma-h3@magma-core-h3:~$ sudo systemctl status systemd-networkd
+[sudo] password for user-magma-h3: 
+● systemd-networkd.service - Network Service
+     Loaded: loaded (/lib/systemd/system/systemd-networkd.service; enabled; ven>
+     Active: active (running) since Thu 2025-03-13 17:36:58 UTC; 2min 30s ago
+TriggeredBy: ● systemd-networkd.socket
+       Docs: man:systemd-networkd.service(8)
+   Main PID: 497 (systemd-network)
+     Status: "Processing requests..."
+      Tasks: 1 (limit: 14197)
+     Memory: 3.7M
+     CGroup: /system.slice/systemd-networkd.service
+             └─497 /lib/systemd/systemd-networkd
+
+Mar 13 17:36:58 magma-core-h3 systemd[1]: Starting Network Service...
+Mar 13 17:36:58 magma-core-h3 systemd-networkd[497]: Enumeration completed
+Mar 13 17:36:58 magma-core-h3 systemd[1]: Started Network Service.
+Mar 13 17:37:00 magma-core-h3 systemd-networkd[497]: eth0: Link UP
+Mar 13 17:37:01 magma-core-h3 systemd-networkd[497]: eth0: Gained carrier
+Mar 13 17:37:03 magma-core-h3 systemd-networkd[497]: eth0: Gained IPv6LL
+user-magma-h3@magma-core-h3:~$ apt update
+Reading package lists... Done
+E: Could not open lock file /var/lib/apt/lists/lock - open (13: Permission denied)
+E: Unable to lock directory /var/lib/apt/lists/
+W: Problem unlinking the file /var/cache/apt/pkgcache.bin - RemoveCaches (13: Permission denied)
+W: Problem unlinking the file /var/cache/apt/srcpkgcache.bin - RemoveCaches (13: Permission denied)
+user-magma-h3@magma-core-h3:~$ apt install --reinstall systemd-networkd -y
+E: Could not open lock file /var/lib/dpkg/lock-frontend - open (13: Permission denied)
+E: Unable to acquire the dpkg frontend lock (/var/lib/dpkg/lock-frontend), are you root?
+user-magma-h3@magma-core-h3:~$ sudo apt update
+Hit:1 http://archive.ubuntu.com/ubuntu focal InRelease
+Hit:2 http://archive.ubuntu.com/ubuntu focal-updates InRelease
+Hit:3 http://archive.ubuntu.com/ubuntu focal-backports InRelease
+Hit:4 http://archive.ubuntu.com/ubuntu focal-security InRelease
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+lAll packages are up to date.
+user-magma-h3@magma-core-h3:~$ sudo apt install --reinstall systemd-networkd -y
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+E: Unable to locate package systemd-networkd
+user-magma-h3@magma-core-h3:~$ sudo systemctl restart sustemd-networkd
+Failed to restart sustemd-networkd.service: Unit sustemd-networkd.service not found.
+user-magma-h3@magma-core-h3:~$ sudo systemctl restart systemd-networkd
+user-magma-h3@magma-core-h3:~$ ip a
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host 
+       valid_lft forever preferred_lft forever
+2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether d0:27:88:c2:14:64 brd ff:ff:ff:ff:ff:ff
+    inet 172.16.4.99/24 brd 172.16.4.255 scope global dynamic eth0
+       valid_lft 6740sec preferred_lft 6740sec
+    inet6 fd06:a1b4:b8e5:0:d227:88ff:fec2:1464/64 scope global dynamic mngtmpaddr 
+       valid_lft 6740sec preferred_lft 1340sec
+    inet6 fe80::d227:88ff:fec2:1464/64 scope link 
+       valid_lft forever preferred_lft forever
+user-magma-h3@magma-core-h3:~$ nano /etc/network/interfaces
+user-magma-h3@magma-core-h3:~$ exit
+logout
+Connection to 172.16.4.99 closed.
+jakunzler@pop-os:~$ ssh -i ~/.ssh/id_rsa user-magma-h3@172.16.4.99
+user-magma-h3@172.16.4.99's password: 
+Welcome to Ubuntu 20.04.6 LTS (GNU/Linux 5.4.0-208-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/pro
+
+ System information as of Thu 13 Mar 2025 06:05:05 PM UTC
+
+  System load:           0.0
+  Usage of /:            3.3% of 219.00GB
+  Memory usage:          2%
+  Swap usage:            0%
+  Temperature:           44.0 C
+  Processes:             147
+  Users logged in:       1
+  IPv4 address for eth0: 172.16.4.99
+  IPv6 address for eth0: fd06:a1b4:b8e5:0:d227:88ff:fec2:1464
+
+ * Strictly confined Kubernetes makes edge and IoT secure. Learn how MicroK8s
+   just raised the bar for easy, resilient and secure K8s cluster deployment.
+
+   https://ubuntu.com/engage/secure-kubernetes-at-the-edge
+
+Expanded Security Maintenance for Applications is not enabled.
+
+0 updates can be applied immediately.
+
+Enable ESM Apps to receive additional future security updates.
+See https://ubuntu.com/esm or run: sudo pro status
+
+Failed to connect to https://changelogs.ubuntu.com/meta-release-lts. Check your Internet connection or proxy settings
+
+
+Last login: Thu Mar 13 17:39:01 2025 from 172.16.4.183
+user-magma-h3@magma-core-h3:~$ exit
+logout
+Connection to 172.16.4.99 closed.
+jakunzler@pop-os:~$ ssh -i ~/.ssh/id_rsa root-magma-h3@172.16.4.99
+root-magma-h3@172.16.4.99's password: 
+Permission denied, please try again.
+root-magma-h3@172.16.4.99's password: 
+Permission denied, please try again.
+root-magma-h3@172.16.4.99's password: 
+
+jakunzler@pop-os:~$ ^C
+jakunzler@pop-os:~$ ssh -i ~/.ssh/id_rsa root@172.16.4.99
+root@172.16.4.99's password: 
+Permission denied, please try again.
+root@172.16.4.99's password: 
+
+jakunzler@pop-os:~$ ^C
+jakunzler@pop-os:~$ ssh -i ~/.ssh/id_rsa user-magma-h3@172.16.4.99
+user-magma-h3@172.16.4.99's password: 
+Welcome to Ubuntu 20.04.6 LTS (GNU/Linux 5.4.0-208-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/pro
+
+ System information as of Thu 13 Mar 2025 06:06:36 PM UTC
+
+  System load:           0.05
+  Usage of /:            3.3% of 219.00GB
+  Memory usage:          2%
+  Swap usage:            0%
+  Temperature:           41.0 C
+  Processes:             150
+  Users logged in:       1
+  IPv4 address for eth0: 172.16.4.99
+  IPv6 address for eth0: fd06:a1b4:b8e5:0:d227:88ff:fec2:1464
+
+ * Strictly confined Kubernetes makes edge and IoT secure. Learn how MicroK8s
+   just raised the bar for easy, resilient and secure K8s cluster deployment.
+
+   https://ubuntu.com/engage/secure-kubernetes-at-the-edge
+
+Expanded Security Maintenance for Applications is not enabled.
+
+0 updates can be applied immediately.
+
+Enable ESM Apps to receive additional future security updates.
+See https://ubuntu.com/esm or run: sudo pro status
+
+Failed to connect to https://changelogs.ubuntu.com/meta-release-lts. Check your Internet connection or proxy settings
+
+
+Last login: Thu Mar 13 18:05:06 2025 from 172.16.4.183
+user-magma-h3@magma-core-h3:~$ sudo su -
+[sudo] password for user-magma-h3: 
+root@magma-core-h3:~# systemctl restart networking
+Job for networking.service failed because the control process exited with error code.
+See "systemctl status networking.service" and "journalctl -xe" for details.
+root@magma-core-h3:~# systemctl status networking
+● networking.service - Raise network interfaces
+     Loaded: loaded (/lib/systemd/system/networking.service; enabled; vendor preset: enabled)
+     Active: failed (Result: exit-code) since Thu 2025-03-13 18:09:21 UTC; 14s ago
+       Docs: man:interfaces(5)
+    Process: 2273 ExecStart=/sbin/ifup -a --read-environment (code=exited, status=1/FAILURE)
+   Main PID: 2273 (code=exited, status=1/FAILURE)
+
+Mar 13 18:09:21 magma-core-h3 systemd[1]: Starting Raise network interfaces...
+Mar 13 18:09:21 magma-core-h3 ifup[2295]: Cannot find device "eth1"
+Mar 13 18:09:21 magma-core-h3 ifup[2273]: ifup: failed to bring up eth1
+Mar 13 18:09:21 magma-core-h3 systemd[1]: networking.service: Main process exited, code=exite>
+Mar 13 18:09:21 magma-core-h3 systemd[1]: networking.service: Failed with result 'exit-code'.
+Mar 13 18:09:21 magma-core-h3 systemd[1]: Failed to start Raise network interfaces.
+...skipping...
+● networking.service - Raise network interfaces
+     Loaded: loaded (/lib/systemd/system/networking.service; enabled; vendor preset: enabled)
+     Active: failed (Result: exit-code) since Thu 2025-03-13 18:09:21 UTC; 14s ago
+       Docs: man:interfaces(5)
+    Process: 2273 ExecStart=/sbin/ifup -a --read-environment (code=exited, status=1/FAILURE)
+   Main PID: 2273 (code=exited, status=1/FAILURE)
+
+Mar 13 18:09:21 magma-core-h3 systemd[1]: Starting Raise network interfaces...
+Mar 13 18:09:21 magma-core-h3 ifup[2295]: Cannot find device "eth1"
+Mar 13 18:09:21 magma-core-h3 ifup[2273]: ifup: failed to bring up eth1
+Mar 13 18:09:21 magma-core-h3 systemd[1]: networking.service: Main process exited, code=exite>
+Mar 13 18:09:21 magma-core-h3 systemd[1]: networking.service: Failed with result 'exit-code'.
+Mar 13 18:09:21 magma-core-h3 systemd[1]: Failed to start Raise network interfaces.
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+root@magma-core-h3:~# systemctl status networking.service
+● networking.service - Raise network interfaces
+     Loaded: loaded (/lib/systemd/system/networking.service; enabled; vendor preset: enabled)
+     Active: failed (Result: exit-code) since Thu 2025-03-13 18:09:21 UTC; 23s ago
+       Docs: man:interfaces(5)
+    Process: 2273 ExecStart=/sbin/ifup -a --read-environment (code=exited, status=1/FAILURE)
+   Main PID: 2273 (code=exited, status=1/FAILURE)
+
+Mar 13 18:09:21 magma-core-h3 systemd[1]: Starting Raise network interfaces...
+Mar 13 18:09:21 magma-core-h3 ifup[2295]: Cannot find device "eth1"
+Mar 13 18:09:21 magma-core-h3 ifup[2273]: ifup: failed to bring up eth1
+Mar 13 18:09:21 magma-core-h3 systemd[1]: networking.service: Main process exited, code=exite>
+Mar 13 18:09:21 magma-core-h3 systemd[1]: networking.service: Failed with result 'exit-code'.
+Mar 13 18:09:21 magma-core-h3 systemd[1]: Failed to start Raise network interfaces.
+root@magma-core-h3:~# 

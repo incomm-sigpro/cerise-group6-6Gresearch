@@ -1,12 +1,20 @@
-import numpy as np
+""""
+Signal Repository Module
+This module contains the SignalRepository class, which is responsible for generating 
+signals for Direction of Arrival (DOA) estimation. It handles the array geometry and
+signal generation for multiple sources.
+"""
+
 from typing import List, Optional
 from dataclasses import dataclass
 
+import numpy as np
+
+from models.interfaces.signal_repository import SignalRepositoryInterface
 from .array_geometry_repository import ArrayParameters
 
 # from datetime import datetime
 # from models.entities.signal_model import SignalModel
-from models.interfaces.signal_repository import SignalRepositoryInterface
 
 @dataclass
 class SourceParameters:
@@ -25,19 +33,14 @@ class SignalRepository(SignalRepositoryInterface):
         self,
         db_connection,
         array_params: ArrayParameters,
-        source_params: SourceParameters,
-        seed: Optional[int] = None
+        source_params: SourceParameters
         ):
         self.__db_connection = db_connection
         self.array_params = array_params
         self.source_params = source_params
-        self.seed = seed
-
-        if seed is not None:
-            np.random.seed(seed)
 
         self.wavelength = self.array_params.speed_of_light / self.array_params.center_frequency
-        self.d = self.array_params.spacing * self.wavelength
+        self.d = 0.5 * self.wavelength
         self.sensor_positions = self._generate_sensor_positions()
 
     def _generate_sensor_positions(self) -> np.ndarray:

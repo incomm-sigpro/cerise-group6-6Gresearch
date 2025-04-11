@@ -1,0 +1,231 @@
+root@magmacoreh3:/home/user_magma_h3# bash agw_install_ubuntu.sh 
++ addr1=
++ gw_addr=
++ MAGMA_USER=magma
++ AGW_INSTALL_CONFIG_LINK=/etc/systemd/system/multi-user.target.wants/agw_installation.service
++ AGW_INSTALL_CONFIG=/lib/systemd/system/agw_installation.service
++ AGW_SCRIPT_PATH=/root/agw_install_ubuntu.sh
++ DEPLOY_PATH=/home/magma/magma/lte/gateway/deploy
++ SUCCESS_MESSAGE=ok
++ NEED_REBOOT=0
+++ whoami
++ WHOAMI=root
++ MAGMA_VERSION=v1.8
++ CLOUD_INSTALL=cloud
++ GIT_URL=https://github.com/magma/magma.git
++ INTERFACE_DIR=/etc/network/interfaces.d
++ echo 'Checking if the script has been executed by root user'
+Checking if the script has been executed by root user
++ '[' root '!=' root ']'
++ echo 'Checking if Ubuntu is installed'
+Checking if Ubuntu is installed
++ grep -q Ubuntu /etc/issue
++ '[' '' '!=' ok ']'
++ wget https://raw.githubusercontent.com/magma/magma/v1.8/lte/gateway/deploy/agw_pre_check_ubuntu.sh
+--2025-03-31 16:58:13--  https://raw.githubusercontent.com/magma/magma/v1.8/lte/gateway/deploy/agw_pre_check_ubuntu.sh
+Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 185.199.109.133, 185.199.111.133, 185.199.110.133, ...
+Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|185.199.109.133|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 1399 (1.4K) [text/plain]
+Saving to: ‘agw_pre_check_ubuntu.sh.4’
+
+agw_pre_check_ubuntu. 100%[=======================>]   1.37K  --.-KB/s    in 0s      
+
+2025-03-31 16:58:13 (13.6 MB/s) - ‘agw_pre_check_ubuntu.sh.4’ saved [1399/1399]
+
++ [[ -f ./agw_pre_check_ubuntu.sh ]]
++ bash agw_pre_check_ubuntu.sh
+- Check if Ubuntu is installed
+Ubuntu is installed
+- Check for magma user
+magma user configured
+- Check if both interfaces are named eth0 and eth1
++ true
++ read -p 'Do you accept those modifications and want to proceed with magma installation?(y/n)' yn
+Do you accept those modifications and want to proceed with magma installation?(y/n)y
++ case $yn in
++ break
++ apt-get update
+Hit:1 http://archive.ubuntu.com/ubuntu focal InRelease                               
+Get:2 https://download.docker.com/linux/ubuntu focal InRelease [57.7 kB]             
+Get:3 http://archive.ubuntu.com/ubuntu focal-updates InRelease [128 kB]              
+Get:4 https://download.docker.com/linux/ubuntu focal/stable amd64 Packages [58.5 kB] 
+Get:5 https://linuxfoundation.jfrog.io/artifactory/magma-packages focal-1.8.0 InRelease [3,827 B]
+Err:5 https://linuxfoundation.jfrog.io/artifactory/magma-packages focal-1.8.0 InRelease
+  The following signatures couldn't be verified because the public key is not available: NO_PUBKEY 22665CA36C8D401E
+Get:6 http://archive.ubuntu.com/ubuntu focal-backports InRelease [128 kB]
+Get:7 http://archive.ubuntu.com/ubuntu focal-security InRelease [128 kB]
+Get:8 http://archive.ubuntu.com/ubuntu focal-updates/main amd64 Packages [3,840 kB]
+Get:9 http://archive.ubuntu.com/ubuntu focal-updates/main Translation-en [585 kB]
+Get:10 http://archive.ubuntu.com/ubuntu focal-updates/main amd64 c-n-f Metadata [108 B]
+Get:11 http://archive.ubuntu.com/ubuntu focal-updates/restricted amd64 Packages [3,681 kB]
+Get:12 http://archive.ubuntu.com/ubuntu focal-updates/restricted Translation-en [514 kB]
+Get:13 http://archive.ubuntu.com/ubuntu focal-updates/restricted amd64 c-n-f Metadata [116 B]
+Get:14 http://archive.ubuntu.com/ubuntu focal-updates/universe amd64 c-n-f Metadata [112 B]
+Get:15 http://archive.ubuntu.com/ubuntu focal-updates/multiverse amd64 c-n-f Metadata [116 B]
+Get:16 http://archive.ubuntu.com/ubuntu focal-backports/main amd64 c-n-f Metadata [112 B]
+Get:17 http://archive.ubuntu.com/ubuntu focal-backports/universe amd64 c-n-f Metadata [116 B]
+Get:18 http://archive.ubuntu.com/ubuntu focal-security/main amd64 Packages [3,451 kB]
+Get:19 http://archive.ubuntu.com/ubuntu focal-security/main amd64 c-n-f Metadata [108 B]
+Get:20 http://archive.ubuntu.com/ubuntu focal-security/restricted amd64 c-n-f Metadata [116 B]
+Get:21 http://archive.ubuntu.com/ubuntu focal-security/universe amd64 Packages [1,037 kB]
+Get:22 http://archive.ubuntu.com/ubuntu focal-security/universe amd64 c-n-f Metadata [112 B]
+Get:23 http://archive.ubuntu.com/ubuntu focal-security/multiverse amd64 c-n-f Metadata [116 B]
+Reading package lists... Done                                                        
+W: GPG error: https://linuxfoundation.jfrog.io/artifactory/magma-packages focal-1.8.0 InRelease: The following signatures couldn't be verified because the public key is not available: NO_PUBKEY 22665CA36C8D401E
+E: The repository 'https://linuxfoundation.jfrog.io/artifactory/magma-packages focal-1.8.0 InRelease' is not signed.
+N: Updating from such a repository can't be done securely, and is therefore disabled by default.
+N: See apt-secure(8) manpage for repository creation and user configuration details.
++ echo 'Need to check if both interfaces are named eth0 and eth1'
+Need to check if both interfaces are named eth0 and eth1
+++ ip -br a
++ INTERFACES='lo               UNKNOWN        127.0.0.1/8 ::1/128 
+eth0             UP             172.16.4.189/24 fd06:a1b4:b8e5::21a/128 fd06:a1b4:b8e5:0:214:d1ff:fe1a:cab8/64 fe80::214:d1ff:fe1a:cab8/64 
+eth1             UP             10.0.2.1/24 fd06:a1b4:b8e5:0:6ef0:49ff:fef0:f2f4/64 fe80::6ef0:49ff:fef0:f2f4/64 
+docker0          DOWN           172.17.0.1/16 '
++ [[ '' != \c\l\o\u\d ]]
++ [[ ! lo               UNKNOWN        127.0.0.1/8 ::1/128 
+eth0             UP             172.16.4.189/24 fd06:a1b4:b8e5::21a/128 fd06:a1b4:b8e5:0:214:d1ff:fe1a:cab8/64 fe80::214:d1ff:fe1a:cab8/64 
+eth1             UP             10.0.2.1/24 fd06:a1b4:b8e5:0:6ef0:49ff:fef0:f2f4/64 fe80::6ef0:49ff:fef0:f2f4/64 
+docker0          DOWN           172.17.0.1/16  == *\e\t\h\0* ]]
++ [[ ! lo               UNKNOWN        127.0.0.1/8 ::1/128 
+eth0             UP             172.16.4.189/24 fd06:a1b4:b8e5::21a/128 fd06:a1b4:b8e5:0:214:d1ff:fe1a:cab8/64 fe80::214:d1ff:fe1a:cab8/64 
+eth1             UP             10.0.2.1/24 fd06:a1b4:b8e5:0:6ef0:49ff:fef0:f2f4/64 fe80::6ef0:49ff:fef0:f2f4/64 
+docker0          DOWN           172.17.0.1/16  == *\e\t\h\1* ]]
++ grep -q 'GRUB_CMDLINE_LINUX="net.ifnames=0 biosdevname=0"' /etc/default/grub
++ echo 'Interfaces name are correct, let'\''s check if network and DNS are up'
+Interfaces name are correct, let's check if network and DNS are up
++ nslookup google.com
+Server:         127.0.0.53
+Address:        127.0.0.53#53
+
+Non-authoritative answer:
+Name:   google.com
+Address: 172.217.29.46
+Name:   google.com
+Address: 2800:3f0:4001:81a::200e
+
++ ping -c 1 -W 1 -I eth0 8.8.8.8
+PING 8.8.8.8 (8.8.8.8) from 172.16.4.189 eth0: 56(84) bytes of data.
+64 bytes from 8.8.8.8: icmp_seq=1 ttl=54 time=25.5 ms
+
+--- 8.8.8.8 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 25.475/25.475/25.475/0.000 ms
++ echo 'Making sure magma user is sudoers'
+Making sure magma user is sudoers
++ grep -q 'magma ALL=(ALL) NOPASSWD:ALL' /etc/sudoers
++ '[' 0 = 1 ']'
++ echo 'Checking if magma has been installed'
+Checking if magma has been installed
+++ apt-cache show magma echo ok
++ MAGMA_INSTALLED=
++ '[' '' '!=' ok ']'
++ echo 'Magma not installed, processing installation'
+Magma not installed, processing installation
++ apt-get -y install curl make virtualenv zip rsync git software-properties-common python3-pip python-dev apt-transport-https
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+Note, selecting 'python-dev-is-python2' instead of 'python-dev'
+make is already the newest version (4.2.1-1.2).
+zip is already the newest version (3.0-11build1).
+python-dev-is-python2 is already the newest version (2.7.17-4).
+curl is already the newest version (7.68.0-1ubuntu2.25).
+git is already the newest version (1:2.25.1-1ubuntu3.14).
+rsync is already the newest version (3.1.3-8ubuntu0.9).
+software-properties-common is already the newest version (0.99.9.12).
+apt-transport-https is already the newest version (2.0.10).
+python3-pip is already the newest version (20.0.2-5ubuntu1.11).
+virtualenv is already the newest version (20.0.17-1ubuntu0.4).
+The following packages were automatically installed and are no longer required:
+  bridge-utils ubuntu-fan
+Use 'sudo apt autoremove' to remove them.
+0 upgraded, 0 newly installed, 0 to remove and 4 not upgraded.
++ alias python=python3
++ pip3 install ansible==5.10.0
+Requirement already satisfied: ansible==5.10.0 in /usr/local/lib/python3.8/dist-packages (5.10.0)
+Requirement already satisfied: ansible-core~=2.12.7 in /usr/local/lib/python3.8/dist-packages (from ansible==5.10.0) (2.12.10)
+Requirement already satisfied: PyYAML in /usr/lib/python3/dist-packages (from ansible-core~=2.12.7->ansible==5.10.0) (5.3.1)
+Requirement already satisfied: cryptography in /usr/lib/python3/dist-packages (from ansible-core~=2.12.7->ansible==5.10.0) (2.8)
+Requirement already satisfied: packaging in /usr/lib/python3/dist-packages (from ansible-core~=2.12.7->ansible==5.10.0) (20.3)
+Requirement already satisfied: jinja2 in /usr/lib/python3/dist-packages (from ansible-core~=2.12.7->ansible==5.10.0) (2.10.1)
+Requirement already satisfied: resolvelib<0.6.0,>=0.5.3 in /usr/local/lib/python3.8/dist-packages (from ansible-core~=2.12.7->ansible==5.10.0) (0.5.4)
++ git clone https://github.com/magma/magma.git /home/magma/magma
+Cloning into '/home/magma/magma'...
+remote: Enumerating objects: 322138, done.
+remote: Counting objects: 100% (857/857), done.
+remote: Compressing objects: 100% (507/507), done.
+remote: Total 322138 (delta 528), reused 350 (delta 350), pack-reused 321281 (from 3)
+Receiving objects: 100% (322138/322138), 270.69 MiB | 10.94 MiB/s, done.
+Resolving deltas: 100% (215861/215861), done.
+Updating files: 100% (9265/9265), done.
++ cd /home/magma/magma
++ git checkout v1.8
+Branch 'v1.8' set up to track remote branch 'v1.8' from 'origin'.
+Switched to a new branch 'v1.8'
++ echo 'Generating localhost hostfile for Ansible'
+Generating localhost hostfile for Ansible
++ echo '[magma_deploy]
+  127.0.0.1 ansible_connection=local'
++ su - magma -c 'ansible-playbook -e "MAGMA_ROOT='\''/home/magma/magma'\'' OUTPUT_DIR='\''/tmp'\''" -i /home/magma/magma/lte/gateway/deploy/agw_hosts /home/magma/magma/lte/gateway/deploy/magma_deploy.yml'
+
+PLAY [Deploy Magma] ******************************************************************
+
+TASK [Gathering Facts] ***************************************************************
+ok: [127.0.0.1]
+
+TASK [magma_deploy : Include vars of all.yaml] ***************************************
+ok: [127.0.0.1]
+
+TASK [magma_deploy : Update ca-certs] ************************************************
+fatal: [127.0.0.1]: FAILED! => {"changed": false, "msg": "Failed to update apt cache: W:Updating from such a repository can't be done securely, and is therefore disabled by default., W:See apt-secure(8) manpage for repository creation and user configuration details., W:GPG error: https://linuxfoundation.jfrog.io/artifactory/magma-packages focal-1.8.0 InRelease: The following signatures couldn't be verified because the public key is not available: NO_PUBKEY 22665CA36C8D401E, E:The repository 'https://linuxfoundation.jfrog.io/artifactory/magma-packages focal-1.8.0 InRelease' is not signed."}
+
+PLAY RECAP ***************************************************************************
+127.0.0.1                  : ok=2    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+
++ echo 'Cleanup temp files'
+Cleanup temp files
++ cd /root
++ rm -rf /lib/systemd/system/agw_installation.service
++ rm -rf /home/magma/build
++ rm -rf /home/magma/magma
++ echo 'AGW installation is done, Run agw_post_install_ubuntu.sh install script after reboot to finish installation'
+AGW installation is done, Run agw_post_install_ubuntu.sh install script after reboot to finish installation
++ wget https://raw.githubusercontent.com/magma/magma/v1.8/lte/gateway/deploy/agw_post_install_ubuntu.sh -P /root/
+--2025-03-31 17:00:26--  https://raw.githubusercontent.com/magma/magma/v1.8/lte/gateway/deploy/agw_post_install_ubuntu.sh
+Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 185.199.108.133, 185.199.110.133, 185.199.111.133, ...
+Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|185.199.108.133|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 4565 (4.5K) [text/plain]
+Saving to: ‘/root/agw_post_install_ubuntu.sh.3’
+
+agw_post_install_ubun 100%[=======================>]   4.46K  --.-KB/s    in 0s      
+
+2025-03-31 17:00:26 (22.4 MB/s) - ‘/root/agw_post_install_ubuntu.sh.3’ saved [4565/4565]
+
++ reboot
+
+root@magmacoreh3:~# bash agw_post_install_ubuntu.sh.3
+ifdown: unknown interface gtp_br0
+ifdown: unknown interface uplink_br0
+Failed to restart openvswitch-switch.service: Unit openvswitch-switch.service not found.
+ifup: unknown interface gtp_br0
+ifup: unknown interface uplink_br0
+W: GPG error: https://linuxfoundation.jfrog.io/artifactory/magma-packages focal-1.8.0 InRelease: The following signatures couldn't be verified because the public key is not available: NO_PUBKEY 22665CA36C8D401E
+E: The repository 'https://linuxfoundation.jfrog.io/artifactory/magma-packages focal-1.8.0 InRelease' is not signed.
+Failed to start magma@magmad.service: Unit magma@magmad.service not found.
+There was a few errors during installation
+\ngtp_br0 is not configured  to fix it: Check that /etc/network/interfaces.d/gtp_br0 has been set up\nuplink_br0 is not configured  to fix it: Check that /etc/network/interfaces.d/uplink_br0 has been set up\ncontrol_proxy is not running  to fix it: Please check our faq\ndirectoryd is not running  to fix it: Please check our faq\ndnsd is not running  to fix it: Please check our faq\nenodebd is not running  to fix it: Please check our faq\nmagmad is not running  to fix it: Please check our faq\nmme is not running  to fix it: Please check our faq\nmobilityd is not running  to fix it: Please check our faq\npipelined is not running  to fix it: Please check our faq\npolicydb is not running  to fix it: Please check our faq\nredis is not running  to fix it: Please check our faq\nsessiond is not running  to fix it: Please check our faq\nstate is not running  to fix it: Please check our faq\nsubscriberdb is not running  to fix it: Please check our faq\nsctpd is not running  to fix it: Please check our faq\nmagma hasn't been installed  to fix it: Rerun the agw_install_ubuntu.sh\nmagma-cpp-redis hasn't been installed  to fix it: Rerun the agw_install_ubuntu.sh\nmagma-libfluid hasn't been installed  to fix it: Rerun the agw_install_ubuntu.sh\nlibopenvswitch hasn't been installed  to fix it: Rerun the agw_install_ubuntu.sh\nopenvswitch-datapath-dkms hasn't been installed  to fix it: Rerun the agw_install_ubuntu.sh\nopenvswitch-common hasn't been installed  to fix it: Rerun the agw_install_ubuntu.shINFO:
+ containerd.io/focal 1.7.27-1 amd64 [upgradable from: 1.7.26-1]
+docker-ce-cli/focal 5:28.0.4-1~ubuntu.20.04~focal amd64 [upgradable from: 5:28.0.2-1~ubuntu.20.04~focal]
+docker-ce-rootless-extras/focal 5:28.0.4-1~ubuntu.20.04~focal amd64 [upgradable from: 5:28.0.2-1~ubuntu.20.04~focal]
+docker-ce/focal 5:28.0.4-1~ubuntu.20.04~focal amd64 [upgradable from: 5:28.0.2-1~ubuntu.20.04~focal] \n- Check for Root Certificate
+Verify Root CA in /var/opt/magma/tmp/certs/
+Access Gateway configurations failed
+- Check for Control Proxy
+Check Control Proxy Configs in /var/opt/magma/configs/
+Access Gateway configurations failed
+- Verifying Cloud check-in
+Cloud Check Failed
+Check control proxy content in /var/opt/magma/configs/control_proxy.yml

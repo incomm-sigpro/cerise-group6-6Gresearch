@@ -5,16 +5,18 @@ from enum import Enum
 
 # from datetime import datetime
 # from models.entities.noise import Noise
-from models.interfaces.noise_repository import NoiseRepositoryInterface
+from ..interfaces.noise_repository import NoiseRepositoryInterface
 
 class NoiseType(Enum):
     GAUSSIAN = "gaussian"
     UNIFORM = "uniform"
     LAPLACIAN = "laplacian"
+    NONE = "noiseless"
 
 @dataclass
 class NoiseParameters:
     """Parameters for noise generation."""
+    noise_type: NoiseType
     num_snapshots: int
     num_sensors: int
     snr_db: float = 0.0
@@ -64,15 +66,17 @@ class NoiseRepository(NoiseRepositoryInterface):
         generators = {
             NoiseType.GAUSSIAN: self._generate_gaussian,
             NoiseType.UNIFORM: self._generate_uniform,
-            NoiseType.LAPLACIAN: self._generate_laplacian
+            NoiseType.LAPLACIAN: self._generate_laplacian,
+            NoiseType.NONE: lambda: np.zeros((self.parameters.num_sensors, self.parameters.num_snapshots), dtype=complex)
         }
         
         generator = generators.get(noise_type)
+        print(generator)
         if not generator:
             raise ValueError(f"Unsupported noise type: {noise_type}")
-            
+
         return generator()
-    
+
     def _generate_gaussian(self) -> np.ndarray:
         """Generate complex Gaussian (normal) noise."""
         noise_real = np.random.normal(
@@ -86,35 +90,35 @@ class NoiseRepository(NoiseRepositoryInterface):
             (self.parameters.num_sensors, self.parameters.num_snapshots)
         )
         return noise_real + 1j * noise_imag
-    
+
     def _generate_uniform(self) -> np.ndarray:
         """Generate complex uniform noise."""
         noise_real = np.random.uniform(
-            -1, 
-            1, 
+            -1,
+            1,
             (self.parameters.num_sensors, self.parameters.num_snapshots)
         )
         noise_imag = np.random.uniform(
-            -1, 
-            1, 
+            -1,
+            1,
             (self.parameters.num_sensors, self.parameters.num_snapshots)
         )
         return (noise_real + 1j * noise_imag) / np.sqrt(2)
-    
+
     def _generate_laplacian(self) -> np.ndarray:
         """Generate complex Laplacian noise."""
         noise_real = np.random.laplace(
-            0, 
+            0,
             1/np.sqrt(2), 
             (self.parameters.num_sensors, self.parameters.num_snapshots)
         )
         noise_imag = np.random.laplace(
-            0, 
+            0,
             1/np.sqrt(2), 
             (self.parameters.num_sensors, self.parameters.num_snapshots)
         )
         return noise_real + 1j * noise_imag
-    
+
     def apply_snr_scaling(self, signal: np.ndarray, noise: np.ndarray) -> np.ndarray:
         """
         Scale noise according to desired SNR.
@@ -128,9 +132,9 @@ class NoiseRepository(NoiseRepositoryInterface):
         """
         signal_power = np.mean(np.abs(signal) ** 2)
         noise_power = np.mean(np.abs(noise) ** 2)
-        
+
         scaling_factor = np.sqrt(signal_power / (noise_power * 10 ** (self.parameters.snr_db / 10)))
         return noise * scaling_factor
-    
+
     def create_noise(self, _, __):
         return f"{self.__db_connection}. Noise persisted in the database...\n"

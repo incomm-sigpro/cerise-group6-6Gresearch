@@ -1,3 +1,7 @@
+"""
+This script is the entry point for running the mobile communication simulation.
+"""
+
 import os
 from dotenv import load_dotenv
 

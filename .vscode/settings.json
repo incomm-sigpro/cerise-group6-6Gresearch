@@ -1,0 +1,11 @@
+{
+  "python.linting.enabled": true,
+  "python.linting.pylintEnabled": true,
+  "python.analysis.extraPaths": [
+    "./mobile_comm_simulator/code/python/src"
+  ],
+  "files.exclude":{
+    "**/__pycache__": true,
+    "**/.pytest_cache": true,
+  }
+}

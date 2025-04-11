@@ -1,0 +1,427 @@
+jakunzler@pop-os:~$ ssh -i ~/.ssh/id_rsa user-magma-h3@172.16.4.160
+The authenticity of host '172.16.4.160 (172.16.4.160)' can't be established.
+ED25519 key fingerprint is SHA256:oNRT0UrXhFi//fd0DgO4tIwv1hlfDmh3acoCmu6RG2g.
+This key is not known by any other names
+Are you sure you want to continue connecting (yes/no/[fingerprint])? y
+Please type 'yes', 'no' or the fingerprint: yes
+Warning: Permanently added '172.16.4.160' (ED25519) to the list of known hosts.
+user-magma-h3@172.16.4.160's password: 
+Welcome to Ubuntu 20.04.6 LTS (GNU/Linux 5.4.0-144-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+  System information as of Thu 13 Mar 2025 11:53:45 AM UTC
+
+  System load:           0.0
+  Usage of /:            2.9% of 219.00GB
+  Memory usage:          2%
+  Swap usage:            0%
+  Temperature:           42.0 C
+  Processes:             139
+  Users logged in:       1
+  IPv4 address for eno1: 172.16.4.160
+  IPv6 address for eno1: fd06:a1b4:b8e5::fd4
+  IPv6 address for eno1: fd06:a1b4:b8e5:0:d227:88ff:fec2:1464
+
+
+Expanded Security Maintenance for Applications is not enabled.
+
+0 updates can be applied immediately.
+
+Enable ESM Apps to receive additional future security updates.
+See https://ubuntu.com/esm or run: sudo pro status
+
+Failed to connect to https://changelogs.ubuntu.com/meta-release-lts. Check your Internet connection or proxy settings
+
+
+Last login: Thu Mar 13 11:30:20 2025
+user-magma-h3@magma-core-h3:~$ ls
+user-magma-h3@magma-core-h3:~$ sudo su -
+[sudo] password for user-magma-h3: 
+root@magma-core-h3:~# sudo apt update && sudo apt upgrade -y
+Hit:1 http://archive.ubuntu.com/ubuntu focal InRelease
+Hit:2 http://archive.ubuntu.com/ubuntu focal-updates InRelease
+Hit:3 http://archive.ubuntu.com/ubuntu focal-backports InRelease
+Hit:4 http://archive.ubuntu.com/ubuntu focal-security InRelease
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+All packages are up to date.
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+Calculating upgrade... Done
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+root@magma-core-h3:~# wget https://raw.githubusercontent.com/magma/magma/v1.8/lte/gateway/deploy/agw_install_ubuntu.sh
+--2025-03-13 13:51:03--  https://raw.githubusercontent.com/magma/magma/v1.8/lte/gateway/deploy/agw_install_ubuntu.sh
+Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 185.199.111.133, 185.199.108.133, 185.199.109.133, ...
+Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|185.199.111.133|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 6871 (6.7K) [text/plain]
+Saving to: ‘agw_install_ubuntu.sh’
+
+agw_install_ubuntu. 100%[===================>]   6.71K  --.-KB/s    in 0s      
+
+2025-03-13 13:51:04 (38.7 MB/s) - ‘agw_install_ubuntu.sh’ saved [6871/6871]
+
+root@magma-core-h3:~# bash agw_install_ubuntu.sh
++ addr1=
++ gw_addr=
++ MAGMA_USER=magma
++ AGW_INSTALL_CONFIG_LINK=/etc/systemd/system/multi-user.target.wants/agw_installation.service
++ AGW_INSTALL_CONFIG=/lib/systemd/system/agw_installation.service
++ AGW_SCRIPT_PATH=/root/agw_install_ubuntu.sh
++ DEPLOY_PATH=/home/magma/magma/lte/gateway/deploy
++ SUCCESS_MESSAGE=ok
++ NEED_REBOOT=0
+++ whoami
++ WHOAMI=root
++ MAGMA_VERSION=v1.8
++ CLOUD_INSTALL=cloud
++ GIT_URL=https://github.com/magma/magma.git
++ INTERFACE_DIR=/etc/network/interfaces.d
++ echo 'Checking if the script has been executed by root user'
+Checking if the script has been executed by root user
++ '[' root '!=' root ']'
++ echo 'Checking if Ubuntu is installed'
+Checking if Ubuntu is installed
++ grep -q Ubuntu /etc/issue
++ '[' '' '!=' ok ']'
++ wget https://raw.githubusercontent.com/magma/magma/v1.8/lte/gateway/deploy/agw_pre_check_ubuntu.sh
+--2025-03-13 13:51:16--  https://raw.githubusercontent.com/magma/magma/v1.8/lte/gateway/deploy/agw_pre_check_ubuntu.sh
+Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 185.199.110.133, 185.199.109.133, 185.199.108.133, ...
+Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|185.199.110.133|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 1399 (1.4K) [text/plain]
+Saving to: ‘agw_pre_check_ubuntu.sh’
+
+agw_pre_check_ubunt 100%[===================>]   1.37K  --.-KB/s    in 0s      
+
+2025-03-13 13:51:17 (16.3 MB/s) - ‘agw_pre_check_ubuntu.sh’ saved [1399/1399]
+
++ [[ -f ./agw_pre_check_ubuntu.sh ]]
++ bash agw_pre_check_ubuntu.sh
+- Check if Ubuntu is installed
+Ubuntu is installed
+- Check for magma user
+magma will be added to sudoers
+- Check if both interfaces are named eth0 and eth1
+Interfaces will be renamed to eth0 and eth1
+Interface config will be moved from netplan to ifupdown config 
++ true
++ read -p 'Do you accept those modifications and want to proceed with magma installation?(y/n)' yn
+Do you accept those modifications and want to proceed with magma installation?(y/n)y
++ case $yn in
++ break
++ apt-get update
+Hit:1 http://archive.ubuntu.com/ubuntu focal InRelease
+Hit:2 http://archive.ubuntu.com/ubuntu focal-updates InRelease
+Hit:3 http://archive.ubuntu.com/ubuntu focal-backports InRelease
+Hit:4 http://archive.ubuntu.com/ubuntu focal-security InRelease
+Reading package lists... Done
++ echo 'Need to check if both interfaces are named eth0 and eth1'
+Need to check if both interfaces are named eth0 and eth1
+++ ip -br a
++ INTERFACES='lo               UNKNOWN        127.0.0.1/8 ::1/128 
+eno1             UP             172.16.4.160/24 metric 100 fd06:a1b4:b8e5::fd4/128 fd06:a1b4:b8e5:0:d227:88ff:fec2:1464/64 fe80::d227:88ff:fec2:1464/64 '
++ [[ '' != \c\l\o\u\d ]]
++ [[ ! lo               UNKNOWN        127.0.0.1/8 ::1/128 
+eno1             UP             172.16.4.160/24 metric 100 fd06:a1b4:b8e5::fd4/128 fd06:a1b4:b8e5:0:d227:88ff:fec2:1464/64 fe80::d227:88ff:fec2:1464/64  == *\e\t\h\0* ]]
++ sed -i 's/GRUB_CMDLINE_LINUX=""/GRUB_CMDLINE_LINUX="net.ifnames=0 biosdevname=0"/g' /etc/default/grub
++ sed -i s/enp0s3/eth0/g /etc/netplan/50-cloud-init.yaml
+sed: can't read /etc/netplan/50-cloud-init.yaml: No such file or directory
++ grub-mkconfig -o /boot/grub/grub.cfg
+Sourcing file `/etc/default/grub'
+Sourcing file `/etc/default/grub.d/init-select.cfg'
+Generating grub configuration file ...
+Found linux image: /boot/vmlinuz-5.4.0-208-generic
+Found initrd image: /boot/initrd.img-5.4.0-208-generic
+Found linux image: /boot/vmlinuz-5.4.0-144-generic
+Found initrd image: /boot/initrd.img-5.4.0-144-generic
+  /dev/sda: open failed: No medium found
+  /dev/sdb: open failed: No medium found
+  /dev/sdc: open failed: No medium found
+  /dev/sdd: open failed: No medium found
+  /dev/sda: open failed: No medium found
+  /dev/sdb: open failed: No medium found
+  /dev/sdc: open failed: No medium found
+  /dev/sdd: open failed: No medium found
+done
++ ln -sf /var/run/systemd/resolve/resolv.conf /etc/resolv.conf
++ sed -i 's/#DNS=/DNS=8.8.8.8 208.67.222.222/' /etc/systemd/resolved.conf
++ service systemd-resolved restart
++ apt install -y ifupdown net-tools ipcalc
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+Suggested packages:
+  ppp rdnssd
+The following NEW packages will be installed:
+  ifupdown ipcalc net-tools
+0 upgraded, 3 newly installed, 0 to remove and 0 not upgraded.
+Need to get 283 kB of archives.
+After this operation, 1,163 kB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu focal/universe amd64 ifupdown amd64 0.8.35ubuntu1 [60.5 kB]
+Get:2 http://archive.ubuntu.com/ubuntu focal/universe amd64 ipcalc all 0.41-5 [25.9 kB]
+Get:3 http://archive.ubuntu.com/ubuntu focal/main amd64 net-tools amd64 1.60+git20180626.aebd88e-1ubuntu1 [196 kB]
+Fetched 283 kB in 2s (175 kB/s)    
+Selecting previously unselected package ifupdown.
+(Reading database ... 108967 files and directories currently installed.)
+Preparing to unpack .../ifupdown_0.8.35ubuntu1_amd64.deb ...
+Unpacking ifupdown (0.8.35ubuntu1) ...
+Selecting previously unselected package ipcalc.
+Preparing to unpack .../archives/ipcalc_0.41-5_all.deb ...
+Unpacking ipcalc (0.41-5) ...
+Selecting previously unselected package net-tools.
+Preparing to unpack .../net-tools_1.60+git20180626.aebd88e-1ubuntu1_amd64.deb ..
+.
+Unpacking net-tools (1.60+git20180626.aebd88e-1ubuntu1) ...
+Setting up net-tools (1.60+git20180626.aebd88e-1ubuntu1) ...
+Setting up ipcalc (0.41-5) ...
+Setting up ifupdown (0.8.35ubuntu1) ...
+Creating /etc/network/interfaces.
+Created symlink /etc/systemd/system/multi-user.target.wants/networking.service →
+ /lib/systemd/system/networking.service.
+Created symlink /etc/systemd/system/network-online.target.wants/networking.servi
+ce → /lib/systemd/system/networking.service.
+Processing triggers for man-db (2.9.1-1) ...
+Processing triggers for systemd (245.4-4ubuntu3.24) ...
++ mkdir -p /etc/network/interfaces.d
++ echo 'source-directory /etc/network/interfaces.d'
++ '[' -z '' ']'
++ echo 'auto eth0
+    iface eth0 inet dhcp'
++ echo 'auto eth1
+  iface eth1 inet static
+  address 10.0.2.1
+  netmask 255.255.255.0'
++ systemctl unmask networking
++ systemctl enable networking
+Synchronizing state of networking.service with SysV service script with /lib/systemd/systemd-sysv-install.
+Executing: /lib/systemd/systemd-sysv-install enable networking
++ apt-get --assume-yes purge nplan netplan.i
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+Note, selecting 'netplan.io' instead of 'nplan'
+Note, selecting 'netplan.io' for regex 'netplan.i'
+The following packages were automatically installed and are no longer required:
+  eatmydata libeatmydata1 libnetplan0 python3-importlib-metadata
+  python3-jinja2 python3-json-pointer python3-jsonpatch python3-jsonschema
+  python3-markupsafe python3-more-itertools python3-pyrsistent python3-zipp
+Use 'apt autoremove' to remove them.
+The following packages will be REMOVED:
+  cloud-init* netplan.io* ubuntu-minimal*
+0 upgraded, 0 newly installed, 3 to remove and 0 not upgraded.
+After this operation, 3,602 kB disk space will be freed.
+(Reading database ... 109069 files and directories currently installed.)
+Removing cloud-init (24.4.1-0ubuntu0~20.04.1) ...
+Removing ubuntu-minimal (1.450.2) ...
+Removing netplan.io (0.104-0ubuntu2~20.04.6) ...
+dpkg: warning: while removing netplan.io, directory '/etc/netplan' not empty so not removed
+Processing triggers for dbus (1.12.16-2ubuntu2.3) ...
+Processing triggers for man-db (2.9.1-1) ...
+(Reading database ... 108605 files and directories currently installed.)
+Purging configuration files for cloud-init (24.4.1-0ubuntu0~20.04.1) ...
+dpkg: warning: while removing cloud-init, directory '/etc/cloud/cloud.cfg.d' not empty so not removed
+Processing triggers for rsyslog (8.2001.0-1ubuntu1.3) ...
++ NEED_REBOOT=1
++ echo 'Making sure magma user is sudoers'
+Making sure magma user is sudoers
++ grep -q 'magma ALL=(ALL) NOPASSWD:ALL' /etc/sudoers
++ apt install -y sudo
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+sudo is already the newest version (1.8.31-1ubuntu1.5).
+The following packages were automatically installed and are no longer required:
+  eatmydata libeatmydata1 libnetplan0 python3-importlib-metadata
+  python3-jinja2 python3-json-pointer python3-jsonpatch python3-jsonschema
+  python3-markupsafe python3-more-itertools python3-pyrsistent python3-zipp
+Use 'apt autoremove' to remove them.
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
++ adduser --disabled-password --gecos '' magma
+Adding user `magma' ...
+Adding new group `magma' (1001) ...
+Adding new user `magma' (1001) with group `magma' ...
+Creating home directory `/home/magma' ...
+Copying files from `/etc/skel' ...
++ adduser magma sudo
+Adding user `magma' to group `sudo' ...
+Adding user magma to group sudo
+Done.
++ echo 'magma ALL=(ALL) NOPASSWD:ALL'
++ '[' 1 = 1 ']'
++ echo 'Will reboot in a few seconds, loading a boot script in order to install magma'
+Will reboot in a few seconds, loading a boot script in order to install magma
++ '[' '!' -f /root/agw_install_ubuntu.sh ']'
++ cat
++ chmod 644 /lib/systemd/system/agw_installation.service
++ ln -sf /lib/systemd/system/agw_installation.service /etc/systemd/system/multi-user.target.wants/agw_installation.service
++ reboot
+Connection to 172.16.4.160 closed by remote host.
+Connection to 172.16.4.160 closed.
+jakunzler@pop-os:~$ ssh -i ~/.ssh/id_rsa user-magma-h3@172.16.4.160
+ssh: connect to host 172.16.4.160 port 22: No route to host
+jakunzler@pop-os:~$ ssh -i ~/.ssh/id_rsa user-magma-h3@172.16.4.154
+The authenticity of host '172.16.4.154 (172.16.4.154)' can't be established.
+ED25519 key fingerprint is SHA256:W4T9ZtLSrCF8O9KDnQCtKsgp98JP0+ETnBWWvExK3Rk.
+This key is not known by any other names
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '172.16.4.154' (ED25519) to the list of known hosts.
+user-magma-h3@172.16.4.154's password: 
+Permission denied, please try again.
+user-magma-h3@172.16.4.154's password: 
+Permission denied, please try again.
+user-magma-h3@172.16.4.154's password: 
+user-magma-h3@172.16.4.154: Permission denied (publickey,password).
+jakunzler@pop-os:~$ ssh -i ~/.ssh/id_rsa user_magma_h3@172.16.4.154
+user_magma_h3@172.16.4.154's password: 
+Welcome to Ubuntu 20.04.6 LTS (GNU/Linux 5.4.0-144-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/pro
+
+ System information as of Thu 13 Mar 2025 04:10:05 PM UTC
+
+  System load:              0.13
+  Usage of /:               4.8% of 145.65GB
+  Memory usage:             11%
+  Swap usage:               0%
+  Processes:                138
+  Users logged in:          1
+  IPv4 address for enp0s25: 172.16.4.154
+  IPv6 address for enp0s25: fd06:a1b4:b8e5::94d
+  IPv6 address for enp0s25: fd06:a1b4:b8e5:0:6ef0:49ff:fef0:f2f4
+
+ * Strictly confined Kubernetes makes edge and IoT secure. Learn how MicroK8s
+   just raised the bar for easy, resilient and secure K8s cluster deployment.
+
+   https://ubuntu.com/engage/secure-kubernetes-at-the-edge
+
+Expanded Security Maintenance for Applications is not enabled.
+
+0 updates can be applied immediately.
+
+Enable ESM Apps to receive additional future security updates.
+See https://ubuntu.com/esm or run: sudo pro status
+
+Failed to connect to https://changelogs.ubuntu.com/meta-release-lts. Check your Internet connection or proxy settings
+
+
+*** System restart required ***
+Last login: Thu Mar 13 11:55:58 2025
+user_magma_h3@magmacoreh3:~$ reboot
+Failed to set wall message, ignoring: Interactive authentication required.
+Failed to reboot system via logind: Interactive authentication required.
+Failed to open initctl fifo: Permission denied
+Failed to talk to init daemon.
+user_magma_h3@magmacoreh3:~$ sudo reboot
+[sudo] password for user_magma_h3: 
+user_magma_h3@magmacoreh3:~$ Connection to 172.16.4.154 closed by remote host.
+Connection to 172.16.4.154 closed.
+jakunzler@pop-os:~$ ssh -i ~/.ssh/id_rsa user_magma_h3@172.16.4.154
+user_magma_h3@172.16.4.154's password: 
+Welcome to Ubuntu 20.04.6 LTS (GNU/Linux 5.4.0-208-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/pro
+
+ System information as of Thu 13 Mar 2025 04:51:24 PM UTC
+
+  System load:              0.0
+  Usage of /:               4.7% of 145.65GB
+  Memory usage:             5%
+  Swap usage:               0%
+  Processes:                131
+  Users logged in:          1
+  IPv4 address for enp0s25: 172.16.4.154
+  IPv6 address for enp0s25: fd06:a1b4:b8e5::94d
+  IPv6 address for enp0s25: fd06:a1b4:b8e5:0:6ef0:49ff:fef0:f2f4
+
+ * Strictly confined Kubernetes makes edge and IoT secure. Learn how MicroK8s
+   just raised the bar for easy, resilient and secure K8s cluster deployment.
+
+   https://ubuntu.com/engage/secure-kubernetes-at-the-edge
+
+Expanded Security Maintenance for Applications is not enabled.
+
+0 updates can be applied immediately.
+
+Enable ESM Apps to receive additional future security updates.
+See https://ubuntu.com/esm or run: sudo pro status
+
+Failed to connect to https://changelogs.ubuntu.com/meta-release-lts. Check your Internet connection or proxy settings
+
+
+Last login: Thu Mar 13 16:12:15 2025
+user_magma_h3@magmacoreh3:~$ dpkg -l | grep openssh
+ii  openssh-client                        1:8.2p1-4ubuntu0.12               amd64        secure shell (SSH) client, for secure access to remote machines
+ii  openssh-server                        1:8.2p1-4ubuntu0.12               amd64        secure shell (SSH) server, for secure access from remote machines
+ii  openssh-sftp-server                   1:8.2p1-4ubuntu0.12               amd64        secure shell (SSH) sftp server module, for SFTP access from remote machines
+user_magma_h3@magmacoreh3:~$ journalctl -u ssh --no-pager | tail -n 20
+Mar 13 16:09:10 magmacoreh3 sshd[64333]: pam_unix(sshd:auth): authentication failure; logname= uid=0 euid=0 tty=ssh ruser= rhost=172.16.4.183
+Mar 13 16:09:12 magmacoreh3 sshd[64333]: Failed password for invalid user user-magma-h3 from 172.16.4.183 port 55678 ssh2
+Mar 13 16:09:21 magmacoreh3 sshd[64333]: pam_unix(sshd:auth): check pass; user unknown
+Mar 13 16:09:23 magmacoreh3 sshd[64333]: Failed password for invalid user user-magma-h3 from 172.16.4.183 port 55678 ssh2
+Mar 13 16:09:35 magmacoreh3 sshd[64333]: pam_unix(sshd:auth): check pass; user unknown
+Mar 13 16:09:37 magmacoreh3 sshd[64333]: Failed password for invalid user user-magma-h3 from 172.16.4.183 port 55678 ssh2
+Mar 13 16:09:37 magmacoreh3 sshd[64333]: Connection closed by invalid user user-magma-h3 172.16.4.183 port 55678 [preauth]
+Mar 13 16:09:37 magmacoreh3 sshd[64333]: PAM 2 more authentication failures; logname= uid=0 euid=0 tty=ssh ruser= rhost=172.16.4.183
+Mar 13 16:10:05 magmacoreh3 sshd[64343]: Accepted password for user_magma_h3 from 172.16.4.183 port 42028 ssh2
+Mar 13 16:10:05 magmacoreh3 sshd[64343]: pam_unix(sshd:session): session opened for user user_magma_h3 by (uid=0)
+Mar 13 16:10:24 magmacoreh3 systemd[1]: Stopping OpenBSD Secure Shell server...
+Mar 13 16:10:24 magmacoreh3 systemd[1]: ssh.service: Succeeded.
+Mar 13 16:10:24 magmacoreh3 systemd[1]: Stopped OpenBSD Secure Shell server.
+-- Reboot --
+Mar 13 16:11:26 magmacoreh3 systemd[1]: Starting OpenBSD Secure Shell server...
+Mar 13 16:11:31 magmacoreh3 sshd[696]: Server listening on 0.0.0.0 port 22.
+Mar 13 16:11:31 magmacoreh3 sshd[696]: Server listening on :: port 22.
+Mar 13 16:11:31 magmacoreh3 systemd[1]: Started OpenBSD Secure Shell server.
+Mar 13 16:51:24 magmacoreh3 sshd[1066]: Accepted password for user_magma_h3 from 172.16.4.183 port 58260 ssh2
+Mar 13 16:51:24 magmacoreh3 sshd[1066]: pam_unix(sshd:session): session opened for user user_magma_h3 by (uid=0)
+user_magma_h3@magmacoreh3:~$ ip a
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host 
+       valid_lft forever preferred_lft forever
+2: enp0s25: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 6c:f0:49:f0:f2:f4 brd ff:ff:ff:ff:ff:ff
+    inet 172.16.4.154/24 metric 100 brd 172.16.4.255 scope global dynamic enp0s25
+       valid_lft 4668sec preferred_lft 4668sec
+    inet6 fd06:a1b4:b8e5::94d/128 scope global dynamic noprefixroute 
+       valid_lft 83870sec preferred_lft 83870sec
+    inet6 fd06:a1b4:b8e5:0:6ef0:49ff:fef0:f2f4/64 scope global dynamic mngtmpaddr noprefixroute 
+       valid_lft 7051sec preferred_lft 1651sec
+    inet6 fe80::6ef0:49ff:fef0:f2f4/64 scope link 
+       valid_lft forever preferred_lft forever
+user_magma_h3@magmacoreh3:~$ sudo ufw status verbose
+[sudo] password for user_magma_h3: 
+Status: inactive
+user_magma_h3@magmacoreh3:~$ ip a
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host 
+       valid_lft forever preferred_lft forever
+2: enp0s25: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 6c:f0:49:f0:f2:f4 brd ff:ff:ff:ff:ff:ff
+    inet 172.16.4.154/24 metric 100 brd 172.16.4.255 scope global dynamic enp0s25
+       valid_lft 4500sec preferred_lft 4500sec
+    inet6 fd06:a1b4:b8e5::94d/128 scope global dynamic noprefixroute 
+       valid_lft 83702sec preferred_lft 83702sec
+    inet6 fd06:a1b4:b8e5:0:6ef0:49ff:fef0:f2f4/64 scope global dynamic mngtmpaddr noprefixroute 
+       valid_lft 7161sec preferred_lft 1761sec
+    inet6 fe80::6ef0:49ff:fef0:f2f4/64 scope link 
+       valid_lft forever preferred_lft forever
+user_magma_h3@magmacoreh3:~$ journalctl -u agw_installation -n 50 --no-pager
+-- Logs begin at Wed 2025-03-12 19:05:59 UTC, end at Thu 2025-03-13 16:54:30 UTC. --
+-- No entries --
+user_magma_h3@magmacoreh3:~$ 
