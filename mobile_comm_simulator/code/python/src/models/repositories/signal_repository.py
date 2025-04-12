@@ -5,13 +5,13 @@ signals for Direction of Arrival (DOA) estimation. It handles the array geometry
 signal generation for multiple sources.
 """
 
-from typing import List, Optional
+from typing import List, Optional # pylint: disable=unused-import
 from dataclasses import dataclass
 
 import numpy as np
 
 from models.interfaces.signal_repository import SignalRepositoryInterface
-from .array_geometry_repository import ArrayParameters
+from .array_geometry_repository import ArrayParameters, ArrayGeometryRepository
 
 # from datetime import datetime
 # from models.entities.signal_model import SignalModel
@@ -19,7 +19,7 @@ from .array_geometry_repository import ArrayParameters
 @dataclass
 class SourceParameters:
     """Parameters for signal sources."""
-    angles: List[float]  # DOA angles in degrees
+    num_sources: int  # Number of sources
     powers: List[float]  # Source powers in linear scale
     frequencies: List[float]  # Normalized frequencies (-0.5 to 0.5)
 
@@ -38,20 +38,27 @@ class SignalRepository(SignalRepositoryInterface):
         self.__db_connection = db_connection
         self.array_params = array_params
         self.source_params = source_params
+        
+        # Initialize array geometry
+        self.array_geometry = ArrayGeometryRepository(
+            db_connection=db_connection,
+            array_params=array_params
+        )
+        self.sensor_positions = self.array_geometry.generate_array_structure()
 
-        self.wavelength = self.array_params.speed_of_light / self.array_params.center_frequency
-        self.d = 0.5 * self.wavelength
-        self.sensor_positions = self._generate_sensor_positions()
-
-    def _generate_sensor_positions(self) -> np.ndarray:
-        """Generate sensor positions for the given array geometry."""
-        start_pos = -(self.array_params.num_sensors - 1) * self.d / 2
-        positions = np.arange(self.array_params.num_sensors) * self.d + start_pos
-        return positions
-
-    def steering_vector(self, theta: List[float]) -> np.ndarray:
+    def steering_matrix(self, wave_vetors: np.ndarray) -> np.ndarray:
         """
-        Generate steering vectors for given angles.
+        Generate steering vectors for the given electrical frequencies.
+        The steering matrix's columns corresponds to a specific source
+        and each row corresponds to a sensor.
+        The steering vector is calculated as:
+            a(θ) = exp(-j * k * d * sin(θ))
+        where:
+            - k is the wave number
+            - d is the distance between sensors
+            - θ is the angle of arrival (DOA)
+        The steering matrix is of shape (num_sensors, num_sources),
+        in which the entries are complex numbers.
         
         Args:
             theta: List of angles in degrees relative to broadside
@@ -59,38 +66,46 @@ class SignalRepository(SignalRepositoryInterface):
         Returns:
             np.ndarray: Steering vectors matrix
         """
-        theta_rad = np.deg2rad(theta)
-        k = 2 * np.pi / self.wavelength
-        
-        phase = k * self.sensor_positions[:, np.newaxis] * np.sin(theta_rad)
+        k = 2 * np.pi / self.array_params.wavelength
+        phase = k * self.sensor_positions @ wave_vetors.T  # (M, D) @ (D, N) → (M, N)
         return np.exp(1j * phase)
 
-    def generate(self) -> np.ndarray:
+    def generate_sources(self) -> np.ndarray:
         """
-        Generate signal snapshots for all sources.
-        
+        Generate complex exponential signals for each source.
         Returns:
-            np.ndarray: Signal matrix of shape (num_sensors, num_snapshots)
+            S: (num_sources, num_snapshots)
         """
-        num_sources = len(self.source_params.angles)
 
-        # Generate steering vectors
-        A = self.steering_vector(self.source_params.angles)
+        time_window_T = self.array_params.num_snapshots # pylint: disable=invalid-name
+        time_instant_t = np.arange(time_window_T)
+        signal_matrix_S = np.zeros(  # pylint: disable=invalid-name
+            (self.source_params.num_sources, time_window_T),
+            dtype=complex
+        )
 
-        # Generate source signals
-        S = np.zeros((num_sources, self.array_params.num_sensors), dtype=complex)
-        for i in range(num_sources):
-            amplitude = np.sqrt(self.source_params.powers[i])
-            phase = 2 * np.pi * self.source_params.frequencies[i]
-            time_vector = np.arange(self.array_params.num_sensors)
-            S[i, :] = amplitude * np.exp(1j * phase * time_vector)
+        for i in range(self.source_params.num_sources):
+            amp = np.sqrt(self.source_params.powers[i])
+            freq = self.source_params.frequencies[i]
+            signal_matrix_S[i, :] = amp * np.exp(1j * 2 * np.pi * freq * time_instant_t)
 
-        # Generate array output
-        X = A @ S
+        return signal_matrix_S
+    
+    def generate_received_signal(self) -> np.ndarray:
+        """
+        Generate the array output (received signal): X = A @ S
+        Returns:
+            X: (num_sensors, num_snapshots)
+        """
+        wave_vectors = get_wave_vector_from_angles(
+            self.source_params.angles, dimension=self.sensor_positions.shape[1]
+        )
+        A = self.steering_matrix(wave_vectors)
+        S = self.generate_sources()
+        return A @ S
 
-        return X 
 
-    def create_signal(self, _, __):
+    def create_signal(self, _, __) -> None:
         return f"{self.__db_connection}. Signal persisted in the database...\n"
 
     # def create_signal(

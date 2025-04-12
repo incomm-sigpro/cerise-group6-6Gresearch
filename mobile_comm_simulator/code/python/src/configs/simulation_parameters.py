@@ -102,6 +102,7 @@ class SimulationParameters:
     def _process_source_parameters(self) -> None:
         """Process and validate source parameters."""
         self.config.num_sources = len(self.config.source_angles) if self.config.source_angles else 0
+        self.config.wavelength = self.config.speed_of_light / self.config.center_frequency if self.config.wavelength is None else self.config.wavelength
 
         # Process source angles, powers, and frequencies
         if self.config.source_angles is None or self.config.num_sources == 0:
@@ -144,18 +145,17 @@ class SimulationParameters:
             num_snapshots=self.config.num_snapshots,
             geometry=self.config.geometry,
             array_elements_spacing=self.config.array_elements_spacing,
-            center_frequency=self.config.center_frequency,
-            speed_of_light=self.config.speed_of_light
+            wavelength=self.config.wavelength,
         )
 
     def get_source_parameters(self) -> SourceParameters:
         """Get parameters for signal sources."""
         return SourceParameters(
-            angles=self.config.source_angles,
+            num_sources=self.config.num_sources,
             powers=self.config.source_powers,
             frequencies=self.config.source_frequencies
         )
-        
+
     def get_simulation_parameters(self):
         """Get all simulation parameters."""
         return self.config

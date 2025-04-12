@@ -32,7 +32,7 @@ def run_simulation() -> None:
             num_sensors=10,
             snr_db=0.0,
             geometry="linear",
-            array_elements_spacing='uniformly',
+            array_elements_spacing='uniform',
             center_frequency=0.8e9,
             source_angles=[-30, 0, 45],
             source_powers=[1.0, 1.0, 1.0],
@@ -41,16 +41,9 @@ def run_simulation() -> None:
 
         simulation_parameters = SimulationParameters(config)
 
-        # Initialize noise generator
-        logger.info("Initializing noise generator...")
-        noise_generator = NoiseRepository(
-            db_connection=None,
-            parameters=simulation_parameters.get_noise_parameters()
-            )
-
         # Initialize signal generator
         logger.info("Initializing signal generator...")
-        signal_gen = SignalRepository(
+        signal_generator = SignalRepository(
             db_connection=None,
             array_params=simulation_parameters.get_array_parameters(),
             source_params=simulation_parameters.get_source_parameters()
@@ -58,7 +51,14 @@ def run_simulation() -> None:
 
         # Generate signals
         logger.info("Generating signals...")
-        signal_matrix_x = signal_gen.generate()
+        signal_matrix_x = signal_generator.generate()
+
+        # Initialize noise generator
+        logger.info("Initializing noise generator...")
+        noise_generator = NoiseRepository(
+            db_connection=None,
+            parameters=simulation_parameters.get_noise_parameters()
+            )
 
         logger.info("Generating noise...")
         noise_matrix_n = noise_generator.generate()
