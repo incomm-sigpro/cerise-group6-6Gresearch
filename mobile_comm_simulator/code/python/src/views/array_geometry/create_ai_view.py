@@ -4,6 +4,7 @@ from src.views.http_types.http_response import HttpResponse
 from src.errors.types.http_bad_request import HttpBadRequestError
 from ..interfaces.view_interface import ViewInterface
 
+
 class CreateAIView(ViewInterface):
     def __init__(self, controller: CreateAIInterface) -> None:
         self.__controller = controller
@@ -14,7 +15,7 @@ class CreateAIView(ViewInterface):
         self.__validate_inputs(name, model)
 
         response = self.__controller.create(name, model)
-        return HttpResponse(body={ "data": response }, status_code=201)
+        return HttpResponse(body={"data": response}, status_code=201)
 
     def __validate_inputs(self, name: any, model: any) -> None:
         if (
@@ -22,4 +23,5 @@ class CreateAIView(ViewInterface):
             or not model
             or not isinstance(name, str)
             or not isinstance(model, str)
-        ): raise HttpBadRequestError("Invalid Input")
+        ):
+            raise HttpBadRequestError("Invalid Input")

@@ -1,6 +1,7 @@
 import warnings
 import numpy as np
 
+
 class ArrayPerturbation:
     """Creates an array perturbation.
 
@@ -34,7 +35,7 @@ class ArrayPerturbation:
 
         Args:
             array (~doatools.model.arrays.ArrayDesign): Array design.
-        
+
         Returns:
             tuple: A two-element tuple of the format ``(bool, str)``. The first
             element is a boolean indicating whether this perturbation is
@@ -51,7 +52,7 @@ class ArrayPerturbation:
                 array elements/sensors, where the :math:`i`-th row consists of
                 the Cartesian coordinates of the :math:`i`-th array
                 element/sensor.
-        
+
         Notes:
             The number of dimensions of the sensor locations and number of
             dimensions of the perturbations do not need to match. It is
@@ -109,12 +110,12 @@ class ArrayPerturbation:
                 \cdots &
                 \frac{\partial C(\mathbf{a}(\mathbf{\theta}_K))}{\partial \theta_{Kd}}
             \end{bmatrix}.
-        
+
         Args:
             A (~numpy.ndarray): Steering matrix input.
             DA (list): A list of derivative matrices. If this list is empty,
                 there is no need to consider the derivative matrices.
-        
+
         Returns:
             tuple: A two element tuple. The first element is the perturbed
             steering matrix. The second element is a list of perturbed
@@ -123,9 +124,10 @@ class ArrayPerturbation:
         """
         return A, DA
 
+
 class LocationErrors(ArrayPerturbation):
     """Creates an array perturbation that models sensor location errors.
-    
+
     Args:
         location_errors: Location error matrix.
         known (bool): Specifies whether this perturbation is known in prior.
@@ -136,17 +138,17 @@ class LocationErrors(ArrayPerturbation):
         if not isinstance(location_errors, np.ndarray):
             location_errors = np.array(location_errors)
         if location_errors.ndim != 2:
-            raise ValueError('Location errors should be stored in a matrix.')
+            raise ValueError("Location errors should be stored in a matrix.")
         if location_errors.shape[1] < 1 or location_errors.shape[1] > 3:
-            raise ValueError('Location errors can only be 1D, 2D, or 3D.')
+            raise ValueError("Location errors can only be 1D, 2D, or 3D.")
         super().__init__(location_errors, known)
 
     def is_applicable_to(self, array):
         m = self._params.shape[0]
         if array.size != m:
-            return False, 'Expecting an array of size {0}'.format(m)
+            return False, "Expecting an array of size {0}".format(m)
         else:
-            return True, ''
+            return True, ""
 
     def perturb_sensor_locations(self, locations):
         array_dim = locations.shape[1]
@@ -164,6 +166,7 @@ class LocationErrors(ArrayPerturbation):
             perturbed_locations[:, :array_dim] += locations
         return perturbed_locations
 
+
 class GainErrors(ArrayPerturbation):
     """Creates an array perturbation that models gain errors.
 
@@ -174,25 +177,26 @@ class GainErrors(ArrayPerturbation):
         known (bool): Specifies whether this perturbation is known in prior.
             Default value is ``False``.
     """
+
     def __init__(self, gain_errors, known=False):
         if not isinstance(gain_errors, np.ndarray):
             gain_erros = np.array(gain_errors)
         if gain_errors.ndim != 1:
-            raise ValueError('Expecting a vector.')
+            raise ValueError("Expecting a vector.")
         super().__init__(gain_errors, known)
 
     def is_applicable_to(self, array):
         if not array.element.is_scalar:
-            return False, 'The array element must have a scalar output.'
+            return False, "The array element must have a scalar output."
         m = self._params.shape[0]
         if array.size != m:
-            return False, 'Expecting an array of size {0}'.format(m)
+            return False, "Expecting an array of size {0}".format(m)
         else:
-            return True, ''
+            return True, ""
 
     def perturb_steering_matrix(self, A, DA):
         r"""Perturbs the steering matrix with gain errors.
-        
+
         Given the gain error vector, :math:`\mathbf{g}`, the perturbed steering
         matrix is computed as
 
@@ -211,7 +215,7 @@ class GainErrors(ArrayPerturbation):
             A (~numpy.ndarray): Steering matrix input.
             DA (list): A list of derivative matrices. If this list is empty,
                 there is no need to consider the derivative matrices.
-        
+
         Returns:
             tuple: A two element tuple. The first element is the perturbed
             steering matrix. The second element is a list of perturbed
@@ -220,6 +224,7 @@ class GainErrors(ArrayPerturbation):
         """
         g = 1.0 + self._params[:, np.newaxis]
         return g * A, [g * X for X in DA]
+
 
 class PhaseErrors(ArrayPerturbation):
     """Creates an array perturbation that models phase errors.
@@ -230,21 +235,22 @@ class PhaseErrors(ArrayPerturbation):
         known (bool): Specifies whether this perturbation is known in prior.
             Default value is ``False``.
     """
+
     def __init__(self, phase_errors, known=False):
         if not isinstance(phase_errors, np.ndarray):
             gain_erros = np.array(phase_errors)
         if phase_errors.ndim != 1:
-            raise ValueError('Expecting a vector.')
+            raise ValueError("Expecting a vector.")
         super().__init__(phase_errors, known)
 
     def is_applicable_to(self, array):
         if not array.element.is_scalar:
-            return False, 'The array element must have a scalar output.'
+            return False, "The array element must have a scalar output."
         m = self._params.shape[0]
         if array.size != m:
-            return False, 'Expecting an array of size {0}'.format(m)
+            return False, "Expecting an array of size {0}".format(m)
         else:
-            return True, ''
+            return True, ""
 
     def perturb_steering_matrix(self, A, DA):
         r"""Perturbs the steering matrix with phase errors.
@@ -269,7 +275,7 @@ class PhaseErrors(ArrayPerturbation):
             A (~numpy.ndarray): Steering matrix input.
             DA (list): A list of derivative matrices. If this list is empty,
                 there is no need to consider the derivative matrices.
-        
+
         Returns:
             tuple: A two element tuple. The first element is the perturbed
             steering matrix. The second element is a list of perturbed
@@ -279,6 +285,7 @@ class PhaseErrors(ArrayPerturbation):
         phi = np.exp(1j * self._params[:, np.newaxis])
         return phi * A, [phi * X for X in DA]
 
+
 class MutualCoupling(ArrayPerturbation):
     """Creates an array perturbation that models mutual coupling.
 
@@ -287,21 +294,22 @@ class MutualCoupling(ArrayPerturbation):
         known (bool): Specifies whether this perturbation is known in prior.
             Default value is ``False``.
     """
+
     def __init__(self, C, known=False):
         if not isinstance(C, np.ndarray):
             C = np.array(C)
         if C.ndim != 2 and C.shape[0] != C.shape[1]:
-            raise ValueError('Expecting a square matrix.')
+            raise ValueError("Expecting a square matrix.")
         super().__init__(C, known)
 
     def is_applicable_to(self, array):
         if not array.element.is_scalar:
-            return False, 'The array element must have a scalar output.'
+            return False, "The array element must have a scalar output."
         m = self._params.shape[0]
         if array.size != m:
-            return False, 'Expecting an array of size {0}'.format(m)
+            return False, "Expecting an array of size {0}".format(m)
         else:
-            return True, ''
+            return True, ""
 
     def perturb_steering_matrix(self, A, DA):
         r"""Perturbs the steering matrix with mutual coupling.
@@ -318,12 +326,12 @@ class MutualCoupling(ArrayPerturbation):
         .. math::
 
             \dot{\tilde{\mathbf{A}}}_i = \mathbf{C} \dot{\mathbf{A}}_i.
-        
+
         Args:
             A (~numpy.ndarray): Steering matrix input.
             DA (list): A list of derivative matrices. If this list is empty,
                 there is no need to consider the derivative matrices.
-        
+
         Returns:
             tuple: A two element tuple. The first element is the perturbed
             steering matrix. The second element is a list of perturbed
@@ -331,4 +339,3 @@ class MutualCoupling(ArrayPerturbation):
             should also be an empty list.
         """
         return self._params @ A, [self._params @ X for X in DA]
-

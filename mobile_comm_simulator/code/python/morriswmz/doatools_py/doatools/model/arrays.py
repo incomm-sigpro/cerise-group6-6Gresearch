@@ -4,8 +4,8 @@ import numpy as np
 import warnings
 import copy
 from .array_elements import ISOTROPIC_SCALAR_SENSOR
-from .perturbations import LocationErrors, GainErrors, PhaseErrors, \
-                           MutualCoupling
+from .perturbations import LocationErrors, GainErrors, PhaseErrors, MutualCoupling
+
 
 class ArrayDesign:
     """Base class for all array designs.
@@ -71,23 +71,24 @@ class ArrayDesign:
         them unless you are aware of the side effects.
     """
 
-    def __init__(self, locations, name, perturbations=[],
-                 element=ISOTROPIC_SCALAR_SENSOR):
+    def __init__(
+        self, locations, name, perturbations=[], element=ISOTROPIC_SCALAR_SENSOR
+    ):
         if not isinstance(locations, np.ndarray):
             locations = np.array(locations)
         if locations.ndim > 2:
-            raise ValueError('Expecting a 1D vector or a 2D matrix.')
+            raise ValueError("Expecting a 1D vector or a 2D matrix.")
         if locations.ndim == 1:
             locations = locations.reshape((-1, 1))
         elif locations.shape[1] > 3:
-            raise ValueError('Array can only be 1D, 2D or 3D.')
+            raise ValueError("Array can only be 1D, 2D or 3D.")
         self._locations = locations
         self._name = name
         self._element = element
         # Validate and add perturbations
         self._perturbations = {}
         self._add_perturbation_from_list(self._parse_input_perturbations(perturbations))
-    
+
     @property
     def name(self):
         """Retrieves the name of this array."""
@@ -101,12 +102,12 @@ class ArrayDesign:
     @property
     def output_size(self):
         """Retrieves the output size of the array.
-        
+
         In generate, the output size should be equal to ``size``. However, for
         vector sensor arrays, the output size is greater than the array size.
         """
         return self.size
-    
+
     @property
     def element_locations(self):
         """Retrieves the nominal element locations.
@@ -124,7 +125,7 @@ class ArrayDesign:
         Returns:
             An M x d matrix, where M is the number of elements and d is the
             maximum of the following two:
-            
+
             1. number of dimensions of the nominal array;
             2. number of dimensions of the sensor location errors.
         """
@@ -137,7 +138,7 @@ class ArrayDesign:
     def element(self):
         """Retrieves the array element."""
         return self._element
-    
+
     @property
     def is_perturbed(self):
         """Returns if the array contains perturbations."""
@@ -157,24 +158,24 @@ class ArrayDesign:
         Perturbations do not affect this value.
         """
         return self._locations.shape[1]
-    
+
     @property
     def actual_ndim(self):
         """Retrieves the number of dimensions of the array, considering location errors."""
         return self.actual_element_locations.shape[1]
-    
+
     def has_perturbation(self, ptype):
         """Checks if the array has the given type of perturbation."""
         return ptype in self._perturbations
-    
+
     def is_perturbation_known(self, ptype):
         """Checks if the specified perturbation is known in prior."""
         return self._perturbations[ptype].is_known
-    
+
     def get_perturbation_params(self, ptype):
         """Retrieves the parameters for the specified perturbation type."""
         return self._perturbations[ptype].params
-    
+
     @property
     def perturbations(self):
         """Retrieves a list of all perturbations."""
@@ -183,7 +184,7 @@ class ArrayDesign:
 
     def _add_perturbation_from_list(self, perturbations, raise_on_override=True):
         """Adds perturbations from a list of perturbations.
-        
+
         Args:
             perturbations (list): A list of
                 :class:`~doatools.model.perturbations.ArrayPerturbation.`.
@@ -197,27 +198,28 @@ class ArrayDesign:
             p_class = p.__class__
             if p_class in self._perturbations and raise_on_override:
                 raise RuntimeError(
-                    'Cannot have more than one perturbations of the same type. '
-                    'Attempting to add another perturbation of the type {0}.'
-                    .format(p_class.__name__)
+                    "Cannot have more than one perturbations of the same type. "
+                    "Attempting to add another perturbation of the type {0}.".format(
+                        p_class.__name__
+                    )
                 )
             self._perturbations[p_class] = p
-    
+
     def _parse_input_perturbations(self, perturbations):
         if isinstance(perturbations, dict):
             factories = {
-                'location_errors': (lambda p, k: LocationErrors(p, k)),
-                'gain_errors': (lambda p, k: GainErrors(p, k)),
-                'phase_errors': (lambda p, k: PhaseErrors(p, k)),
-                'mutual_coupling': (lambda p, k: MutualCoupling(p, k))
+                "location_errors": (lambda p, k: LocationErrors(p, k)),
+                "gain_errors": (lambda p, k: GainErrors(p, k)),
+                "phase_errors": (lambda p, k: PhaseErrors(p, k)),
+                "mutual_coupling": (lambda p, k: MutualCoupling(p, k)),
             }
             perturbations = [factories[k](v[0], v[1]) for k, v in perturbations.items()]
         return perturbations
-        
+
     def get_perturbed_copy(self, perturbations, new_name=None):
         """Returns a copy of this array design but with the specified
         perturbations.
-        
+
         The specified perturbations will replace the existing ones.
 
         Notes:
@@ -275,8 +277,14 @@ class ArrayDesign:
         array._name = new_name
         return array
 
-    def steering_matrix(self, sources, wavelength, compute_derivatives=False,
-                        perturbations='all', flatten=True):
+    def steering_matrix(
+        self,
+        sources,
+        wavelength,
+        compute_derivatives=False,
+        perturbations="all",
+        flatten=True,
+    ):
         r"""Creates the steering matrix for the given DOAs.
 
         Given :math:`K` sources, denoted by :math:`\mathbf{\theta}`, and
@@ -303,7 +311,7 @@ class ArrayDesign:
                     \cdots &
                     \mathbf{a}_0(\mathbf{\theta}_K, \mathbf{d})
                 \end{bmatrix}.
-            
+
         * :math:`\mathbf{F}` is the spatial response matrix. For isotropic
           scalar sensors, :math:`\mathbf{F}` is an :math:`M \times K` matrix of
           ones. For vectors sensor arrays, each sensor's output is a vector of
@@ -328,7 +336,7 @@ class ArrayDesign:
                 \cdots &
                 \mathbf{a}(\mathbf{\theta}_K)
             \end{bmatrix}.
-        
+
         Then the :math:`i`-th derivative matrix is computed as
 
         .. math::
@@ -339,13 +347,13 @@ class ArrayDesign:
                 \cdots &
                 \frac{\partial \mathbf{a}(\mathbf{\theta}_K)}{\partial \theta_{Ki}}
             \end{bmatrix},
-        
+
         where :math:`\theta_{ki}` is the :math:`i`-th parameter of the
         :math:`k`-th source location.
 
         The current implementation cannot compute the derivative matrices
         when the array element is non-isotropic or non-scalar.
-        
+
         Args:
             sources (~doatools.model.sources.SourcePlacement):
                 An instance of :class:`~doatools.model.sources.SourcePlacement`.
@@ -357,7 +365,7 @@ class ArrayDesign:
                    calculated as :math:`\pi/2` minus the original 1D DOA values
                    (broadside -> azimuth). The elevation angles are set to zeros
                    (within the xy-plane).
-            
+
             wavelength (float): Wavelength of the carrier wave.
             compute_derivatives (bool): If set to True, also outputs the
                 derivative matrices with respect to the DOAs. The k-th column of
@@ -384,18 +392,18 @@ class ArrayDesign:
                 the array size, and :math:`K` is the number of sources. Setting
                 ``flatten`` to ``True`` will flatten the tensor into a
                 :math:`LM \times K` matrix. Default value is ``True``.
-        
+
         Notes:
             The steering matrix calculation is bound to array designs. This is
             a generic implementation, which can be overridden for special types
             of arrays.
         """
         # Filter perturbations.
-        if perturbations == 'all':
+        if perturbations == "all":
             perturb_list = self._perturbations.values()
-        elif perturbations == 'known':
+        elif perturbations == "known":
             perturb_list = [v for v in self._perturbations.values() if v.is_known]
-        elif perturbations == 'none':
+        elif perturbations == "none":
             perturb_list = []
         else:
             raise ValueError('Perturbation can only be "all", "known", or "none".')
@@ -404,8 +412,8 @@ class ArrayDesign:
             require_spatial_response = True
             if compute_derivatives:
                 raise RuntimeError(
-                    'Derivative computation is not supported when the array '
-                    'elements are non-isotropic or non-scalar.'
+                    "Derivative computation is not supported when the array "
+                    "elements are non-isotropic or non-scalar."
                 )
         else:
             require_spatial_response = False
@@ -414,7 +422,9 @@ class ArrayDesign:
         for p in perturb_list:
             actual_locations = p.perturb_sensor_locations(actual_locations)
         # Compute the steering matrix
-        T = sources.phase_delay_matrix(actual_locations, wavelength, compute_derivatives)
+        T = sources.phase_delay_matrix(
+            actual_locations, wavelength, compute_derivatives
+        )
         if compute_derivatives:
             A = np.exp(1j * T[0])
             DA = [A * (1j * X) for X in T[1:]]
@@ -441,9 +451,10 @@ class ArrayDesign:
         else:
             return A
 
+
 class GridBasedArrayDesign(ArrayDesign):
     r"""Base class for all grid-based array designs.
-    
+
     For grid based arrays, each elements is placed on a predefined grid. A
     :math:`d`-dimensional grid in a :math:`k`-dimensional space
     (:math:`d \leq k`) is generated by :math:`d` :math:`k`-dimensional basis
@@ -473,7 +484,7 @@ class GridBasedArrayDesign(ArrayDesign):
         name (str): Name of the array design.
         **kwargs: Other keyword arguments supported by :class:`ArrayDesign`.
     """
-    
+
     def __init__(self, indices, d0=None, name=None, bases=None, **kwargs):
         if bases is None:
             # Use d0 to generate bases.
@@ -483,16 +494,18 @@ class GridBasedArrayDesign(ArrayDesign):
                 d0 = np.array(d0, dtype=np.float_)
             if d0.ndim > 1 or indices.shape[1] < d0.size:
                 raise ValueError(
-                    'd0 must be a scalar or a list-like object of length {0}.'
-                    .format(indices.shape[1])
+                    "d0 must be a scalar or a list-like object of length {0}.".format(
+                        indices.shape[1]
+                    )
                 )
             bases = np.eye(d0.size) * d0
         else:
             if indices.shape[1] != bases.shape[0]:
                 raise ValueError(
-                    'The number of rows of the bases matrix does not match '
-                    'the number of columns of the indices ({0} != {1}).'
-                    .format(bases.shape[0], indices.shape[1])
+                    "The number of rows of the bases matrix does not match "
+                    "the number of columns of the indices ({0} != {1}).".format(
+                        bases.shape[0], indices.shape[1]
+                    )
                 )
             # Calculate d0 from bases
             d0 = np.linalg.norm(bases, ord=2, axis=1)
@@ -504,7 +517,7 @@ class GridBasedArrayDesign(ArrayDesign):
     @property
     def d0(self):
         """Retrieves the base inter-element spacing(s) along each grid axis.
-        
+
         You are not supposed to modified the returned array.
 
         Returns:
@@ -516,9 +529,9 @@ class GridBasedArrayDesign(ArrayDesign):
     @property
     def bases(self):
         """Retrieves the basis vectors for the grid.
-        
+
         You are not supposed to modify the returned array.
-        
+
         Returns:
             ~numpy.ndarray: A matrix where each row respresents a basis vector.
         """
@@ -527,14 +540,15 @@ class GridBasedArrayDesign(ArrayDesign):
     @property
     def element_indices(self):
         """Retrieves the element indices.
-        
+
         You are not supposed to modify the returned array.
         """
         return self._element_indices.copy()
 
+
 class UniformLinearArray(GridBasedArrayDesign):
     """Creates an n-element uniform linear array (ULA).
-        
+
     The ULA is placed along the x-axis, whose the first sensor is placed at
     the origin.
 
@@ -547,8 +561,9 @@ class UniformLinearArray(GridBasedArrayDesign):
 
     def __init__(self, n, d0, name=None, **kwargs):
         if name is None:
-            name = 'ULA ' + str(n)
+            name = "ULA " + str(n)
         super().__init__(np.arange(n).reshape((-1, 1)), d0, name, **kwargs)
+
 
 class NestedArray(GridBasedArrayDesign):
     """Creates a 1D nested array.
@@ -568,11 +583,10 @@ class NestedArray(GridBasedArrayDesign):
 
     def __init__(self, n1, n2, d0, name=None, **kwargs):
         if name is None:
-            name = 'Nested ({0},{1})'.format(n1, n2)
-        indices = np.concatenate((
-            np.arange(0, n1),
-            np.arange(1, n2 + 1) * (n1 + 1) - 1
-        ))
+            name = "Nested ({0},{1})".format(n1, n2)
+        indices = np.concatenate(
+            (np.arange(0, n1), np.arange(1, n2 + 1) * (n1 + 1) - 1)
+        )
         self._n1 = n1
         self._n2 = n2
         super().__init__(indices.reshape((-1, 1)), d0, name, **kwargs)
@@ -581,11 +595,12 @@ class NestedArray(GridBasedArrayDesign):
     def n1(self):
         """Retrieves the parameter, N1, used when creating this nested array."""
         return self._n1
-    
+
     @property
     def n2(self):
         """Retrieves the parameter, N2, used when creating this nested array."""
         return self._n2
+
 
 class CoPrimeArray(GridBasedArrayDesign):
     """Creates a 1D co-prime array.
@@ -597,33 +612,27 @@ class CoPrimeArray(GridBasedArrayDesign):
         mode (str): Either ``'m'`` or ``'2m'``.
         name (str): Name of the array design.
         **kwargs: Other keyword arguments supported by :class:`ArrayDesign`.
-    
+
     References:
         [1] P. Pal and P. P. Vaidyanathan, "Coprime sampling and the music
         algorithm," in 2011 Digital Signal Processing and Signal Processing
         Education Meeting (DSP/SPE), 2011, pp. 289-294.
     """
 
-    def __init__(self, m, n, d0, mode='2m', name=None, **kwargs):
+    def __init__(self, m, n, d0, mode="2m", name=None, **kwargs):
         if name is None:
-            name = 'Co-prime ({0},{1})'.format(m, n)
+            name = "Co-prime ({0},{1})".format(m, n)
         if m > n:
-            warnings.warn('m > n. Swapped.')
+            warnings.warn("m > n. Swapped.")
             m, n = n, m
         if gcd(m, n) != 1:
-            raise ValueError('{0} and {1} are not co-prime.'.format(m, n))
+            raise ValueError("{0} and {1} are not co-prime.".format(m, n))
         self._coprime_pair = (m, n)
         mode = mode.lower()
-        if mode == '2m':
-            indices = np.concatenate((
-                np.arange(0, n) * m,
-                np.arange(1, 2*m) * n
-            ))
-        elif mode == 'm':
-            indices = np.concatenate((
-                np.arange(0, n) * m,
-                np.arange(1, m) * n
-            ))
+        if mode == "2m":
+            indices = np.concatenate((np.arange(0, n) * m, np.arange(1, 2 * m) * n))
+        elif mode == "m":
+            indices = np.concatenate((np.arange(0, n) * m, np.arange(1, m) * n))
         else:
             raise ValueError('Unknown mode "{0}"'.format(mode))
         self._mode = mode
@@ -638,6 +647,7 @@ class CoPrimeArray(GridBasedArrayDesign):
     def mode(self):
         """Retrieves the mode used when creating this co-prime array."""
         return self._mode
+
 
 _MRLA_PRESETS = [
     [0],
@@ -659,8 +669,30 @@ _MRLA_PRESETS = [
     [0, 1, 8, 18, 28, 38, 48, 58, 68, 78, 80, 82, 84, 87, 89, 91, 93],
     [0, 1, 8, 18, 28, 38, 48, 58, 68, 78, 88, 90, 92, 94, 97, 99, 101, 103],
     [0, 1, 8, 18, 28, 38, 48, 58, 68, 78, 88, 98, 100, 102, 104, 107, 109, 111, 113],
-    [0, 1, 10, 22, 34, 46, 58, 70, 82, 94, 106, 108, 110, 112, 114, 117, 119, 121, 123, 125]
+    [
+        0,
+        1,
+        10,
+        22,
+        34,
+        46,
+        58,
+        70,
+        82,
+        94,
+        106,
+        108,
+        110,
+        112,
+        114,
+        117,
+        119,
+        121,
+        123,
+        125,
+    ],
 ]
+
 
 class MinimumRedundancyLinearArray(GridBasedArrayDesign):
     """Creates an n-element minimum redundancy linear array (MRLA).
@@ -670,25 +702,28 @@ class MinimumRedundancyLinearArray(GridBasedArrayDesign):
         d0 (float): Fundamental inter-element spacing (usually smallest).
         name (str): Name of the array design.
         **kwargs: Other keyword arguments supported by :class:`ArrayDesign`.
-    
+
     References:
         [1] M. Ishiguro, "Minimum redundancy linear arrays for a large number of
         antennas," Radio Sci., vol. 15, no. 6, pp. 1163-1170, Nov. 1980.
-        
+
         [2] A. Moffet, "Minimum-redundancy linear arrays," IEEE Transactions on
         Antennas and Propagation, vol. 16, no. 2, pp. 172-175, Mar. 1968.
     """
 
     def __init__(self, n, d0, name=None, **kwargs):
         if n < 1 or n >= len(_MRLA_PRESETS):
-            raise ValueError('The MRLA presets only support up to 20 elements.')
+            raise ValueError("The MRLA presets only support up to 20 elements.")
         if name is None:
-            name = 'MRLA {0}'.format(n)
-        super().__init__(np.array(_MRLA_PRESETS[n - 1])[:, np.newaxis], d0, name, **kwargs)
-        
+            name = "MRLA {0}".format(n)
+        super().__init__(
+            np.array(_MRLA_PRESETS[n - 1])[:, np.newaxis], d0, name, **kwargs
+        )
+
+
 class UniformCircularArray(ArrayDesign):
     """Creates a uniform circular array (UCA).
-    
+
     The UCA is centered at the origin, in the xy-plane.
 
     Args:
@@ -700,9 +735,9 @@ class UniformCircularArray(ArrayDesign):
 
     def __init__(self, n, r, name=None, **kwargs):
         if name is None:
-            name = 'UCA ' + str(n)
+            name = "UCA " + str(n)
         self._r = r
-        theta = np.linspace(0., np.pi * (2.0 - 2.0 / n), n)
+        theta = np.linspace(0.0, np.pi * (2.0 - 2.0 / n), n)
         locations = np.vstack((r * np.cos(theta), r * np.sin(theta))).T
         super().__init__(locations, name)
 
@@ -711,9 +746,10 @@ class UniformCircularArray(ArrayDesign):
         """Retrieves the radius of the uniform circular array."""
         return self._r
 
+
 class UniformRectangularArray(GridBasedArrayDesign):
     """Creates an m x n uniform rectangular array (URA).
-    
+
     The URA is placed on the xy-plane, and the (0,0)-th sensor is placed
     at the origin.
 
@@ -728,11 +764,11 @@ class UniformRectangularArray(GridBasedArrayDesign):
 
     def __init__(self, m, n, d0, name=None, **kwargs):
         if name is None:
-            name = 'URA {0}x{1}'.format(m, n)
+            name = "URA {0}x{1}".format(m, n)
         self._shape = (m, n)
         indices = cartesian(np.arange(m), np.arange(n))
         super().__init__(indices, d0, name, **kwargs)
-    
+
     @property
     def shape(self):
         """Retrieves the shape of this uniform rectangular array."""

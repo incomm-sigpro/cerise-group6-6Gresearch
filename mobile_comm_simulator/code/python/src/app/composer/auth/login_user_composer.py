@@ -3,6 +3,7 @@ from src.models.repositories.user_repository import UserRepository
 from src.controllers.auth.login_user import LoginUser
 from src.views.auth.login_user_view import LoginUserView
 
+
 def login_user_composer():
     conn = db_connection_handler
     conn.connect_to_db()

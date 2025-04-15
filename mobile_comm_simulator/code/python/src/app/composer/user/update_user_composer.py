@@ -3,6 +3,7 @@ from src.models.repositories.user_repository import UserRepository
 from src.controllers.user.update_user import UpdateUser
 from src.views.user.update_user_view import UpdateUserView
 
+
 def update_user_composer():
     conn = db_connection_handler
     conn.connect_to_db()

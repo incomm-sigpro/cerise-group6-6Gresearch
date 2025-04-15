@@ -2,10 +2,11 @@ from datetime import datetime
 from models.entities.user import User
 from models.interfaces.user_repository import UserRepositoryInterface
 
+
 class UserRepository(UserRepositoryInterface):
     def __init__(self, db_connection) -> None:
         self.__db_connection = db_connection
-        
+
     def create_user(
         self,
         username: str,

@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 import numpy as np
 
+
 class ArrayElement(ABC):
     """Base class for array elements."""
 
@@ -8,7 +9,7 @@ class ArrayElement(ABC):
     @abstractmethod
     def output_size(self):
         """Retrieves the output size of this array element.
-        
+
         For scalar sensors, the output size is one. For vector sensors, the
         output size is greater than one.
         """
@@ -59,30 +60,33 @@ class ArrayElement(ABC):
         # Validate inputs.
         input_shape = np.shape(r)
         if np.shape(az) != input_shape or np.shape(el) != input_shape:
-            raise ValueError('r, az, and el must share the same shape.')
+            raise ValueError("r, az, and el must share the same shape.")
         if polarization is not None:
             if not self.is_polarized:
                 raise ValueError(
-                    '{0} does not support polarized sources.'
-                    .format(self.__class__.__name__)
+                    "{0} does not support polarized sources.".format(
+                        self.__class__.__name__
+                    )
                 )
             expected_p_shape = input_shape + (polarization.shape[-1],)
             if expected_p_shape != polarization.shape:
                 raise ValueError(
-                    'The shape of the polarization data does not match that of '
-                    'r, az, or el. Expecting {0}. Got {1}.'
-                    .format(expected_p_shape, polarization.shape)
+                    "The shape of the polarization data does not match that of "
+                    "r, az, or el. Expecting {0}. Got {1}.".format(
+                        expected_p_shape, polarization.shape
+                    )
                 )
         # Call the actual implementation.
         return self._calc_spatial_response(r, az, el, polarization)
-    
+
     @abstractmethod
     def _calc_spatial_response(self, r, az, el, polarization):
         """Actual implementation of spatial response calculations.
-        
+
         The inputs are guaranteed to have valid shapes.
         """
         raise NotImplementedError()
+
 
 class IsotropicScalarSensor(ArrayElement):
     """Creates an isotropic scalar array element."""
@@ -98,15 +102,17 @@ class IsotropicScalarSensor(ArrayElement):
     @property
     def is_polarized(self):
         return False
-    
+
     def _calc_spatial_response(self, r, az, el, polarization):
         if np.isscalar(r):
-            return 1.
+            return 1.0
         else:
             return np.ones_like(r)
 
+
 #: An isotropic scalar sensor.
 ISOTROPIC_SCALAR_SENSOR = IsotropicScalarSensor()
+
 
 class CustomNonisotropicSensor(ArrayElement):
     """Creates a customize non-isotropic sensor.

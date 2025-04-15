@@ -2,27 +2,30 @@ import numpy as np
 from scipy.signal import find_peaks
 from scipy.ndimage import maximum_filter
 
+
 def vec(x):
     """Vectorizes a matrix by stacking the columns.
-    
+
     NumPy arrays use row major ordering, while MATLAB uses column major
     ordering. Therefore in NumPy `reshape((-1, 1))` stacks the rows instead of
     columns.
-    
+
     This function is just a shorthand for `reshape((-1, 1), order='F')`.
 
     Args:
         x: An ndarray to be vectorized.
     """
-    return x.reshape((-1, 1), order='F')
+    return x.reshape((-1, 1), order="F")
+
 
 def abs_squared(x):
     """Computes Re(x)^2 + Im(x)^2.
-    
+
     Args:
         x: An complex ndarray.
     """
     return x.real**2 + x.imag**2
+
 
 def khatri_rao(a, b):
     """Evaluates the Khatri-Rao (i.e., column-wise Kronecker product) between
@@ -30,15 +33,16 @@ def khatri_rao(a, b):
     n1, k1 = a.shape
     n2, k2 = b.shape
     if k1 != k2:
-        raise ValueError('Two input matrices must have the same number of columns.')
+        raise ValueError("Two input matrices must have the same number of columns.")
     c = np.zeros((n1 * n2, k1), dtype=np.result_type(a.dtype, b.dtype))
     for i in range(k1):
-        c[:,i] = np.outer(a[:,i], b[:,i]).flatten()
+        c[:, i] = np.outer(a[:, i], b[:, i]).flatten()
     return c
+
 
 def projm(A, use_pinv=False):
     """Computes the projection matrix of the input matrix.
-    
+
     Given a full column rank matrix A, the projection matrix of A is given by
         A (A^H A)^{-1} A^H
 
@@ -55,28 +59,30 @@ def projm(A, use_pinv=False):
     else:
         return A @ np.linalg.solve(A.T @ A, A.T)
 
+
 def cartesian(*xi):
     """Evaluates the Cartesian product among the input vectors.
 
     For instance, if the inputs are [1, 2] and [3, 4, 5], the result will be
-    
+
     [[1, 3], [1, 4], [1, 5], [2, 3], [2, 4], [2, 5]]
 
     Args:
         *xi: 1D arrays.
-    
+
     Returns:
         prod: An ndarray array containing the Cartesian product.
     """
-    yi = np.meshgrid(*xi, indexing='ij')
+    yi = np.meshgrid(*xi, indexing="ij")
     return np.vstack([y.flatten() for y in yi]).T
+
 
 def randcn(shape):
     """Samples from complex circularly-symmetric normal distribution.
 
     Args:
         shape (tuple): Shape of the output.
-    
+
     Returns:
         ~numpy.ndarray: A complex :class:`~numpy.ndarray` containing the
         samples.
@@ -86,9 +92,10 @@ def randcn(shape):
     x *= np.sqrt(0.5)
     return x
 
+
 def unique_rows(x, atol=0.0, rtol=1e-8, return_index=False, sort=False):
     """Obtains the unique rows within the specified tolerance.
-    
+
     This function is designed to obtain unique rows from a matrix while
     considering floating-point errors. Hence, the tolerance is usually set to
     small values. This function matches rows in a greedy manner.
@@ -121,7 +128,7 @@ def unique_rows(x, atol=0.0, rtol=1e-8, return_index=False, sort=False):
             that are used to construct the output.
     """
     if x.ndim != 2:
-        raise ValueError('Matrix input expected.')
+        raise ValueError("Matrix input expected.")
     n, m = x.shape
     # Handle the empty case
     if n == 0:

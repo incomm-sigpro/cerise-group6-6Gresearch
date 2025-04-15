@@ -7,16 +7,18 @@ It also handles logging and error management.
 
 import logging
 
-from configs.simulation_parameters import SimulationParameters, SimulationConfig
+from configs.types import GeometryType, SpacingType, NoiseType, SimulationConfig
+from configs.simulation_parameters import SimulationParameters
 from models.repositories.noise_repository import NoiseRepository
 from models.repositories.signal_repository import SignalRepository
+
 
 def setup_logging() -> None:
     """Configure logging for the simulation."""
     logging.basicConfig(
-        level=logging.INFO,
-        format='%(asctime)s - %(levelname)s - %(message)s'
+        level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
     )
+
 
 def run_simulation() -> None:
     """Run the main DOA estimation simulation pipeline."""
@@ -28,15 +30,15 @@ def run_simulation() -> None:
     try:
         # Initialize simulation parameters
         config = SimulationConfig(
+            num_sensors=4,
             num_snapshots=100,
-            num_sensors=10,
             snr_db=0.0,
-            geometry="linear",
-            array_elements_spacing='uniform',
+            geometry=GeometryType.LINEAR,
+            array_elements_spacing=SpacingType.UNIFORM,
             center_frequency=0.8e9,
             source_angles=[-30, 0, 45],
             source_powers=[1.0, 1.0, 1.0],
-            noise_type="noiseless",
+            noise_type=NoiseType.NONE,
         )
 
         simulation_parameters = SimulationParameters(config)
@@ -46,29 +48,34 @@ def run_simulation() -> None:
         signal_generator = SignalRepository(
             db_connection=None,
             array_params=simulation_parameters.get_array_parameters(),
-            source_params=simulation_parameters.get_source_parameters()
+            source_params=simulation_parameters.get_source_parameters(),
         )
 
         # Generate signals
         logger.info("Generating signals...")
-        signal_matrix_x = signal_generator.generate()
+        signal_matrix_X = (
+            signal_generator.generate_received_signal()
+        )  # pylint: disable=invalid-name
 
         # Initialize noise generator
         logger.info("Initializing noise generator...")
         noise_generator = NoiseRepository(
-            db_connection=None,
-            parameters=simulation_parameters.get_noise_parameters()
-            )
+            db_connection=None, parameters=simulation_parameters.get_noise_parameters()
+        )
 
         logger.info("Generating noise...")
         noise_matrix_n = noise_generator.generate()
-        noise_matrix_n_scaled = noise_generator.apply_snr_scaling(signal_matrix_x, noise_matrix_n)
+        noise_matrix_n_scaled = noise_generator.apply_snr_scaling(
+            signal_matrix_X, noise_matrix_n
+        )
 
         # Final received signal
-        received_signal_y = signal_matrix_x + (noise_matrix_n_scaled @ noise_matrix_n_scaled.T)
-        
+        received_signal_y = signal_matrix_X + noise_matrix_n_scaled
+
         # Log the received signal
-        logger.info("Received signal matrix: %s", received_signal_y)
+        logger.info(
+            "Covariance Matrix: %s", received_signal_y @ received_signal_y.conj().T
+        )
 
         logger.info("Simulation completed successfully")
 

@@ -3,6 +3,7 @@ from src.views.http_types.http_request import HttpRequest
 from src.views.http_types.http_response import HttpResponse
 from ..interfaces.view_interface import ViewInterface
 
+
 class LogoutUserView(ViewInterface):
     def __init__(self, controller: LogoutUserInterface) -> None:
         self.__controller = controller
@@ -10,4 +11,4 @@ class LogoutUserView(ViewInterface):
     def handle(self, http_request: HttpRequest) -> HttpResponse:
         token = http_request.headers.get("Authorization")
         response = self.__controller.logout_user(token)
-        return HttpResponse(body={ "data": response }, status_code=200)
+        return HttpResponse(body={"data": response}, status_code=200)

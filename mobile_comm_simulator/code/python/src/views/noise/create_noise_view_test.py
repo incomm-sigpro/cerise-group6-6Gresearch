@@ -3,15 +3,14 @@ from views.http_types.http_request import HttpRequest
 from views.http_types.http_response import HttpResponse
 from views.ai.create_ai_view import CreateAIView
 
+
 class MockController:
     def create(self, name, model):
-        return { "alguma": "coisa" }
+        return {"alguma": "coisa"}
+
 
 def test_handle_create_ai():
-    body = {
-        "name": "MyAIname",
-        "model": "MyModel"
-    }
+    body = {"name": "MyAIname", "model": "MyModel"}
     request = HttpRequest(body=body)
 
     mock_controller = MockController()
@@ -20,13 +19,12 @@ def test_handle_create_ai():
     response = create_ai_view.handle(request)
 
     assert isinstance(response, HttpResponse)
-    assert response.body == {'data': {'alguma': 'coisa'}}
+    assert response.body == {"data": {"alguma": "coisa"}}
     assert response.status_code == 201
 
+
 def test_handle_create_ai_with_validation_error():
-    body = {
-        "model": "MyModel"
-    }
+    body = {"model": "MyModel"}
     request = HttpRequest(body=body)
 
     mock_controller = MockController()

@@ -1,5 +1,6 @@
 from .create_user import CreateUser
 
+
 class MockUserRepository:
     def __init__(self) -> None:
         self.create_user_attributes = {}

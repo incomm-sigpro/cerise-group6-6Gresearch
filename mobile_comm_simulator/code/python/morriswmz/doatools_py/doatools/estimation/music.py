@@ -3,12 +3,17 @@ from math import ceil
 from scipy.signal import find_peaks
 import warnings
 from ..model.sources import FarField1DSourcePlacement
-from .core import SpectrumBasedEstimatorBase, get_noise_subspace, \
-                  ensure_covariance_size, ensure_n_resolvable_sources
+from .core import (
+    SpectrumBasedEstimatorBase,
+    get_noise_subspace,
+    ensure_covariance_size,
+    ensure_n_resolvable_sources,
+)
+
 
 def f_music(A, En):
     r"""Computes the classical MUSIC spectrum
-    
+
     This is a vectorized implementation of the spectrum function:
 
     .. math::
@@ -26,9 +31,10 @@ def f_music(A, En):
     v = En.T.conj() @ A
     return np.reciprocal(np.sum(v * v.conj(), axis=0).real)
 
+
 class MUSIC(SpectrumBasedEstimatorBase):
     """Creates a spectrum-based MUSIC estimator.
-    
+
     The MUSIC spectrum is computed on a predefined-grid using
     :meth:`~doatools.estimation.music.f_music`, and the source locations are
     estimated by identifying the peaks.
@@ -40,7 +46,7 @@ class MUSIC(SpectrumBasedEstimatorBase):
             used to locate the sources.
         **kwargs: Other keyword arguments supported by
             :class:`~doatools.estimation.core.SpectrumBasedEstimatorBase`.
-    
+
     References:
         [1] R. Schmidt, "Multiple emitter location and signal parameter
         estimation," IEEE Transactions on Antennas and Propagation,
@@ -49,7 +55,7 @@ class MUSIC(SpectrumBasedEstimatorBase):
 
     def __init__(self, array, wavelength, search_grid, **kwargs):
         super().__init__(array, wavelength, search_grid, **kwargs)
-        
+
     def estimate(self, R, k, **kwargs):
         """Estimates the source locations from the given covariance matrix.
 
@@ -68,7 +74,7 @@ class MUSIC(SpectrumBasedEstimatorBase):
             refinement_iters (int): Number of refinement iterations. More
                 iterations generally lead to better results, at the cost of
                 increased computational complexity. Default value is 3.
-        
+
         Returns:
             A tuple with the following elements.
 
@@ -93,6 +99,7 @@ class MUSIC(SpectrumBasedEstimatorBase):
         En = get_noise_subspace(R, k)
         return self._estimate(lambda A: f_music(A, En), k, **kwargs)
 
+
 class RootMUSIC1D:
     """Creates a root-MUSIC estimator for uniform linear arrays.
 
@@ -113,7 +120,7 @@ class RootMUSIC1D:
     def __init__(self, wavelength):
         self._wavelength = wavelength
 
-    def estimate(self, R, k, d0=None, unit='rad'):
+    def estimate(self, R, k, d0=None, unit="rad"):
         """Estimates the direction-of-arrivals of 1D far-field sources.
 
         Args:
@@ -127,7 +134,7 @@ class RootMUSIC1D:
             unit (str): Unit of the estimates. Default value is ``'rad'``.
                 See :class:`~doatools.model.sources.FarField1DSourcePlacement`
                 for more details on valid units.
-        
+
         Returns:
             A tuple with the following elements.
 
@@ -142,7 +149,7 @@ class RootMUSIC1D:
               resolved is ``False``.
         """
         if R.ndim != 2 or R.shape[0] != R.shape[1]:
-            raise ValueError('R should be a square matrix.')
+            raise ValueError("R should be a square matrix.")
         m = R.shape[0]
         ensure_n_resolvable_sources(k, m - 1)
         if d0 is None:
@@ -177,7 +184,9 @@ class RootMUSIC1D:
                             dist = cur_dist
                             idx = j
                 if idx < 0:
-                    raise RuntimeError('Unpaired point found on the unit circle, which is impossible.')
+                    raise RuntimeError(
+                        "Unpaired point found on the unit circle, which is impossible."
+                    )
                 mask[idx] = False
         z = z[mask]
         sorted_indices = np.argsort(1.0 - np.abs(z))

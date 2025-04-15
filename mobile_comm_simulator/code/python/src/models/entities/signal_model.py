@@ -2,6 +2,7 @@ import uuid
 from sqlalchemy import Column, String, DateTime
 from configs.base import Base
 
+
 class SignalModel(Base):
     __tablename__ = "signal_model"
 

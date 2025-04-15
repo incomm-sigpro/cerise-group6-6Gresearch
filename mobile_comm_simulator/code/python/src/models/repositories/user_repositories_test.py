@@ -13,16 +13,19 @@ from src.drivers.password_handler import PasswordHandler
 
 db_connection_handler.connect_to_db()
 
+
 @pytest.fixture(autouse=True)
 def erase_user_table():
     db_connection_handler.get_clean_tables()
 
-class MockUser():
+
+class MockUser:
     def __init__(self, username: str, email: str, password: str) -> None:
         self.username = username
         self.email = email
         self.password = password
         self.created_at = datetime.now()
+
 
 # @pytest.mark.skip(reason="interacao com o banco")
 def test_create_user():
@@ -31,7 +34,9 @@ def test_create_user():
     password = "password"
     user_repository = UserRepository(db_connection_handler)
     user = MockUser(username, email, password)
-    user_repository.create_user(user.username, user.email, PasswordHandler().encrypt_password(user.password))
+    user_repository.create_user(
+        user.username, user.email, PasswordHandler().encrypt_password(user.password)
+    )
 
     user_by_username = user_repository.get_user_by_username(user.username)
     user_by_email = user_repository.get_user_by_email(user.email)
@@ -41,7 +46,11 @@ def test_create_user():
     assert user_by_id_by_username.id == user_by_id_by_email.id
     assert user_by_username.username == user.username
     assert user_by_email.email == user.email
-    assert user_repository.authenticate_user(user.username, user.email, user.password) is not None
+    assert (
+        user_repository.authenticate_user(user.username, user.email, user.password)
+        is not None
+    )
+
 
 def test_get_all_users():
     username = "username"
@@ -59,6 +68,7 @@ def test_get_all_users():
     assert users[0].password == user.password
     assert isinstance(users, list)
 
+
 def test_update_user():
     username = "username"
     email = "email@email.com"
@@ -66,10 +76,8 @@ def test_update_user():
     user_repository = UserRepository(db_connection_handler)
     user = MockUser(username, email, password)
     user = user_repository.create_user(
-        user.username,
-        user.email,
-        PasswordHandler().encrypt_password(user.password)
-        ).to_dict()
+        user.username, user.email, PasswordHandler().encrypt_password(user.password)
+    ).to_dict()
 
     user["given_name"] = "given_name"
     user["middle_name"] = "middle_name"
@@ -87,12 +95,15 @@ def test_update_user():
     assert updated_user.username == user["username"]
     assert updated_user.email == user["email"]
     assert updated_user.password == user["password"]
-    assert user_repository.authenticate_user(
-        updated_user.username,
-        updated_user.email,
-        "new_password") is not None
+    assert (
+        user_repository.authenticate_user(
+            updated_user.username, updated_user.email, "new_password"
+        )
+        is not None
+    )
     assert user_repository.authenticate_user(username, email, password) is None
     assert original_user is None
+
 
 @pytest.mark.skip(reason="manter usuario no banco para verificação")
 def test_delete_user():
@@ -109,4 +120,3 @@ def test_delete_user():
     assert user_repository.get_user_by_email(email) is None
     assert user_repository.get_user_by_id(user.id) is None
     assert user_repository.authenticate_user(username, email, password) is None
-    

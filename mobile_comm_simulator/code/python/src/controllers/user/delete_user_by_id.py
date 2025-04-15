@@ -2,6 +2,7 @@ from typing import Dict
 from src.models.interfaces.user_repository import UserRepositoryInterface
 from ..interfaces.user.delete_user_by_id import DeleteUserByIdInterface
 
+
 class DeleteUserById(DeleteUserByIdInterface):
     def __init__(self, user_repository: UserRepositoryInterface) -> None:
         self.__user_repository = user_repository

@@ -3,6 +3,7 @@ from src.views.http_types.http_request import HttpRequest
 from src.views.http_types.http_response import HttpResponse
 from ..interfaces.view_interface import ViewInterface
 
+
 class DeleteUserByIdView(ViewInterface):
     def __init__(self, controller: DeleteUserByIdInterface) -> None:
         self.__controller = controller
@@ -14,4 +15,4 @@ class DeleteUserByIdView(ViewInterface):
 
         response = self.__controller.delete_user_by_id(current_user, user_id)
 
-        return HttpResponse(body={ "data": response }, status_code=200)
+        return HttpResponse(body={"data": response}, status_code=200)

@@ -1,8 +1,10 @@
 from controllers.interfaces.noise.create_noise import CreateNoiseInterface
+
 # from views.http_types.http_request import HttpRequest
 # from views.http_types.http_response import HttpResponse
 # from errors.types.http_bad_request import HttpBadRequestError
 from ..interfaces.view_interface import ViewInterface
+
 
 class CreateNoiseView(ViewInterface):
     def __init__(self, controller: CreateNoiseInterface) -> None:

@@ -3,6 +3,7 @@ from src.views.http_types.http_request import HttpRequest
 from src.views.http_types.http_response import HttpResponse
 from ..interfaces.view_interface import ViewInterface
 
+
 class UpdateUserView(ViewInterface):
     def __init__(self, controller: UpdateUserInterface) -> None:
         self.__controller = controller
@@ -14,4 +15,4 @@ class UpdateUserView(ViewInterface):
 
         response = self.__controller.update_user(partial_user)
 
-        return HttpResponse(body={ "data": response }, status_code=200)
+        return HttpResponse(body={"data": response}, status_code=200)

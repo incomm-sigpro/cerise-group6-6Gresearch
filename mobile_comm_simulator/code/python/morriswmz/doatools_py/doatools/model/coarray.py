@@ -2,9 +2,10 @@ import numpy as np
 from .arrays import GridBasedArrayDesign
 from ..utils.math import unique_rows
 
+
 def compute_location_differences(locations):
     r"""Computes all locations differences, including duplicates.
-    
+
     Suppose ``locations`` is :math:`m \times d`, then the result will be an
     :math:`m^2 \times d` matrix such that ``locations[i] - locations[j]`` is
     stored in the ``(i + j * m)``-th row of the resulting matrix.
@@ -20,6 +21,7 @@ def compute_location_differences(locations):
     D = locations.reshape((1, m, d)) - locations.reshape((m, 1, d))
     return D.reshape((-1, d))
 
+
 def compute_unique_location_differences(locations, atol=0.0, rtol=1e-8):
     """Computes all unique locations differences.
 
@@ -30,6 +32,7 @@ def compute_unique_location_differences(locations, atol=0.0, rtol=1e-8):
         locations: An m x d array of sensor locations.
     """
     return unique_rows(compute_location_differences(locations), atol, rtol)
+
 
 class WeightFunction1D:
     """Creates a 1D weight function.
@@ -45,7 +48,7 @@ class WeightFunction1D:
 
     def __init__(self, array):
         if array.ndim != 1 or not isinstance(array, GridBasedArrayDesign):
-            raise ValueError('Expecting a 1D grid-based array.')
+            raise ValueError("Expecting a 1D grid-based array.")
         self._m = array.size
         self._mv = None
         self._build_map(array)
@@ -60,7 +63,7 @@ class WeightFunction1D:
 
     def differences(self):
         """Retrieves a 1D array of unique differences in ascending order.
-        
+
         The ordering of elements returned by :meth:`differences` and the
         ordering of elements returned by :meth:`weights` are the same.
         """
@@ -96,7 +99,7 @@ class WeightFunction1D:
 
     def get_central_ula_size(self, exclude_negative_part=False):
         r"""Gets the size of the central ULA in the difference coarray.
-        
+
         Args:
             exclude_negative_part (bool): Set to ``True`` to exclude the
                 virtual array elements corresponding to negative differences.
@@ -117,7 +120,7 @@ class WeightFunction1D:
                     \lbrack
                     0, 1, \ldots, M_\mathrm{v}
                     \rbrack d_0
-                
+
                 Default value is ``False``.
         """
         if self._mv is None:
@@ -125,8 +128,8 @@ class WeightFunction1D:
             while mv in self._index_map:
                 mv += 1
             self._mv = mv
-        return self._mv if exclude_negative_part else self._mv * 2 - 1 
-    
+        return self._mv if exclude_negative_part else self._mv * 2 - 1
+
     def get_coarray_selection_matrix(self, exclude_negative_part=False):
         r"""Gets the coarray selection matrix.
 
@@ -147,10 +150,10 @@ class WeightFunction1D:
                 :math:`\lbrack 0, 1, \ldots, M_\mathrm{v} - 1\rbrack`) will be
                 considered, and the resulting :math:`\mathbf{F}` will be
                 :math:`M_\mathrm{v} \times M^2`. Default value is ``False``.
-        
+
         Returns:
             The coarray selection matrix.
-        
+
         References:
             [1] M. Wang and A. Nehorai, "Coarrays, MUSIC, and the Cramér-Rao
             Bound," IEEE Transactions on Signal Processing, vol. 65, no. 4,
@@ -167,9 +170,9 @@ class WeightFunction1D:
         for i, diff in enumerate(diff_range):
             F[i, self.indices_of(diff)] = 1.0 / self.weight_of(diff)
         return F
-    
+
     def _build_map(self, array):
-        # Maps difference -> indices in the vectorized difference matrix 
+        # Maps difference -> indices in the vectorized difference matrix
         index_map = {}
         diffs = compute_location_differences(array.element_indices).flatten()
         for i, diff in enumerate(diffs):
@@ -178,8 +181,7 @@ class WeightFunction1D:
             else:
                 index_map[diff] = [i]
         # Collect all unique differences and sort them
-        differences = np.fromiter(index_map.keys(),
-            dtype=np.int_, count=len(index_map))
+        differences = np.fromiter(index_map.keys(), dtype=np.int_, count=len(index_map))
         differences.sort()
         self._index_map = index_map
         self._differences = differences

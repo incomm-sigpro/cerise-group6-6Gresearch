@@ -1,11 +1,16 @@
 import numpy as np
 import warnings
+
 try:
     import cvxpy as cvx
+
     cvx_available = True
 except ImportError:
-    warnings.warn('Cannot import cvxpr. Some sparse recovery based estimators will not be usable.')
+    warnings.warn(
+        "Cannot import cvxpr. Some sparse recovery based estimators will not be usable."
+    )
     cvx_available = False
+
 
 class L1RegularizedLeastSquaresProblem:
     r"""Creates a reusable :math:`l_1`-regularized least squares problem.
@@ -67,22 +72,22 @@ class L1RegularizedLeastSquaresProblem:
             nonnegative. Default value is ``False``.
     """
 
-    def __init__(self, m, k, formulation='penalizedl1', nonnegative=False):
+    def __init__(self, m, k, formulation="penalizedl1", nonnegative=False):
         if not cvx_available:
-            raise RuntimeError('Cannot initialize when cvxpy is not available.')
+            raise RuntimeError("Cannot initialize when cvxpy is not available.")
         # Initialize parameters and variables
         A = cvx.Parameter((m, k))
         b = cvx.Parameter((m, 1))
         l = cvx.Parameter(nonneg=True)
         x = cvx.Variable((k, 1))
         # Create the problem
-        if formulation == 'penalizedl1':
+        if formulation == "penalizedl1":
             obj_func = 0.5 * cvx.sum_squares(cvx.matmul(A, x) - b) + l * cvx.norm1(x)
             constraints = []
-        elif formulation == 'constrainedl1':
+        elif formulation == "constrainedl1":
             obj_func = cvx.sum_squares(cvx.matmul(A, x) - b)
             constraints = [cvx.norm1(x) <= l]
-        elif formulation == 'constrainedl2':
+        elif formulation == "constrainedl2":
             obj_func = cvx.norm1(x)
             constraints = [cvx.norm(cvx.matmul(A, x) - b) <= l]
         else:
@@ -112,22 +117,23 @@ class L1RegularizedLeastSquaresProblem:
         self._b.value = b
         self._l.value = l
         self._problem.solve(**kwargs)
-        if self._problem.status != 'optimal':
-            warnings.warn('Optimal solution cannot be obtained.')
+        if self._problem.status != "optimal":
+            warnings.warn("Optimal solution cannot be obtained.")
             return np.zeros((self._x.size,))
         return self._x.value
 
+
 class L21RegularizedLeastSquaresProblem:
     r"""Creates an :math:`l_{2,1}`-norm regularized least squares problem.
-    
+
     The :math:`l_{2,1}`-norm of a matrix variable
     :math:`\mathbf{X} \in \mathbb{C}^{K \times L}` is given by
-    
+
     .. math::
-        
+
         \| \mathbf{X} \|_{2,1}
         = \sum_{i=1}^K \left(\sum_{j=1}^L |X_{ij}|^2\right)^{\frac{1}{2}}.
-    
+
     The :math:`l_{2,1}`-norm regularized least squares problem is given by
 
     .. math::
@@ -135,7 +141,7 @@ class L21RegularizedLeastSquaresProblem:
         \min_{\mathbf{X}}
         \frac{1}{2} \| \mathbf{A}\mathbf{X} - \mathbf{B} \|_F^2 +
         l \| \mathbf{X} \|_{2,1},
-    
+
     where :math:`\mathbf{A}` is :math:`M \times K`, :math:`\mathbf{X}` is
     :math:`K \times L`, :math:`\mathbf{B}` is :math:`M \times L`, and :math:`l`
     is the regularization parameter. Usually :math:`\mathbf{A}` is the
@@ -155,7 +161,7 @@ class L21RegularizedLeastSquaresProblem:
 
     def __init__(self, m, k, n, complex=False):
         if not cvx_available:
-            raise RuntimeError('Cannot initialize when cvxpy is not available.')
+            raise RuntimeError("Cannot initialize when cvxpy is not available.")
         # Initialize parameters and variables
         A = cvx.Parameter((m, k), complex=complex)
         B = cvx.Parameter((m, n), complex=complex)
@@ -166,8 +172,9 @@ class L21RegularizedLeastSquaresProblem:
         #   cvx.norm does not work if axis is not 0.
         # Workaround:
         #   use cvx.norm(X.T, 2, axis=0) instead of cvx.norm(X, 2, axis=1)
-        obj_func = 0.5 * cvx.norm(cvx.matmul(A, X) - B, 'fro')**2 + \
-                   l * cvx.sum(cvx.norm(X.T, 2, axis=0))
+        obj_func = 0.5 * cvx.norm(cvx.matmul(A, X) - B, "fro") ** 2 + l * cvx.sum(
+            cvx.norm(X.T, 2, axis=0)
+        )
         self._problem = cvx.Problem(cvx.Minimize(obj_func))
         self._A = A
         self._B = B
@@ -187,7 +194,7 @@ class L21RegularizedLeastSquaresProblem:
         self._B.value = B
         self._l.value = l
         self._problem.solve(**kwargs)
-        if self._problem.status != 'optimal':
-            warnings.warn('Optimal solution cannot be obtained.')
+        if self._problem.status != "optimal":
+            warnings.warn("Optimal solution cannot be obtained.")
             return np.zeros(self._X.shape)
         return self._X.value

@@ -5,6 +5,7 @@ from ..model.sources import FarField1DSourcePlacement
 from ..utils.math import projm, vec
 from .core import ensure_covariance_size, ensure_n_resolvable_sources
 
+
 def f_nll_stouc(R, array, sources, wavelength, p, sigma):
     # log|S| + tr(S^{-1} R)
     # S = A P A^H + sigma * I
@@ -15,9 +16,10 @@ def f_nll_stouc(R, array, sources, wavelength, p, sigma):
         return np.Inf
     return logdet + np.trace(np.linalg.solve(S, R))
 
+
 class CovarianceBasedMLEstimator(ABC):
     """Abstract base class for covariance based maximum-likelihood estimators.
-    
+
     Args:
         array (~doatools.model.arrays.ArrayDesign): Sensor array design.
         wavelength (float): Wavelength of the carrier wave.
@@ -31,13 +33,13 @@ class CovarianceBasedMLEstimator(ABC):
     def get_last_estimates(self):
         """Retrieves the last estimates of source locations."""
         if self._estimates is None:
-            raise RuntimeError('No estimation has been performed yet.')
+            raise RuntimeError("No estimation has been performed yet.")
         # Returns a copy.
         return self._estimates[:]
 
     def get_max_resolvable_sources(self):
         """Returns the maximum number of sources resolvable.
-        
+
         This default implementation returns (array size - 1), which is suitable
         for most ML based estimators because the projection matrix of the
         steering matrix is not well-defined when the number of sources is
@@ -58,7 +60,7 @@ class CovarianceBasedMLEstimator(ABC):
                 source powers, noise variance, etc.).
             R (~numpy.ndarray): The sample covariance matrix.
             k (int): The number of sources.
-        
+
         Notes:
             During the optimization process, the current estimation of the
             source locations is stored in ``self._estimates``.
@@ -107,7 +109,7 @@ class CovarianceBasedMLEstimator(ABC):
         """
         k = sources0.size
         # Delegate the call to self.eval_nll
-        f = lambda x : self._eval_nll(x, R, k)
+        f = lambda x: self._eval_nll(x, R, k)
         # Simply flatten the source location array:
         # x0 = [\theta_{11} \theta_{12} ... \theta_{1d} \theta{21} ...]
         # For instance, for far-field 2D sources
@@ -120,7 +122,7 @@ class CovarianceBasedMLEstimator(ABC):
 
     def _update_estimates_from_x(self, x):
         """Updates the current source location estimates from ``x``.
-        
+
         The default implementation reshapes the first k*d elements in ``x``
         into a k by d matrix and assign it to ``self._estimates.locations``,
         where k is the number of sources and d is the number of dimensions of
@@ -128,23 +130,21 @@ class CovarianceBasedMLEstimator(ABC):
         """
         n = self._estimates.locations.size
         np.copyto(
-            self._estimates.locations,
-            x[:n].reshape(self._estimates.locations.shape)
+            self._estimates.locations, x[:n].reshape(self._estimates.locations.shape)
         )
 
     def _eval_steering_matrix_from_x(self, x):
         """Evaluates the steering matrix from ``x``.
-        
+
         The default implementation first calls :meth:`update_estimates_from_x`
         to update ``self._estimates`` and then use it to evaluate the steering
         matrix.
         """
         self._update_estimates_from_x(x)
         return self._array.steering_matrix(
-            self._estimates, self._wavelength,
-            perturbations='known'
+            self._estimates, self._wavelength, perturbations="known"
         )
-    
+
     def estimate(self, R, sources0, **kwargs):
         r"""Solves the ML problem for the given inputs.
 
@@ -158,9 +158,9 @@ class CovarianceBasedMLEstimator(ABC):
                 initial guess of source locations will greatly affect the final
                 estimates. It is recommended to use the output of another
                 estimator (e.g. conventional beamformer) as the initial guess.
-                
+
             **kwargs: Additional keyword arguments for the solver.
-        
+
         Notes:
             In general, ML estimates are computationally expensive to obtain
             and sensitive to initialization. They are generally used in
@@ -190,27 +190,23 @@ class CovarianceBasedMLEstimator(ABC):
         # Subclasses should override this implementation if there exists faster
         # optimization approaches.
         obj_func, x0, bounds = self._prepare_opt_prob(sources0, R)
-        res = minimize(
-            obj_func, x0,
-            method='L-BFGS-B',
-            bounds=bounds,
-            **kwargs
-        )
+        res = minimize(obj_func, x0, method="L-BFGS-B", bounds=bounds, **kwargs)
         if res.success:
             self._update_estimates_from_x(res.x)
             return True, self.get_last_estimates()
         else:
             return False, None
 
+
 class AMLEstimator(CovarianceBasedMLEstimator):
     r"""Asymptotic maximum-likelihood (AML) estimator.
-    
+
     The AML estimator maximizes the following log-likelihood function:
 
     .. math::
-        
+
         - \log\det \mathbf{S} - \mathrm{tr}(\mathbf{S}^{-1} \mathbf{R})
-    
+
     where :math:`\mathbf{S} = \mathbf{A}\mathbf{P}\mathbf{A}^H + \sigma^2\mathbf{I}`,
     :math:`\mathbf{A}` is the steering matrix, :math:`\mathbf{P}` is the source
     covariance matrix, :math:`\sigma^2` is the noise variance, and
@@ -257,9 +253,10 @@ class AMLEstimator(CovarianceBasedMLEstimator):
         else:
             return nll_val
 
+
 class CMLEstimator(CovarianceBasedMLEstimator):
     r"""Conditional maximum-likelihood (CML) estimator.
-    
+
     Given the conditional observation model (the source signals are assumed to
     be deterministic unknown):
 
@@ -267,7 +264,7 @@ class CMLEstimator(CovarianceBasedMLEstimator):
 
         \mathbf{y}(t) = \mathbf{A}(\mathbf{\theta})\mathbf{x}(t) + \mathbf{n}(t),
         t = 1,2,...,T,
-    
+
     the CML estimator maximizes the following log-likelihood function:
 
     .. math::
@@ -279,7 +276,7 @@ class CMLEstimator(CovarianceBasedMLEstimator):
     where :math:`M` is the number of sensors, :math:`T` is the number of
     snapshots, :math:`\mathbf{A}` is the steering matrix, :math:`\sigma^2` is
     the noise variance.
-    
+
     Here the unknown parameters include the source locations,
     :math:`\mathbf{\theta}`, as well as :math:`\mathbf{x}(t)` and
     :math:`\sigma^2`. With further computations, it can be shown that the final
@@ -304,6 +301,7 @@ class CMLEstimator(CovarianceBasedMLEstimator):
         PPA = np.eye(self._array.size) - projm(A, True)
         return np.real(np.trace(PPA @ R))
 
+
 class WSFEstimator(CovarianceBasedMLEstimator):
     r"""Weighted subspace fitting (WSF) estimator.
 
@@ -315,7 +313,7 @@ class WSFEstimator(CovarianceBasedMLEstimator):
             \hat{\mathbf{U}}_\mathrm{s}
             \hat{\mathbf{W}}
             \hat{\mathbf{U}}_\mathrm{s}^H),
-    
+
     where :math:`\hat{\mathbf{U}}_\mathrm{s}` consists of the eigenvectors of
     the signal subspace of :math:`\hat{\mathbf{R}}`, and
     :math:`\hat{\mathbf{W}}` is a diagonal matrix consists of asymptotically
@@ -327,7 +325,7 @@ class WSFEstimator(CovarianceBasedMLEstimator):
         no. 5, pp. 1110-1121, May 1991.
 
         [2] H. L. Van Trees, Optimum array processing. New York: Wiley, 2002.
-        
+
         [3] P. Stoica and K. Sharman, "Maximum likelihood methods for
         direction-of-arrival estimation," IEEE Trans. Acoust., Speech, Signal
         Process., vol. 38, pp. 1132-1143, July 1990.
@@ -339,7 +337,7 @@ class WSFEstimator(CovarianceBasedMLEstimator):
         # Pre-calculate optimal weights
         v, E = np.linalg.eigh(R)
         # Signal subspace
-        Es = E[:,-k:]
+        Es = E[:, -k:]
         vs = v[-k:]
         # Noise variance estimate
         sigma_est = np.sum(v[:-k]) / (self._array.size - k)

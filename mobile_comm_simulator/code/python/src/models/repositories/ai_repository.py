@@ -2,10 +2,11 @@ from datetime import datetime
 from models.entities.ai import AI
 from models.interfaces.ai_repository import AIRepositoryInterface
 
+
 class AIRepository(AIRepositoryInterface):
     def __init__(self, db_connection) -> None:
         self.__db_connection = db_connection
-        
+
     def create_ai(
         self,
         name: str,

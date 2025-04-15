@@ -2,9 +2,12 @@ import warnings
 from abc import ABC, abstractmethod
 import numpy as np
 from .core import SpectrumBasedEstimatorBase, ensure_covariance_size
-from ..optim.l1lsq import L1RegularizedLeastSquaresProblem, \
-                          L21RegularizedLeastSquaresProblem
+from ..optim.l1lsq import (
+    L1RegularizedLeastSquaresProblem,
+    L21RegularizedLeastSquaresProblem,
+)
 from ..utils.math import khatri_rao, vec
+
 
 class SparseCovarianceMatching(SpectrumBasedEstimatorBase):
     r"""Creates a source location estimator based on matching the sparse
@@ -23,7 +26,7 @@ class SparseCovarianceMatching(SpectrumBasedEstimatorBase):
             \mathrm{vec}(\mathbf{I})
         \end{bmatrix}
         \begin{bmatrix} \mathbf{p} \\ \sigma^2 \end{bmatrix}
-    
+
     where :math:`\mathbf{A}` is the steering matrix of the discretized source
     locations, :math:`\mathbf{p} \in \mathbb{R}_+^G` is a sparse vector of the
     source powers, and :math:`\sigma^2` is the noise variance. If all sources
@@ -57,14 +60,21 @@ class SparseCovarianceMatching(SpectrumBasedEstimatorBase):
         estimation using co-prime arrays," in 2013 IEEE International
         Conference on Acoustics, Speech and Signal Processing (ICASSP),
         2013, pp. 3967-3971.
-        
+
         [3] Z. Tan and A. Nehorai, "Sparse direction of arrival estimation using
         co-prime arrays with off-grid targets," IEEE Signal Processing
         Letters, vol. 21, no. 1, pp. 26-29, Jan. 2014.
     """
 
-    def __init__(self, array, wavelength, search_grid, noise_known=False,
-                 formulation='penalizedl1', **kwargs):
+    def __init__(
+        self,
+        array,
+        wavelength,
+        search_grid,
+        noise_known=False,
+        formulation="penalizedl1",
+        **kwargs
+    ):
         super().__init__(array, wavelength, search_grid, **kwargs)
         self._formulation = formulation
         self._noise_known = noise_known
@@ -79,8 +89,7 @@ class SparseCovarianceMatching(SpectrumBasedEstimatorBase):
 
     def _compute_atom_matrix(self, grid):
         A = self._array.steering_matrix(
-            grid.source_placement, self._wavelength,
-            perturbations='known'
+            grid.source_placement, self._wavelength, perturbations="known"
         )
         Phi = khatri_rao(A.conj(), A)
         if not self._noise_known:
@@ -97,7 +106,7 @@ class SparseCovarianceMatching(SpectrumBasedEstimatorBase):
             # TODO: output noise estimate?
             sol = sol[:-1]
         return sol
-    
+
     def estimate(self, R, k, l, sigma=None, solver_options={}, **kwargs):
         r"""Estimates the source locations from the given covariance matrix.
 
@@ -105,12 +114,12 @@ class SparseCovarianceMatching(SpectrumBasedEstimatorBase):
             R (~numpy.ndarray): Covariance matrix input. The size of R must
                 match that of the array design used when creating this
                 estimator.
-            
+
             k (int): Expected number of sources.
-            
+
             l (float): The regularization parameter. The meaning of this
                 parameter depends on the formulation:
-                
+
                 * ``'penalizedl1'``: regularization parameter of the l1 penalty
                   term. Larger values of ``l`` usually leads to more sparse
                   solutions, at the cost of increased biases.
@@ -121,17 +130,17 @@ class SparseCovarianceMatching(SpectrumBasedEstimatorBase):
                   residual. Smaller values of ``l`` usually leads to better
                   reconstruction results. However the optimization problem
                   will become infeasible if ``l`` is too small.
-                
+
                 See :class:`~doatools.optim.l1lsq.L1RegularizedLeastSquaresProblem`
                 for more details.
-            
+
             solver_options (dict): A dictionary of additional keyword arguments
                 to be passed to the optimizer. For instance, you can specify the
                 solver or set the verbosity.
-            
+
             return_spectrum (bool): Set to ``True`` to also output the spectrum
                 for visualization. Default value if ``False``.
-                
+
         Returns:
             A tuple with the following elements.
 
@@ -152,16 +161,19 @@ class SparseCovarianceMatching(SpectrumBasedEstimatorBase):
               at the grid points. Only present if ``return_spectrum`` is
               ``True``.
         """
-        if 'refine_estimates' in kwargs:
-            raise ValueError('Grid refinement is not supported.')
+        if "refine_estimates" in kwargs:
+            raise ValueError("Grid refinement is not supported.")
         ensure_covariance_size(R, self._array)
         if self._noise_known:
             if sigma is None:
-                raise ValueError('sigma must be specified when noise variance is assumed known.')
+                raise ValueError(
+                    "sigma must be specified when noise variance is assumed known."
+                )
             # Do not modify R in-place!
             R = R - np.eye(self._array.size) * sigma
         f_sp = lambda Phi: self._get_sparse_spectrum(Phi, R, l, solver_options)
         return self._estimate(f_sp, k, **kwargs)
+
 
 class GroupSparseEstimator(SpectrumBasedEstimatorBase):
     r"""Creates a group-sparsity based estimator.
@@ -170,7 +182,7 @@ class GroupSparseEstimator(SpectrumBasedEstimatorBase):
     measurement vector (MMV) model:
 
     .. math::
-    
+
         \mathbf{Y} = \mathbf{A} \mathbf{X} + \mathbf{N},
 
     where each column of :math:`\mathbf{Y}` represents a single snapshot
@@ -193,10 +205,10 @@ class GroupSparseEstimator(SpectrumBasedEstimatorBase):
     where :math:`\lambda` is the regularization parameter, and
 
     .. math::
-    
+
         \| \mathbf{X} \|_{2,1}
         =\sum_{i} \left(\sum_{j} |X_{ij}|^2\right)^{\frac{1}{2}}.
-    
+
     After recovering :math:`\mathbf{X}`, the :math:`l_2` norms of the rows of
     :math:`\mathbf{X}` forms a pseudo spectrum. We can then find the source
     locations by identifying the largest peaks.
@@ -209,7 +221,7 @@ class GroupSparseEstimator(SpectrumBasedEstimatorBase):
         n_snapshots (int): Number of snapshots used.
         **kwargs: Other keyword arguments supported by
             :class:`~doatools.estimation.core.SpectrumBasedEstimatorBase`.
-    
+
     References:
         [1] D. Malioutov, M. Cetin, and A. S. Willsky, "A sparse signal
         reconstruction perspective for source localization with sensor
@@ -223,7 +235,7 @@ class GroupSparseEstimator(SpectrumBasedEstimatorBase):
         self._problem = L21RegularizedLeastSquaresProblem(
             array.size, search_grid.size, n_snapshots, True
         )
-    
+
     def _get_sparse_spectrum(self, A, Y, l, solver_options):
         X = self._problem.solve(A, Y, l, **solver_options)
         return np.linalg.norm(X, ord=2, axis=1)
@@ -243,7 +255,7 @@ class GroupSparseEstimator(SpectrumBasedEstimatorBase):
                 solver or set the verbosity.
             return_spectrum (bool): Set to ``True`` to also output the spectrum
                 for visualization. Default value if ``False``.
-                
+
         Returns:
             A tuple with the following elements.
 
@@ -264,11 +276,13 @@ class GroupSparseEstimator(SpectrumBasedEstimatorBase):
               at the grid points. Only present if ``return_spectrum`` is
               ``True``.
         """
-        if 'refine_estimates' in kwargs:
-            raise ValueError('Grid refinement is not supported.')
+        if "refine_estimates" in kwargs:
+            raise ValueError("Grid refinement is not supported.")
         if Y.shape[0] != self._array.size:
-            raise ValueError('The number of rows of Y must be equal to the array size.')
+            raise ValueError("The number of rows of Y must be equal to the array size.")
         if Y.shape[1] != self._n_snapshots:
-            raise ValueError('The number of columns of Y must be equal to the number of snapshots.')
+            raise ValueError(
+                "The number of columns of Y must be equal to the number of snapshots."
+            )
         f_sp = lambda A: self._get_sparse_spectrum(A, Y, l, solver_options)
         return self._estimate(f_sp, k, **kwargs)

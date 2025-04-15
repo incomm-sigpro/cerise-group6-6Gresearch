@@ -2,6 +2,7 @@ import uuid
 from sqlalchemy import Column, String, DateTime
 from configs.base import Base
 
+
 class Estimators(Base):
     __tablename__ = "estimators"
 

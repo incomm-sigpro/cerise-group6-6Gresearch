@@ -3,6 +3,7 @@ from models.repositories.estimators_repository import EstimatorsRepository
 from controllers.estimators.create_estimators import CreateEstimators
 from views.estimators.create_estimators_view import CreateEstimatorsView
 
+
 def estimators_composer():
     print("Creating estimators generator...")
     print("Establishing connection with database...")

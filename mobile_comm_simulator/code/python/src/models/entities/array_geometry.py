@@ -2,6 +2,7 @@ import uuid
 from sqlalchemy import Column, String, DateTime
 from configs.base import Base
 
+
 class ArrayGeometryModel(Base):
     __tablename__ = "array_geometries"
 

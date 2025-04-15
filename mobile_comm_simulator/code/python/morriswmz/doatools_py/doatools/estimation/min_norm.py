@@ -1,11 +1,16 @@
 import numpy as np
-from .core import SpectrumBasedEstimatorBase, get_noise_subspace, \
-                  ensure_covariance_size, ensure_n_resolvable_sources
+from .core import (
+    SpectrumBasedEstimatorBase,
+    get_noise_subspace,
+    ensure_covariance_size,
+    ensure_n_resolvable_sources,
+)
 from ..utils.math import abs_squared
+
 
 class MinNorm(SpectrumBasedEstimatorBase):
     """Creates a spectrum-based Min-Norm estimator.
-    
+
     The Min-Norm spectrum is computed on a predefined-grid, and the source
     locations are estimated by identifying the peaks.
 
@@ -16,11 +21,11 @@ class MinNorm(SpectrumBasedEstimatorBase):
             used to locate the sources.
         **kwargs: Other keyword arguments supported by
             :class:`~doatools.estimation.core.SpectrumBasedEstimatorBase`.
-    
+
     Notes:
         The Min-Norm algorithm is sometimes referred to in the literature as a
         weighted MUSIC algorithm because it uses weighted eigenspaces.
-    
+
     References:
         [1] R. Kumaresan and D. W. Tufts, "Estimating the angles of arrival of
         multiple plane waves," IEEE Trans. Aerospace Electron. Syst.,
@@ -48,7 +53,7 @@ class MinNorm(SpectrumBasedEstimatorBase):
             refinement_iters (int): Number of refinement iterations. More
                 iterations generally lead to better results, at the cost of
                 increased computational complexity. Default value is 3.
-        
+
         Returns:
             A tuple with the following elements.
 
@@ -74,7 +79,7 @@ class MinNorm(SpectrumBasedEstimatorBase):
         # d = En c^* / |c|^2
         En = get_noise_subspace(R, k)
         c = En[0, :]
-        w = c.conj() / (np.linalg.norm(c, 2)**2)
+        w = c.conj() / (np.linalg.norm(c, 2) ** 2)
         d = (En @ w).conj()
         # Spectrum = 1/|d^H a(\theta)|^2
         f_sp = lambda A: np.reciprocal(abs_squared(d @ A))

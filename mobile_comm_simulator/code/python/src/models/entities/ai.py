@@ -2,6 +2,7 @@ import uuid
 from sqlalchemy import Column, String, DateTime
 from configs.base import Base
 
+
 class AI(Base):
     __tablename__ = "ais"
 
@@ -9,7 +10,6 @@ class AI(Base):
     name = Column(String, nullable=False)
     model = Column(String, nullable=False)
     created_at = Column(DateTime, nullable=False)
-    
 
     def __repr__(self):
         return f"""AI [

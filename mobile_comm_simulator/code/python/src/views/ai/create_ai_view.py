@@ -1,13 +1,15 @@
 from controllers.interfaces.ai.create_ai import CreateAIInterface
+
 # from views.http_types.http_request import HttpRequest
 # from views.http_types.http_response import HttpResponse
 # from errors.http.http_bad_request import HttpBadRequestError
 from ..interfaces.view_interface import ViewInterface
 
+
 class CreateAIView(ViewInterface):
     def __init__(self, controller: CreateAIInterface) -> None:
         self.__controller = controller
-        
+
     def handle(self):
         return f"Controller created -> {type(self.__controller)}"
 

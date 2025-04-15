@@ -32,7 +32,6 @@ src/
 │   │   ├── signal_model
 │   │   │   ├── __init__.py
 │   │   │   ├── ula.py
-│   │   │   ├── sparse_array.py
 │   │   │   ├── nested_array.py
 │   │   │   ├── coprime_array.py
 ├── tests/

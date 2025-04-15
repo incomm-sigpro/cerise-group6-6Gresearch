@@ -2,6 +2,7 @@
 # from models.entities.estimators import Estimators
 from models.interfaces.estimators_repository import EstimatorsRepositoryInterface
 
+
 class EstimatorsRepository(EstimatorsRepositoryInterface):
     def __init__(self, db_connection) -> None:
         self.__db_connection = db_connection

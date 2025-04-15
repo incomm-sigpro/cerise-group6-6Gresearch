@@ -2,6 +2,7 @@ from typing import Dict
 from src.models.interfaces.user_repository import UserRepositoryInterface
 from ..interfaces.user.get_user_by_id import GetUserByIdInterface
 
+
 class GetUserById(GetUserByIdInterface):
     def __init__(self, user_repository: UserRepositoryInterface) -> None:
         self.__user_repository = user_repository

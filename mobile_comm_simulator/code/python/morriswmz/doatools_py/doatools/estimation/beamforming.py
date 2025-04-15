@@ -1,6 +1,7 @@
 import numpy as np
 from .core import SpectrumBasedEstimatorBase, ensure_covariance_size
 
+
 def f_bartlett(A, R):
     r"""Computes the spectrum output of the Bartlett beamformer.
 
@@ -15,6 +16,7 @@ def f_bartlett(A, R):
         R: m x m covariance matrix.
     """
     return np.sum(A.conj() * (R @ A), axis=0).real
+
 
 def f_mvdr(A, R):
     r"""Compute the spectrum output of the Bartlett beamformer.
@@ -31,11 +33,12 @@ def f_mvdr(A, R):
     """
     return 1.0 / np.sum(A.conj() * np.linalg.lstsq(R, A, None)[0], axis=0).real
 
+
 class BartlettBeamformer(SpectrumBasedEstimatorBase):
     """Creates a Barlett-beamformer based estimator.
 
     This estimator is also named beamscan based estimator.
-    
+
     The spectrum is computed on a predefined-grid using
     :meth:`~doatools.estimation.beamforming.f_bartlett`, and the source
     locations are estimated by identifying the peaks.
@@ -54,7 +57,7 @@ class BartlettBeamformer(SpectrumBasedEstimatorBase):
 
     def __init__(self, array, wavelength, search_grid, **kwargs):
         super().__init__(array, wavelength, search_grid, **kwargs)
-        
+
     def estimate(self, R, k, **kwargs):
         """Estimates the source locations from the given covariance matrix.
 
@@ -73,7 +76,7 @@ class BartlettBeamformer(SpectrumBasedEstimatorBase):
             refinement_iters (int): Number of refinement iterations. More
                 iterations generally lead to better results, at the cost of
                 increased computational complexity. Default value is 3.
-        
+
         Returns:
             A tuple with the following elements.
 
@@ -96,9 +99,10 @@ class BartlettBeamformer(SpectrumBasedEstimatorBase):
         ensure_covariance_size(R, self._array)
         return self._estimate(lambda A: f_bartlett(A, R), k, **kwargs)
 
+
 class MVDRBeamformer(SpectrumBasedEstimatorBase):
     """Creates a MVDR-beamformer based estimator.
-    
+
     The spectrum is computed on a predefined-grid using
     :meth:`~doatools.estimation.beamforming.f_mvdr`, and the source locations
     are estimated by identifying the peaks.
@@ -117,7 +121,7 @@ class MVDRBeamformer(SpectrumBasedEstimatorBase):
 
     def __init__(self, array, wavelength, search_grid, **kwargs):
         super().__init__(array, wavelength, search_grid, **kwargs)
-        
+
     def estimate(self, R, k, **kwargs):
         """
         Estimates the source locations from the given covariance matrix.
@@ -137,7 +141,7 @@ class MVDRBeamformer(SpectrumBasedEstimatorBase):
             refinement_iters (int): Number of refinement iterations. More
                 iterations generally lead to better results, at the cost of
                 increased computational complexity. Default value is 3.
-        
+
         Returns:
             A tuple with the following elements.
 
