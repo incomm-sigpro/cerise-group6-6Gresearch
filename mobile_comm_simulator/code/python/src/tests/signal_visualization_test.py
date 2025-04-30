@@ -25,7 +25,7 @@ def array_params():
         num_sensors=8,
         num_snapshots=100,
         geometry=GeometryType.LINEAR,
-        array_elements_spacing=SpacingType.UNIFORM,
+        array_elements_spacing=SpacingType.NESTED,
         wavelength=1.0,
     )
 

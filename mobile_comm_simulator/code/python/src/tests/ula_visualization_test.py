@@ -37,7 +37,7 @@ def test_ula_visualization_1d():
         num_sensors=8,
         num_snapshots=100,
         geometry=GeometryType.LINEAR,
-        array_elements_spacing=SpacingType.UNIFORM,
+        array_elements_spacing=SpacingType.NESTED,
         wavelength=1.0,
     )
     repo = ArrayGeometryRepository(db_connection=None, array_params=array_params)
