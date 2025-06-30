@@ -1,10 +1,10 @@
 import { ExtractJwt, Strategy } from "passport-jwt";
-import passport, { Passport } from "passport";
+import passport from "passport";
 import AuthToken from "passport-auth-token";
-import { getPrisma } from "./../db/prisma";
+import { getPrisma } from "../db/prisma";
 import { verify } from "jsonwebtoken";
 
-import config from "./../config";
+import config from "../config";
 
 const options = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),

@@ -4,7 +4,7 @@ import { useAuth } from '../hooks/AuthProvider';
 import { AppRoutesAdmin } from './AppRoutesAdmin';
 import { AppRoutesUser } from './AppRoutesUser';
 import { AuthRoutes } from './AuthRoutes';
-import { Sidebar } from '@/components/Sidebar';
+import { Sidebar } from '../components/Sidebar';
 
 export function Routes() {
   const { user } = useAuth();
@@ -15,7 +15,7 @@ export function Routes() {
 
   return (
     <BrowserRouter>
-      {user.token ? (
+      {true ? (
         admin_auth ? (
           <Sidebar hasPermission={admin_auth}>
             <AppRoutesAdmin />

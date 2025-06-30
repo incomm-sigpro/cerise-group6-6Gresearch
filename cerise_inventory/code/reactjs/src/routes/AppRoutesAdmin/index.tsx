@@ -5,8 +5,6 @@ import { Profile } from '@/pages/Profile';
 import { Inventories } from '@/pages/Inventories';
 import { Inventory } from '@/pages/Inventories/Inventory';
 import { Calendar } from '@/pages/Calendar';
-import { Results } from '@/pages/Results';
-import { Result } from '@/pages/Results/Result';
 import { Users } from '@/pages/Users';
 import { RegisterUser } from '@/pages/RegisterUser';
 import { Settings } from '@/pages/Settings';
@@ -27,12 +25,6 @@ export function AppRoutesAdmin() {
         </Route>
       </Route>
       <Route path="/calendar" element={<Calendar />} />
-      <Route path="/results">
-        <Route index element={<Results />} />
-        <Route path="result/:id">
-          <Route index element={<Result />} />
-        </Route>
-      </Route>
       <Route path="/users" element={<Users />} />
       <Route path="/register-user" element={<RegisterUser />} />
       <Route path="/settings" element={<Settings />} />

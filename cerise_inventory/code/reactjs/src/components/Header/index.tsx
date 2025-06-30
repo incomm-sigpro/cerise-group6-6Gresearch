@@ -22,6 +22,7 @@ import { api } from '../../services/api';
 
 import { Input } from '../Input';
 import MenuPopperItem from './MenuPopperItem';
+import { ThemeToggle } from '../ThemeToggle';
 
 interface HeaderProps {
   onInputChange: any;
@@ -113,6 +114,8 @@ export function Header({
       </S.Search>
 
       <S.Profile>
+        <ThemeToggle />
+        
         <ClickAwayListener onClickAway={handleContactsClickAway}>
           <IconButton
             aria-label="contacts"
@@ -217,13 +220,6 @@ export function Header({
                       }}
                     />
                     <MenuPopperItem
-                      icon={<FilePresentIcon />}
-                      title="Resultados"
-                      callback={() => {
-                        navigate('/results');
-                      }}
-                    />
-                    <MenuPopperItem
                       icon={<PeopleIcon />}
                       title="Usuários"
                       callback={() => {
@@ -280,13 +276,6 @@ export function Header({
                       title="Calendário"
                       callback={() => {
                         navigate('/calendar');
-                      }}
-                    />
-                    <MenuPopperItem
-                      icon={<FilePresentIcon />}
-                      title="Resultados"
-                      callback={() => {
-                        navigate('/results');
                       }}
                     />
                     <MenuPopperItem

@@ -1,6 +1,6 @@
 import * as S from './styles';
 
-import logo from '@/assets/Logos/logo-full.png';
+import logo from '@/assets/logos/logo-cerise.png';
 import { Section } from './Section/index';
 import { Item } from './Item/index';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -12,7 +12,6 @@ import BookIcon from '@mui/icons-material/Book';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import GroupIcon from '@mui/icons-material/Group';
 import SettingsIcon from '@mui/icons-material/Settings';
-import FilePresentIcon from '@mui/icons-material/FilePresent';
 
 import { Header } from '../Header';
 import CloseIcon from '@mui/icons-material/Close';
@@ -78,14 +77,9 @@ export function Sidebar({ children, hasPermission }: SidebarProps) {
           navigateTo: '/calendar',
         },
         {
-          title: 'Blog',
+          title: 'CERISE',
           icon: <BookIcon />,
-          navigateTo: 'https://cerise.com.br/blog/',
-        },
-        {
-          title: 'Resultados',
-          icon: <FilePresentIcon />,
-          navigateTo: '/results',
+          navigateTo: 'https://website-cerise.vercel.app/',
         },
         {
           title: 'Usuários',
@@ -110,9 +104,9 @@ export function Sidebar({ children, hasPermission }: SidebarProps) {
           navigateTo: '/calendar',
         },
         {
-          title: 'Blog',
+          title: 'CERISE',
           icon: <BookIcon />,
-          navigateTo: 'https://cerise.com.br/blog/',
+          navigateTo: 'https://website-cerise.vercel.app/',
         },
       ];
 

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { CERISE_COLORS } from '../../styles/colors';
 
 interface NavProps {
   $opened?: boolean;
@@ -20,10 +21,12 @@ export const Nav = styled.nav<NavProps>`
   left: 0px;
   display: flex;
   flex-direction: column;
-  background-color: rgb(28, 37, 54);
-  color: #fff;
+  background: ${CERISE_COLORS.gradients.sidebar};
+  color: ${CERISE_COLORS.primary};
   grid-area: sidebar;
   transition: width 0.4s;
+  border-right: 2px solid ${CERISE_COLORS.borders.primary};
+  box-shadow: ${CERISE_COLORS.shadows.card};
 `;
 
 export const NavHeader = styled.div`
@@ -33,11 +36,19 @@ export const NavHeader = styled.div`
   align-items: center;
   width: 100%;
   height: 120px;
+  background: linear-gradient(135deg, ${CERISE_COLORS.primary} 0%, ${CERISE_COLORS.primaryDark} 100%);
+  border-bottom: 2px solid ${CERISE_COLORS.primaryLight};
 
   > button {
     > svg {
       margin-top: 6px;
       color: #fff;
+      transition: all 0.2s ease;
+      
+      &:hover {
+        color: ${CERISE_COLORS.secondary};
+        transform: scale(1.1);
+      }
     }
   }
 
@@ -47,7 +58,6 @@ export const NavHeader = styled.div`
     align-items: center;
     width: 78%;
     transition: display 0.4s;
-
     object-fit: -web-kit-responsive;
   }
 `;
@@ -75,4 +85,5 @@ export const Footer = styled.div`
   padding-top: 20px;
   height: 200px;
   padding-left: -10px;
+  background: linear-gradient(180deg, transparent 0%, ${CERISE_COLORS.pale} 100%);
 `;

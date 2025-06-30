@@ -2,7 +2,7 @@ import { getPrisma } from "./db/prisma";
 import cors from "cors";
 import express from "express";
 import { NextFunction, Request, Response } from "express";
-import passport from "./utils/passport";
+import passport from "./utils/passport-config";
 import router from "./routes";
 import bodyParser from "body-parser";
 

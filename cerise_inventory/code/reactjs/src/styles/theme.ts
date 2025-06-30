@@ -1,82 +1,187 @@
-import { createTheme } from '@mui/material/styles';
+import { createTheme, ThemeOptions } from '@mui/material/styles';
+import { getThemeColors } from './colors';
 
 // Documentação: https://mui.com/material-ui/customization/default-theme/
 // Caso precise de uma cor ou propriedade basta sobrescrever colocando aqui
 
-const theme = createTheme({
-  typography: {
-    button: {
-      textTransform: 'none',
+// Paleta CERISE - Baseada na cor principal #c60463
+// Cor principal: #c60463 (Rosa/Magenta vibrante)
+// Cores complementares e harmoniosas geradas para criar uma paleta coesa
+
+// Função para criar tema baseado no modo
+export function createCeriseTheme(mode: 'light' | 'dark') {
+  const colors = getThemeColors(mode);
+  
+  const themeOptions: ThemeOptions = {
+    palette: {
+      mode,
+      common: {
+        black: '#000',
+        white: '#fff',
+      },
+      // Cor principal CERISE
+      primary: {
+        main: colors.primary,
+        light: colors.primaryLight,
+        dark: colors.primaryDark,
+        contrastText: '#fff',
+      },
+      // Cor secundária complementar (verde-azulado)
+      secondary: {
+        main: colors.secondary,
+        light: colors.secondaryLight,
+        dark: colors.secondaryDark,
+        contrastText: '#fff',
+      },
+      error: {
+        main: colors.error,
+        light: colors.errorLight,
+        dark: colors.errorDark,
+        contrastText: '#fff',
+      },
+      warning: {
+        main: colors.accent,
+        light: colors.accentLight,
+        dark: colors.accentDark,
+        contrastText: '#fff',
+      },
+      info: {
+        main: colors.info,
+        light: colors.infoLight,
+        dark: colors.infoDark,
+        contrastText: '#fff',
+      },
+      success: {
+        main: colors.success,
+        light: colors.successLight,
+        dark: colors.successDark,
+        contrastText: '#fff',
+      },
+      // Tons de cinza personalizados para CERISE
+      grey: colors.grey,
+      background: {
+        paper: colors.background.paper,
+        default: colors.background.default,
+      },
+      text: {
+        primary: colors.text.primary,
+        secondary: colors.text.secondary,
+        disabled: colors.text.disabled,
+      },
     },
-  },
-  palette: {
-    mode: 'light',
-    common: {
-      black: '#000',
-      white: '#fff',
+    typography: {
+      button: {
+        textTransform: 'none',
+      },
+      fontFamily: '"Ubuntu", "Roboto", "Helvetica", "Arial", sans-serif',
+      h1: {
+        color: colors.primary,
+        fontWeight: 700,
+      },
+      h2: {
+        color: colors.primary,
+        fontWeight: 600,
+      },
+      h3: {
+        color: colors.primaryDark,
+        fontWeight: 600,
+      },
+      h4: {
+        color: colors.primaryDark,
+        fontWeight: 500,
+      },
+      h5: {
+        color: colors.primaryDark,
+        fontWeight: 500,
+      },
+      h6: {
+        color: colors.primaryDark,
+        fontWeight: 500,
+      },
     },
-    primary: {
-      main: '#1976d2',
-      light: '#BBDDF2',
-      dark: '#1565c0',
-      contrastText: '#fff',
+    // Componentes customizados
+    components: {
+      MuiButton: {
+        styleOverrides: {
+          root: {
+            borderRadius: 8,
+            fontWeight: 500,
+            textTransform: 'none',
+            boxShadow: colors.shadows.primary,
+            '&:hover': {
+              boxShadow: colors.shadows.primaryHover,
+            },
+          },
+          containedPrimary: {
+            background: colors.gradients.primary,
+            '&:hover': {
+              background: `linear-gradient(45deg, ${colors.primaryDark} 30%, ${colors.primary} 90%)`,
+            },
+          },
+          containedSecondary: {
+            background: colors.gradients.secondary,
+            '&:hover': {
+              background: `linear-gradient(45deg, ${colors.secondaryDark} 30%, ${colors.secondary} 90%)`,
+            },
+          },
+        },
+      },
+      MuiCard: {
+        styleOverrides: {
+          root: {
+            borderRadius: 12,
+            boxShadow: colors.shadows.card,
+            border: `1px solid ${colors.borders.primary}`,
+            background: mode === 'dark' 
+              ? `linear-gradient(135deg, ${colors.background.paper} 0%, ${colors.pale} 100%)`
+              : `linear-gradient(135deg, #fff 0%, ${colors.pale} 100%)`,
+          },
+        },
+      },
+      MuiAppBar: {
+        styleOverrides: {
+          root: {
+            background: colors.gradients.header,
+            boxShadow: colors.shadows.header,
+          },
+        },
+      },
+      MuiDrawer: {
+        styleOverrides: {
+          paper: {
+            background: colors.gradients.sidebar,
+            borderRight: `2px solid ${colors.borders.primary}`,
+          },
+        },
+      },
+      MuiTextField: {
+        styleOverrides: {
+          root: {
+            '& .MuiOutlinedInput-root': {
+              '&:hover fieldset': {
+                borderColor: colors.primary,
+              },
+              '&.Mui-focused fieldset': {
+                borderColor: colors.primary,
+              },
+            },
+          },
+        },
+      },
+      MuiPaper: {
+        styleOverrides: {
+          root: {
+            backgroundImage: 'none',
+          },
+        },
+      },
     },
-    secondary: {
-      main: '#9c27b0',
-      light: '#ba68c8',
-      dark: '#7b1fa2',
-      contrastText: '#fff',
-    },
-    error: {
-      main: '#d32f2f',
-      light: '#ef5350',
-      dark: '#c62828',
-      contrastText: '#fff',
-    },
-    warning: {
-      main: '#ed6c02',
-      light: '#ff9800',
-      dark: '#e65100',
-      contrastText: '#fff',
-    },
-    info: {
-      main: '#0288d1',
-      light: '#03a9f4',
-      dark: '#01579b',
-      contrastText: '#fff',
-    },
-    success: {
-      main: '#2e7d32',
-      light: '#4caf50',
-      dark: '#1b5e20',
-      contrastText: '#fff',
-    },
-    grey: {
-      50: '#fafafa',
-      100: '#f0f0f0',
-      200: '#eeeeee',
-      300: '#e0e0e0',
-      400: '#bdbdbd',
-      500: '#9e9e9e',
-      600: '#757575',
-      700: '#2f3746',
-      800: '#5E6B76',
-      900: '#312E38',
-      A100: '#f5f5f5',
-      A200: '#eeeeee',
-      A400: '#bdbdbd',
-      A700: '#616161',
-    },
-    background: {
-      paper: '#fff',
-      default: '#fff',
-    },
-    text: {
-      primary: '#2f3746',
-      secondary: '#757575',
-      disabled: '#757575',
-    },
-  },
-});
+  };
+
+  return createTheme(themeOptions);
+}
+
+// Tema padrão (claro)
+const theme = createCeriseTheme('light');
 
 export default theme;

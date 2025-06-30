@@ -3,8 +3,8 @@ import { useAuth } from '../../../hooks/AuthProvider';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 
-import { Input } from '@/components/Input';
-import { Button } from '@/components/Button';
+import { Input } from '../../../components/Input';
+import { Button } from '../../../components/Button';
 
 import logo from '@/assets/logos/logo-cerise.png';
 
@@ -40,12 +40,12 @@ export function Login() {
   return (
     <S.Container>
       <S.Content>
-        <img src={logo} />
+        <img style={{ width: 300 }} src={logo} />
         <S.Login>
           <h1>Login</h1>
           <span>
             Não possui uma conta? entre em contato conosco por{' '}
-            <a href="https://cerise.com.br/contato/">aqui</a>
+            <a href="https://website-cerise.vercel.app/">aqui</a>
           </span>
         </S.Login>
         <form onSubmit={formik.handleSubmit}>
@@ -83,7 +83,7 @@ export function Login() {
         </form>
         <span
           onClick={() =>
-            (window.location.href = 'https://cerise.com.br/contato/')
+            (window.location.href = 'https://website-cerise.vercel.app/')
           }
         >
           Esqueci minha senha
