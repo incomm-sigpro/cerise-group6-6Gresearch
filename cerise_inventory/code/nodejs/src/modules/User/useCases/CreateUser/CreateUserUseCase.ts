@@ -50,7 +50,7 @@ export default class CreateUserUseCase {
       const firstMessage = {
         title: "Bem vindo ao sistema",
         content:
-          "Olá, seja bem vindo ao sistema de gestão de energia da Cerise.",
+          "Olá, seja bem vindo ao sistema de inventário do CERISE.",
         type: "info",
       };
 

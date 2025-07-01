@@ -1,6 +1,6 @@
 import { getPrisma } from "./db/prisma";
 import cors from "cors";
-import express from "express";
+import express, { RequestHandler } from "express";
 import { NextFunction, Request, Response } from "express";
 import passport from "./utils/passport-config";
 import router from "./routes";
@@ -26,7 +26,7 @@ const run = async () => {
   app.use(bodyParser.json());
 
   app.use(express.urlencoded({ extended: false }));
-  app.use(passport.initialize());
+  app.use(passport.initialize() as unknown as RequestHandler);
   app.use(router);
   app.use(
     (

@@ -2,13 +2,17 @@ import { sign } from "jsonwebtoken";
 import config from "../config";
 
 const generateJWT = (id: string) => {
-  const expiresIn = config.jwt.TOKEN_EXPIRES_IN;
-  const payload = {
+  const expiresIn: string = config.jwt.TOKEN_EXPIRES_IN;
+  const payload: any = {
     sub: id,
     iat: Math.floor(Date.now() / 1000),
   };
 
-  const signedToken = sign(payload, config.jwt.SECRET_KEY, { expiresIn });
+  const signedToken: any = sign(
+    payload as any,
+    config.jwt.SECRET_KEY as string,
+    { expiresIn: "1d" }
+  );
 
   return {
     token: `Bearer ${signedToken}`,

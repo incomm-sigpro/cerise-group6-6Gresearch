@@ -15,7 +15,7 @@ export function Routes() {
 
   return (
     <BrowserRouter>
-      {true ? (
+      {user.token ? (
         admin_auth ? (
           <Sidebar hasPermission={admin_auth}>
             <AppRoutesAdmin />

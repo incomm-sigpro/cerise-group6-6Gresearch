@@ -191,7 +191,7 @@ model Address {
   corporation   Corporation @relation(fields: [corporationId], references: [id])
   corporationId String      @map("corporation_id")
 
-  @@unique([corporationId], name: "corporation_address_unique")
+  @@unique([corporationId])
   @@map("addresses")
 }
 
@@ -235,10 +235,10 @@ model InventoryItems {
   updatedAt   DateTime  @updatedAt @map("updated_at")
   scope       Scope
   uf          String
-  description String?   @db.VarChar(2048)
+  description String?
   category    Category  @relation(fields: [categoryId], references: [id])
   categoryId  String    @map("category_id")
-  quantity    Decimal   @default(0) @db.Decimal(65, 2)
+  quantity    Decimal   @default(0)
   inventory   Inventory @relation(fields: [inventoryId], references: [id])
   inventoryId String    @map("inventory_id")
   isActive    Boolean   @default(true) @map("is_active")
@@ -253,7 +253,7 @@ model Category {
   createdAt      DateTime         @default(now()) @map("created_at")
   updatedAt      DateTime         @updatedAt @map("updated_at")
   name           String
-  description    String?          @db.VarChar(2048)
+  description    String?
   scope          Scope
   inventoryItems InventoryItems[]
   isActive       Boolean          @default(true) @map("is_active")

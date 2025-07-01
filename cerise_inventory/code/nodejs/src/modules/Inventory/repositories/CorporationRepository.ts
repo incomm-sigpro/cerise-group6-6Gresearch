@@ -26,13 +26,6 @@ export default class CorporationRepository implements ICorporationRepository {
       data: {
         name,
         cnpj,
-        energyConsumption,
-        airConditioners,
-        computers,
-        employeeTransportation,
-        mainActivity,
-        suppliers,
-        wasteGeneration,
       },
     });
   }

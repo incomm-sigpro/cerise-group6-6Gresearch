@@ -165,14 +165,7 @@ const createCorporation = async (prisma: PrismaClient) => {
   const newCorporations = [
     {
       name: "Cerise",
-      cnpj: "99.999.999/0001-61",
-      energyConsumption: null,
-      airConditioners: null,
-      computers: null,
-      employeeTransportation: null,
-      mainActivity: null,
-      suppliers: null,
-      wasteGeneration: null,
+      cnpj: "99.999.999/0001-61"
     },
   ];
 
@@ -249,9 +242,10 @@ const createCategories = async (prisma: PrismaClient) => {
     await prisma.category.createMany({
       data: [
         {
+          id: "1",
           name: "Módulos 5G",
           description:
-            "Módulos 5G são componentes eletrônicos usados em dispositivos de comunicação 5G, como smartphones, tablets, modems e roteadores. Permitem a conexão de dispositivos à rede 5G para acesso à internet e comunicação de dados.",
+            "Módulos 5G são componentes eletrônicos usados em dispositivos de comunicação 5G, como smartphones, tablets, modems e roteadores.",
           scope: "SCOPE_01",
         },
       ],

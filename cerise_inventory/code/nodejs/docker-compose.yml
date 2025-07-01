@@ -1,14 +1,23 @@
-version: '3'
+version: "3.8"
 
 services:
-  mysql-compose:
-    image: mysql
-    command: --default-authentication-plugin=mysql_native_password
+  mysql:
+    image: mysql:8
+    container_name: mysql-cerise
     environment:
-      MYSQL_ROOT_PASSWORD: "mysql"
-      MYSQL_DATABASE: "cerise_inventory"
-      MYSQL_USER: "mysql"
-      MYSQL_PASSWORD: "mysql"
+      MYSQL_ROOT_PASSWORD: mysql
+      MYSQL_DATABASE: cerise_inventory
+      MYSQL_USER: mysql
+      MYSQL_PASSWORD: mysql
     ports:
-      - "3306:3306"
+      - "3308:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
+volumes:
+  mysql_data:

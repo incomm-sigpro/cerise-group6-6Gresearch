@@ -7,7 +7,6 @@ import addressRouter from "./address.routes";
 import inventoryRouter from "./inventory.routes";
 import inventoryItemsRouter from "./inventoryItems.routes";
 import categoryRouter from "./category.routes";
-import sourceRouter from "./source.routes";
 
 const routes = Router();
 
@@ -19,6 +18,5 @@ routes.use("/address", addressRouter);
 routes.use("/inventory", inventoryRouter);
 routes.use("/inventory_items", inventoryItemsRouter);
 routes.use("/category", categoryRouter);
-routes.use("/source", sourceRouter);
 
 export default routes;

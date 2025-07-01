@@ -1,116 +1,237 @@
-# cerise-group3-5GOpenRAN
+# Cerise Inventory System
 
-Este repositório contém o código, documentação e recursos necessários para o desenvolvimento de um sistema Open RAN 5G. Open RAN (Radio Access Network) representa uma nova abordagem para redes móveis, promovendo uma arquitetura aberta e desagregada para permitir uma maior flexibilidade, interoperabilidade e inovação nas redes de quinta geração (5G).
+Sistema de inventário sendo desenvolvido para os laboratórios do CERISE, contendo backend, frontend web e aplicação mobile.
 
-## Sumário
+## 📋 Sumário
 
-- [cerise-group3-5GOpenRAN](#cerise-group3-5gopenran)
-  - [Sumário](#sumário)
-  - [Descrição](#descrição)
-  - [Objetivo](#objetivo)
-  - [Recursos](#recursos)
-  - [Pré-requisitos](#pré-requisitos)
-  - [Instalação](#instalação)
-  - [Uso](#uso)
-  - [Documentação](#documentação)
-  - [Contribuição](#contribuição)
-  - [Licença](#licença)
-  - [Contato](#contato)
+- [Cerise Inventory System](#cerise-inventory-system)
+  - [📋 Sumário](#-sumário)
+  - [🎯 Descrição](#-descrição)
+  - [🏗️ Arquitetura](#️-arquitetura)
+  - [🚀 Tecnologias](#-tecnologias)
+  - [📦 Pré-requisitos](#-pré-requisitos)
+  - [⚙️ Instalação](#️-instalação)
+  - [🔧 Configuração](#-configuração)
+  - [📱 Executando os Projetos](#-executando-os-projetos)
+  - [📚 Documentação](#-documentação)
+  - [🤝 Contribuição](#-contribuição)
+  - [📄 Licença](#-licença)
+  - [👥 Contato](#-contato)
 
-## Descrição
+## 🎯 Descrição
 
-Este projeto visa desenvolver e simular uma arquitetura Open RAN 5G utilizando ferramentas e bibliotecas modernas. A implementação foca em componentes modulares e configuráveis, permitindo a integração com diferentes soluções de hardware e software, conforme as diretrizes da arquitetura Open RAN.
+O Cerise Inventory System é uma solução completa para gerenciamento de inventários, desenvolvida com arquitetura moderna e tecnologias atuais. O sistema permite o controle de inventários, categorias, usuários e corporações, oferecendo uma experiência consistente entre web e mobile.
 
-## Objetivo
+## 🏗️ Arquitetura
 
-O objetivo deste projeto é:
+O projeto está organizado em três aplicações principais:
 
-1. Explorar e implementar os princípios do Open RAN no contexto de redes 5G.
-2. Oferecer uma base modular e extensível para testes e simulações de componentes RAN.
-3. Integrar elementos de código para suporte a operações RAN em ambientes de rede virtualizados e na borda.
-
-## Recursos
-
-- **Módulos Open RAN**: Implementação dos principais módulos do Open RAN (DU, CU, RU).
-- **Simulações e Testes**: Scripts para simulação de tráfego e condições de rede.
-- **Compatibilidade**: Suporte a integrações com diferentes APIs e plataformas de redes virtuais.
-
-## Pré-requisitos
-
-- **Python** >= 3.8
-- **Docker** >= 20.10
-- **Bibliotecas**:
-  - `requests`
-  - `numpy`
-  - `scipy`
-
-Você pode instalar as bibliotecas com o seguinte comando:
-
-```bash
-pip install -r requirements.txt
+```
+cerise_inventory/
+├── code/
+│   ├── nodejs/          # Backend API (Node.js + Express + Prisma)
+│   ├── reactjs/         # Frontend Web (React + TypeScript + Vite)
+│   └── react_native/    # Aplicação Mobile (React Native + Expo)
+├── documents/           # Documentação do projeto
+├── images/             # Imagens e recursos
+└── instruments/        # Instrumentos e ferramentas
 ```
 
-Para simulações adicionais, recomenda-se uma plataforma de virtualização, como **VMware** ou **VirtualBox**.
+### 🔧 Backend (Node.js)
+- **API RESTful** com Express.js
+- **Banco de dados** MySQL para desenvolvimento e produção
+- **ORM** Prisma para gerenciamento de dados
+- **Autenticação** JWT
+- **Validação** com Joi
+- **Testes** com Vitest
 
-## Instalação
+### 🌐 Frontend Web (React)
+- **React 18** com TypeScript
+- **Vite** como bundler
+- **Material-UI** para interface
+- **React Router** para navegação
+- **Axios** para comunicação com API
+- **Formik & Yup** para formulários
 
-1. Clone o repositório:
+### 📱 Aplicação Mobile (React Native)
+- **React Native** com Expo
+- **TypeScript** para tipagem
+- **React Navigation** para navegação
+- **AsyncStorage** para persistência
+- **Axios** para comunicação com API
+- **Design system** customizado
 
+## 🚀 Tecnologias
+
+### Backend
+- **Node.js** 18+
+- **Express.js** - Framework web
+- **Prisma** - ORM
+- **MySQL** - Banco de dados
+- **JWT** - Autenticação
+- **Joi** - Validação
+- **Vitest** - Testes
+
+### Frontend Web
+- **React** 18
+- **TypeScript**
+- **Vite**
+- **Material-UI**
+- **React Router**
+- **Axios**
+- **Formik & Yup**
+
+### Mobile
+- **React Native**
+- **Expo**
+- **TypeScript**
+- **React Navigation**
+- **AsyncStorage**
+- **Axios**
+
+## 📦 Pré-requisitos
+
+- **Node.js** >= 18.0.0
+- **npm** ou **yarn**
+- **Git**
+- **Expo CLI** (para desenvolvimento mobile)
+
+## ⚙️ Instalação
+
+1. **Clone o repositório:**
    ```bash
-   git clone https://github.com/jakunzler/cerise-group3-5GOpenRAN.git
-   cd cerise-group3-5GOpenRAN
+   git clone https://github.com/incomm-sigpro/cerise-group6-6Gresearch.git
+   git checkout kunzler-branch
+   cd cerise_inventory
    ```
 
-2. Instale as dependências:
-
+2. **Instale as dependências do backend:**
    ```bash
-   pip install -r requirements.txt
+   cd code/nodejs
+   yarn install
    ```
 
-3. Inicie o ambiente Docker:
-
+3. **Instale as dependências do frontend web:**
    ```bash
-   docker-compose up -d
+   cd code/reactjs
+   yarn install
    ```
 
-## Uso
-
-1. Execute o script principal:
-
+4. **Instale as dependências do mobile:**
    ```bash
-   python run.py
+   cd code/react_native
+   npm install
    ```
 
-2. Acesse a interface web no navegador em `http://localhost:8000`.
+## 🔧 Configuração
 
-3. Utilize a documentação para mais informações sobre parâmetros e configurações.
+### Backend
+1. Configure o banco de dados MySQL com Docker para desenvolvimento:
+   ```bash
+   cd code/nodejs
+   docker compose up
+   ```
 
-## Documentação
+2. Em outro terminal, gere o banco de dados e execute as migrações:
+   ```bash
+   yarn prisma generate
+   yarn prisma migrate dev
+   ```
 
-A documentação completa está disponível na pasta `documents`. Inclui:
+3. Execute o seed inicial:
+   ```bash
+   yarn seed
+   ```
 
-- **Descrição dos Módulos**: Informações sobre o DU, CU, RU e suas implementações.
-- **API**: Documentação para chamadas de API e endpoints REST.
-- **Exemplos de Código**: Scripts de exemplo para simulação e testes de componentes.
-- **Configuração Avançada**: Como personalizar as configurações do Open RAN para diferentes cenários.
+### Frontend Web
+1. Configure a URL da API em `src/config/index.ts`
+2. Ajuste as variáveis de ambiente se necessário
 
-## Contribuição
+### Mobile
+1. Configure a URL da API em `src/config/index.ts`
+2. Ajuste as configurações do Expo em `app.json`
 
-Contribuições são bem-vindas! Siga os passos abaixo para contribuir:
+## 📱 Executando os Projetos
 
-1. Fork o projeto.
-2. Crie uma branch para sua funcionalidade (`git checkout -b minha-funcionalidade`).
-3. Faça commit das suas mudanças (`git commit -m 'Adicionar nova funcionalidade'`).
-4. Faça push para a branch (`git push origin minha-funcionalidade`).
-5. Abra um Pull Request.
+### Backend
+```bash
+cd code/nodejs
+yarn dev               # Desenvolvimento
+yarn test              # Testes
+```
 
-Para maiores informações, leia o guia de contribuição na pasta `CONTRIBUTING.md`.
+### Frontend Web
+```bash
+cd code/reactjs
+yarn dev         # Desenvolvimento
+yarn deploy      # Build para produção
+yarn preview     # Preview do build
+```
 
-## Licença
+### Mobile
+```bash
+cd code/react_native
+npm start           # Iniciar servidor Expo
+npm run android     # Executar no Android
+npm run ios         # Executar no iOS
+npm run web         # Executar na web
+```
 
-Este projeto está licenciado sob a Licença MIT - veja o arquivo [LICENSE](LICENSE) para detalhes.
+## 📚 Documentação
 
-## Contato
+### Documentação Específica
+- **Backend**: [README.md](code/nodejs/README.md)
+- **Frontend Web**: [README.md](code/reactjs/README.md)
+- **Mobile**: [README.md](code/react_native/README.md)
+- **Banco de Dados**: [DATABASE.md](code/nodejs/DATABASE.md)
+
+### Funcionalidades
+
+#### ✅ Implementado
+- [x] Sistema de autenticação completo
+- [x] CRUD de usuários
+- [x] CRUD de inventários
+- [x] CRUD de categorias
+- [x] CRUD de corporações
+- [x] Dashboard responsivo
+- [x] Interface mobile nativa
+- [x] Banco de dados SQLite
+- [x] Testes automatizados
+- [x] Documentação completa
+
+#### 🚧 Em Desenvolvimento
+- [ ] Upload de imagens
+- [ ] Relatórios avançados
+- [ ] Notificações push
+- [ ] Sincronização offline
+- [ ] Analytics e métricas
+
+## 🤝 Contribuição
+
+Contribuições são bem-vindas! Siga os passos abaixo:
+
+1. **Fork** o projeto
+2. **Crie** uma branch para sua feature (`git checkout -b feature/nova-funcionalidade`)
+3. **Commit** suas mudanças (`git commit -m 'Adicionar nova funcionalidade'`)
+4. **Push** para a branch (`git push origin feature/nova-funcionalidade`)
+5. **Abra** um Pull Request
+
+### Padrões de Código
+- Use **TypeScript** em todos os projetos
+- Siga as **convenções** de cada framework
+- Escreva **testes** para novas funcionalidades
+- Mantenha a **documentação** atualizada
+
+## 📄 Licença
+
+Este projeto está licenciado sob a **Licença MIT** - veja o arquivo [LICENSE](LICENSE) para detalhes.
+
+## 👥 Contato
 
 - **Nome**: Dr. Jonas Augusto Kunzler
 - **E-mail**: <k_jonasaugusto@ufg.br>
+- **GitHub**: [@jakunzler](https://github.com/jakunzler)
+
+---
+
+**Cerise Inventory System** - Sistema completo de gerenciamento de inventários 🚀

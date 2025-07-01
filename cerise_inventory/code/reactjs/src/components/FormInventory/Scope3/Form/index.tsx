@@ -208,8 +208,6 @@ export function FormScope3() {
 
   useEffect(() => {
     formik.values.sourceId = selectedSource.id ? selectedSource.id : '';
-    console.log(formik.values.sourceId);
-    console.log(selectedSource);
   }, [selectedSource]);
 
   useEffect(() => {

@@ -85,9 +85,7 @@ export function Header({
 
   const handleKey = async (event: any) => {
     if (event.code === 'Enter' || event.code === 'NumpadEnter') {
-      console.log(search);
       const response = await api.get(`/notes?title=${search}`);
-      console.log(response.data);
       onInputChange(response.data);
     }
   };

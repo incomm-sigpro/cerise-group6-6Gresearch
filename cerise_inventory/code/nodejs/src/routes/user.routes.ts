@@ -13,7 +13,7 @@ import { Router } from "express";
 import passport from "passport";
 
 const userRouter = Router({ mergeParams: true });
-const upload = multer(uploadConfig.MULTER);
+const upload: any = multer(uploadConfig.MULTER);
 
 userRouter.post("/login", async (request, response, next) => {
   try {

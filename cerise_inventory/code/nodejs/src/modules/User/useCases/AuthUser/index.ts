@@ -7,7 +7,6 @@ import PermissionsRepository from "../../repositories/PermissionRepository";
 import InventoryRepository from "../../../../modules/Inventory/repositories/InventoryRepository";
 import CorporationRepository from "../../../../modules/Inventory/repositories/CorporationRepository";
 import CategoryRepository from "../../../../modules/Inventory/repositories/CategoryRepository";
-import SourceRepository from "../../../../modules/Inventory/repositories/SourceRepository";
 
 export default async function AuthUser() {
   const prisma = await getPrisma();
@@ -18,7 +17,6 @@ export default async function AuthUser() {
   const inventoryRepository = new InventoryRepository(prisma);
   const corporationRepository = new CorporationRepository(prisma);
   const categoryRepository = new CategoryRepository(prisma);
-  const sourceRepository = new SourceRepository(prisma);
 
   const authUserUseCase = new AuthUserUseCase(
     authUserRepository,
@@ -27,7 +25,6 @@ export default async function AuthUser() {
     inventoryRepository,
     corporationRepository,
     categoryRepository,
-    sourceRepository,
   );
 
   const authUserController = new AuthUserController(authUserUseCase);

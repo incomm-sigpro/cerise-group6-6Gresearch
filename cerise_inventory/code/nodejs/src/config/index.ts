@@ -10,6 +10,6 @@ export default {
     SECRET_KEY:
       process.env.SECRET_KEY_JWT ||
       "vpztKX8qtDYA$PZ46Oaei!T&jZ4JtA%!cvO5Ov*K#53ZAIy7F4",
-    TOKEN_EXPIRES_IN: process.env.TOKEN_EXPIRES_IN,
+    TOKEN_EXPIRES_IN: process.env.TOKEN_EXPIRES_IN || "1h",
   },
 };

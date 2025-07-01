@@ -154,8 +154,6 @@ export function ResumeInventory({ handleBack }: SummaryProps) {
   ];
 
   function handleFulfillment() {
-    console.log(inventory);
-    console.log(inventories);
     const fulfillmentConfirmation = confirm(
       'Deseja confirmar o preenchimento do inventário?'
     );

@@ -4,7 +4,6 @@ import { IPermissionsRepository } from "../../repositories/interfaces/IPermissio
 import { IInventoryRepository } from "../../../../modules/Inventory/repositories/interfaces/IInventoryRepository";
 import { ICorporationRepository } from "../../../../modules/Inventory/repositories/interfaces/ICorporationRepository";
 import { ICategoryRepository } from "../../../../modules/Inventory/repositories/interfaces/ICategoryRepository";
-import { ISourceRepository } from "../../../../modules/Inventory/repositories/interfaces/ISourceRepository";
 import { AuthExceptionEnum, HttpExceptionEnum } from "../../../../exceptions";
 import ValidationException from "../../../../exceptions/ValidationException";
 
@@ -20,7 +19,6 @@ export default class AuthUserUseCase {
   private inventoryRepository: IInventoryRepository;
   private corporationRepository: ICorporationRepository;
   private categoryRepository: ICategoryRepository;
-  private sourceRepository: ISourceRepository;
 
   constructor(
     userRepository: IUserRepository,
@@ -29,7 +27,6 @@ export default class AuthUserUseCase {
     inventoryRepository: IInventoryRepository,
     corporationRepository: ICorporationRepository,
     categoryRepository: ICategoryRepository,
-    sourceRepository: ISourceRepository,
   ) {
     this.userRepository = userRepository;
     this.sessionRepository = sessionRepository;
@@ -37,7 +34,6 @@ export default class AuthUserUseCase {
     this.inventoryRepository = inventoryRepository;
     this.corporationRepository = corporationRepository;
     this.categoryRepository = categoryRepository;
-    this.sourceRepository = sourceRepository;
   }
 
   async execute(login: string) {
@@ -62,16 +58,13 @@ export default class AuthUserUseCase {
         corporationInventories = [];
       }
 
-      console.log("68", corporationInventories);
       const categories = await this.categoryRepository.getAllCategories();
-      const sources = await this.sourceRepository.getAllSources();
       return {
         user,
         permissions,
         inventories: corporationInventories,
         corporations,
         categories,
-        sources,
       };
     } else {
       return {

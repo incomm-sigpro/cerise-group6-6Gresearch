@@ -101,7 +101,6 @@ function AuthProvider({ children }: AuthProviderProps) {
     localStorage.removeItem('@cerise-backend:inventoryItem');
     localStorage.removeItem('@cerise-backend:inventoryItems');
     localStorage.removeItem('@cerise-backend:permissions');
-    localStorage.removeItem('@cerise-backend:sources');
     localStorage.removeItem('@cerise-backend:token');
     localStorage.removeItem('@cerise-backend:user');
 
