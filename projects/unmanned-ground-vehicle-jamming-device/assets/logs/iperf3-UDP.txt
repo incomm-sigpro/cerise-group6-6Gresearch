@@ -1,0 +1,429 @@
+iperf3
+
+root@cerise-SM:/home/cerise# iperf3 -c 10.45.0.5 -b 300M -t 60 -u
+Connecting to host 10.45.0.5, port 5201
+[  5] local 10.45.0.1 port 56732 connected to 10.45.0.5 port 5201
+[ ID] Interval           Transfer     Bitrate         Total Datagrams
+[  5]   0.00-1.00   sec  35.7 MBytes   300 Mbits/sec  27795  
+[  5]   1.00-2.00   sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]   2.00-3.00   sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]   3.00-4.00   sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]   4.00-5.00   sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]   5.00-6.00   sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]   6.00-7.00   sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]   7.00-8.00   sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]   8.00-9.00   sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]   9.00-10.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  10.00-11.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  11.00-12.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  12.00-13.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  13.00-14.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  14.00-15.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  15.00-16.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  16.00-17.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  17.00-18.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  18.00-19.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  19.00-20.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  20.00-21.00  sec  35.8 MBytes   300 Mbits/sec  27818  
+[  5]  21.00-22.00  sec  35.8 MBytes   300 Mbits/sec  27820  
+[  5]  22.00-23.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  23.00-24.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  24.00-25.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  25.00-26.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  26.00-27.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  27.00-28.00  sec  35.8 MBytes   300 Mbits/sec  27818  
+[  5]  28.00-29.00  sec  35.8 MBytes   300 Mbits/sec  27820  
+[  5]  29.00-30.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  30.00-31.00  sec  35.8 MBytes   300 Mbits/sec  27818  
+[  5]  31.00-32.00  sec  35.8 MBytes   300 Mbits/sec  27820  
+[  5]  32.00-33.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  33.00-34.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  34.00-35.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  35.00-36.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  36.00-37.00  sec  35.8 MBytes   300 Mbits/sec  27818  
+[  5]  37.00-38.00  sec  35.8 MBytes   300 Mbits/sec  27820  
+[  5]  38.00-39.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  39.00-40.00  sec  35.8 MBytes   300 Mbits/sec  27818  
+[  5]  40.00-41.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  41.00-42.00  sec  35.8 MBytes   300 Mbits/sec  27820  
+[  5]  42.00-43.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  43.00-44.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  44.00-45.00  sec  35.8 MBytes   300 Mbits/sec  27818  
+[  5]  45.00-46.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  46.00-47.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  47.00-48.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  48.00-49.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  49.00-50.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  50.00-51.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  51.00-52.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  52.00-53.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  53.00-54.00  sec  35.8 MBytes   300 Mbits/sec  27820  
+[  5]  54.00-55.00  sec  35.8 MBytes   300 Mbits/sec  27818  
+[  5]  55.00-56.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  56.00-57.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  57.00-58.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  58.00-59.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  59.00-60.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[ ID] Interval           Transfer     Bitrate         Jitter    Lost/Total Datagrams
+[  5]   0.00-60.00  sec  2.10 GBytes   300 Mbits/sec  0.000 ms  0/1669115 (0%)  sender
+[  5]   0.00-60.00  sec  0.00 Bytes  0.00 bits/sec  0.000 ms  0/0 (0%)  receiver
+iperf3: error - control socket has closed unexpectedly
+root@cerise-SM:/home/cerise# iperf3 -c 10.45.0.6 -b 300M -t 60 -u
+Connecting to host 10.45.0.6, port 5201
+[  5] local 10.45.0.1 port 39900 connected to 10.45.0.6 port 5201
+[ ID] Interval           Transfer     Bitrate         Total Datagrams
+[  5]   0.00-1.00   sec  35.7 MBytes   300 Mbits/sec  27795  
+[  5]   1.00-2.00   sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]   2.00-3.00   sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]   3.00-4.00   sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]   4.00-5.00   sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]   5.00-6.00   sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]   6.00-7.00   sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]   7.00-8.00   sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]   8.00-9.00   sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]   9.00-10.00  sec  35.8 MBytes   300 Mbits/sec  27820  
+[  5]  10.00-11.00  sec  35.8 MBytes   300 Mbits/sec  27818  
+[  5]  11.00-12.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  12.00-13.00  sec  35.8 MBytes   300 Mbits/sec  27818  
+[  5]  13.00-14.00  sec  35.8 MBytes   300 Mbits/sec  27820  
+[  5]  14.00-15.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  15.00-16.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  16.00-17.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  17.00-18.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  18.00-19.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  19.00-20.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  20.00-21.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  21.00-22.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  22.00-23.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  23.00-24.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  24.00-25.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  25.00-26.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  26.00-27.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  27.00-28.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  28.00-29.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  29.00-30.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  30.00-31.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  31.00-32.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  32.00-33.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  33.00-34.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  34.00-35.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  35.00-36.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  36.00-37.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  37.00-38.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  38.00-39.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  39.00-40.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  40.00-41.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  41.00-42.00  sec  35.8 MBytes   300 Mbits/sec  27818  
+[  5]  42.00-43.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  43.00-44.00  sec  35.8 MBytes   300 Mbits/sec  27820  
+[  5]  44.00-45.00  sec  35.8 MBytes   300 Mbits/sec  27818  
+[  5]  45.00-46.00  sec  35.8 MBytes   300 Mbits/sec  27820  
+[  5]  46.00-47.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  47.00-48.00  sec  35.8 MBytes   300 Mbits/sec  27818  
+[  5]  48.00-49.00  sec  35.8 MBytes   300 Mbits/sec  27820  
+[  5]  49.00-50.00  sec  35.8 MBytes   300 Mbits/sec  27825  
+[  5]  50.00-51.00  sec  35.8 MBytes   300 Mbits/sec  27813  
+[  5]  51.00-52.00  sec  35.8 MBytes   300 Mbits/sec  27818  
+[  5]  52.00-53.00  sec  35.8 MBytes   300 Mbits/sec  27823  
+[  5]  53.00-54.00  sec  35.8 MBytes   300 Mbits/sec  27817  
+[  5]  54.00-55.00  sec  35.8 MBytes   300 Mbits/sec  27818  
+[  5]  55.00-56.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  56.00-57.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  57.00-58.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  58.00-59.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  59.00-60.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[ ID] Interval           Transfer     Bitrate         Jitter    Lost/Total Datagrams
+[  5]   0.00-60.00  sec  2.10 GBytes   300 Mbits/sec  0.000 ms  0/1669116 (0%)  sender
+[  5]   0.00-60.02  sec  1.87 GBytes   267 Mbits/sec  0.177 ms  181516/1669116 (11%)  receiver
+
+iperf Done.
+root@cerise-SM:/home/cerise# iperf3 -c 10.45.0.5 -b 300M -t 60 -u
+^C- - - - - - - - - - - - - - - - - - - - - - - - -
+[ ID] Interval           Transfer     Bitrate         Jitter    Lost/Total Datagrams
+iperf3: interrupt - the client has terminated
+root@cerise-SM:/home/cerise# iperf3 -c 10.45.0.6 -b 300M -t 60 -u
+Connecting to host 10.45.0.6, port 5201
+[  5] local 10.45.0.1 port 41905 connected to 10.45.0.6 port 5201
+[ ID] Interval           Transfer     Bitrate         Total Datagrams
+[  5]   0.00-1.00   sec  35.7 MBytes   300 Mbits/sec  27795  
+[  5]   1.00-2.00   sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]   2.00-3.00   sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]   3.00-4.00   sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]   4.00-5.00   sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]   5.00-6.00   sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]   6.00-7.00   sec  35.8 MBytes   300 Mbits/sec  27820  
+[  5]   7.00-8.00   sec  35.8 MBytes   300 Mbits/sec  27818  
+[  5]   8.00-9.00   sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]   9.00-10.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  10.00-11.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  11.00-12.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  12.00-13.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  13.00-14.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  14.00-15.00  sec  35.8 MBytes   300 Mbits/sec  27820  
+[  5]  15.00-16.00  sec  35.8 MBytes   300 Mbits/sec  27818  
+[  5]  16.00-17.00  sec  35.8 MBytes   300 Mbits/sec  27820  
+[  5]  17.00-18.00  sec  35.8 MBytes   300 Mbits/sec  27818  
+[  5]  18.00-19.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  19.00-20.00  sec  35.8 MBytes   300 Mbits/sec  27820  
+[  5]  20.00-21.00  sec  35.8 MBytes   300 Mbits/sec  27818  
+[  5]  21.00-22.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  22.00-23.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  23.00-24.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  24.00-25.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  25.00-26.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  26.00-27.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  27.00-28.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  28.00-29.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  29.00-30.00  sec  35.8 MBytes   300 Mbits/sec  27820  
+[  5]  30.00-31.00  sec  35.8 MBytes   300 Mbits/sec  27818  
+[  5]  31.00-32.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  32.00-33.00  sec  35.8 MBytes   300 Mbits/sec  27820  
+[  5]  33.00-34.00  sec  35.8 MBytes   300 Mbits/sec  27818  
+[  5]  34.00-35.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  35.00-36.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  36.00-37.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  37.00-38.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  38.00-39.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  39.00-40.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  40.00-41.00  sec  35.8 MBytes   300 Mbits/sec  27818  
+[  5]  41.00-42.00  sec  35.8 MBytes   300 Mbits/sec  27820  
+[  5]  42.00-43.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  43.00-44.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  44.00-45.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  45.00-46.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  46.00-47.00  sec  35.8 MBytes   300 Mbits/sec  27818  
+[  5]  47.00-48.00  sec  35.8 MBytes   300 Mbits/sec  27820  
+[  5]  48.00-49.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  49.00-50.00  sec  35.8 MBytes   300 Mbits/sec  27818  
+[  5]  50.00-51.00  sec  35.8 MBytes   300 Mbits/sec  27820  
+[  5]  51.00-52.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  52.00-53.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  53.00-54.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  54.00-55.00  sec  35.8 MBytes   300 Mbits/sec  27818  
+[  5]  55.00-56.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  56.00-57.00  sec  35.8 MBytes   300 Mbits/sec  27820  
+[  5]  57.00-58.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  58.00-59.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  59.00-60.00  sec  35.8 MBytes   300 Mbits/sec  27818  
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[ ID] Interval           Transfer     Bitrate         Jitter    Lost/Total Datagrams
+[  5]   0.00-60.00  sec  2.10 GBytes   300 Mbits/sec  0.000 ms  0/1669115 (0%)  sender
+[  5]   0.00-60.06  sec  1.93 GBytes   276 Mbits/sec  0.016 ms  130531/1669001 (7.8%)  receiver
+
+iperf Done.
+root@cerise-SM:/home/cerise# iperf3 -c 10.45.0.6 -b 300M -t 60 -u
+Connecting to host 10.45.0.6, port 5201
+[  5] local 10.45.0.1 port 44248 connected to 10.45.0.6 port 5201
+[ ID] Interval           Transfer     Bitrate         Total Datagrams
+[  5]   0.00-1.00   sec  35.6 MBytes   299 Mbits/sec  27703  
+[  5]   1.00-2.00   sec  35.9 MBytes   301 Mbits/sec  27912  
+[  5]   2.00-3.00   sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]   3.00-4.00   sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]   4.00-5.00   sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]   5.00-6.00   sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]   6.00-7.00   sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]   7.00-8.00   sec  35.8 MBytes   300 Mbits/sec  27818  
+[  5]   8.00-9.00   sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]   9.00-10.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  10.00-11.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  11.00-12.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  12.00-13.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  13.00-14.00  sec  35.8 MBytes   300 Mbits/sec  27835  
+[  5]  14.00-15.00  sec  35.7 MBytes   300 Mbits/sec  27804  
+[  5]  15.00-16.00  sec  35.8 MBytes   300 Mbits/sec  27818  
+[  5]  16.00-17.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  17.00-18.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  18.00-19.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  19.00-20.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  20.00-21.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  21.00-22.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  22.00-23.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  23.00-24.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  24.00-25.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  25.00-26.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  26.00-27.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  27.00-28.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  28.00-29.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  29.00-30.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  30.00-31.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  31.00-32.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  32.00-33.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  33.00-34.00  sec  35.8 MBytes   300 Mbits/sec  27818  
+[  5]  34.00-35.00  sec  35.8 MBytes   300 Mbits/sec  27820  
+[  5]  35.00-36.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  36.00-37.00  sec  35.8 MBytes   300 Mbits/sec  27818  
+[  5]  37.00-38.00  sec  35.8 MBytes   300 Mbits/sec  27820  
+[  5]  38.00-39.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  39.00-40.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  40.00-41.00  sec  35.8 MBytes   300 Mbits/sec  27818  
+[  5]  41.00-42.00  sec  35.8 MBytes   300 Mbits/sec  27820  
+[  5]  42.00-43.00  sec  35.8 MBytes   300 Mbits/sec  27818  
+[  5]  43.00-44.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  44.00-45.00  sec  35.8 MBytes   300 Mbits/sec  27820  
+[  5]  45.00-46.00  sec  35.8 MBytes   300 Mbits/sec  27818  
+[  5]  46.00-47.00  sec  35.8 MBytes   300 Mbits/sec  27820  
+[  5]  47.00-48.00  sec  35.8 MBytes   300 Mbits/sec  27818  
+[  5]  48.00-49.00  sec  35.8 MBytes   300 Mbits/sec  27820  
+[  5]  49.00-50.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  50.00-51.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  51.00-52.00  sec  35.8 MBytes   300 Mbits/sec  27818  
+[  5]  52.00-53.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  53.00-54.00  sec  35.8 MBytes   300 Mbits/sec  27820  
+[  5]  54.00-55.00  sec  35.8 MBytes   300 Mbits/sec  27818  
+[  5]  55.00-56.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  56.00-57.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  57.00-58.00  sec  35.8 MBytes   300 Mbits/sec  27820  
+[  5]  58.00-59.00  sec  35.8 MBytes   300 Mbits/sec  27818  
+[  5]  59.00-60.00  sec  35.8 MBytes   300 Mbits/sec  27820  
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[ ID] Interval           Transfer     Bitrate         Jitter    Lost/Total Datagrams
+[  5]   0.00-60.00  sec  2.10 GBytes   300 Mbits/sec  0.000 ms  0/1669116 (0%)  sender
+[  5]   0.00-60.02  sec  1.95 GBytes   280 Mbits/sec  0.042 ms  112712/1669014 (6.8%)  receiver
+
+iperf Done.
+root@cerise-SM:/home/cerise# iperf3 -c 10.45.0.6 -b 300M -t 60 -u
+Connecting to host 10.45.0.6, port 5201
+[  5] local 10.45.0.1 port 35865 connected to 10.45.0.6 port 5201
+[ ID] Interval           Transfer     Bitrate         Total Datagrams
+[  5]   0.00-1.00   sec  35.7 MBytes   300 Mbits/sec  27797  
+[  5]   1.00-2.00   sec  35.6 MBytes   299 Mbits/sec  27690  
+[  5]   2.00-3.00   sec  35.9 MBytes   301 Mbits/sec  27948  
+[  5]   3.00-4.00   sec  35.8 MBytes   300 Mbits/sec  27820  
+[  5]   4.00-5.00   sec  35.8 MBytes   300 Mbits/sec  27817  
+[  5]   5.00-6.00   sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]   6.00-7.00   sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]   7.00-8.00   sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]   8.00-9.00   sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]   9.00-10.00  sec  35.8 MBytes   300 Mbits/sec  27820  
+[  5]  10.00-11.00  sec  35.8 MBytes   300 Mbits/sec  27818  
+[  5]  11.00-12.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  12.00-13.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  13.00-14.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  14.00-15.00  sec  35.8 MBytes   300 Mbits/sec  27820  
+[  5]  15.00-16.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  16.00-17.00  sec  35.8 MBytes   300 Mbits/sec  27820  
+[  5]  17.00-18.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  18.00-19.00  sec  35.8 MBytes   300 Mbits/sec  27817  
+[  5]  19.00-20.00  sec  35.8 MBytes   300 Mbits/sec  27818  
+[  5]  20.00-21.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  21.00-22.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  22.00-23.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  23.00-24.00  sec  35.8 MBytes   300 Mbits/sec  27820  
+[  5]  24.00-25.00  sec  35.8 MBytes   300 Mbits/sec  27818  
+[  5]  25.00-26.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  26.00-27.00  sec  35.8 MBytes   300 Mbits/sec  27820  
+[  5]  27.00-28.00  sec  35.8 MBytes   300 Mbits/sec  27818  
+[  5]  28.00-29.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  29.00-30.00  sec  35.8 MBytes   300 Mbits/sec  27820  
+[  5]  30.00-31.00  sec  35.8 MBytes   300 Mbits/sec  27818  
+[  5]  31.00-32.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  32.00-33.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  33.00-34.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  34.00-35.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  35.00-36.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  36.00-37.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  37.00-38.00  sec  35.8 MBytes   300 Mbits/sec  27820  
+[  5]  38.00-39.00  sec  35.8 MBytes   300 Mbits/sec  27818  
+[  5]  39.00-40.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  40.00-41.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  41.00-42.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  42.00-43.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  43.00-44.00  sec  35.8 MBytes   300 Mbits/sec  27818  
+[  5]  44.00-45.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  45.00-46.00  sec  35.8 MBytes   300 Mbits/sec  27820  
+[  5]  46.00-47.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  47.00-48.00  sec  35.8 MBytes   300 Mbits/sec  27818  
+[  5]  48.00-49.00  sec  35.8 MBytes   300 Mbits/sec  27820  
+[  5]  49.00-50.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  50.00-51.00  sec  35.8 MBytes   300 Mbits/sec  27820  
+[  5]  51.00-52.00  sec  35.8 MBytes   300 Mbits/sec  27817  
+[  5]  52.00-53.00  sec  35.8 MBytes   300 Mbits/sec  27820  
+[  5]  53.00-54.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  54.00-55.00  sec  35.8 MBytes   300 Mbits/sec  27818  
+[  5]  55.00-56.00  sec  35.8 MBytes   300 Mbits/sec  27820  
+[  5]  56.00-57.00  sec  35.8 MBytes   300 Mbits/sec  27818  
+[  5]  57.00-58.00  sec  35.8 MBytes   300 Mbits/sec  27820  
+[  5]  58.00-59.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  59.00-60.00  sec  35.8 MBytes   300 Mbits/sec  27818  
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[ ID] Interval           Transfer     Bitrate         Jitter    Lost/Total Datagrams
+[  5]   0.00-60.00  sec  2.10 GBytes   300 Mbits/sec  0.000 ms  0/1669115 (0%)  sender
+[  5]   0.00-60.04  sec  1014 MBytes   142 Mbits/sec  0.037 ms  880546/1669086 (53%)  receiver
+
+iperf Done.
+root@cerise-SM:/home/cerise# iperf3 -c 10.45.0.6 -b 300M -t 60 -u
+^C- - - - - - - - - - - - - - - - - - - - - - - - -
+[ ID] Interval           Transfer     Bitrate         Jitter    Lost/Total Datagrams
+iperf3: interrupt - the client has terminated
+root@cerise-SM:/home/cerise# iperf3 -c 10.45.0.7 -b 300M -t 60 -u
+Connecting to host 10.45.0.7, port 5201
+[  5] local 10.45.0.1 port 49584 connected to 10.45.0.7 port 5201
+[ ID] Interval           Transfer     Bitrate         Total Datagrams
+[  5]   0.00-1.00   sec  35.7 MBytes   300 Mbits/sec  27795  
+[  5]   1.00-2.00   sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]   2.00-3.00   sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]   3.00-4.00   sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]   4.00-5.00   sec  35.8 MBytes   300 Mbits/sec  27820  
+[  5]   5.00-6.00   sec  35.8 MBytes   300 Mbits/sec  27818  
+[  5]   6.00-7.00   sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]   7.00-8.00   sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]   8.00-9.00   sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]   9.00-10.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  10.00-11.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  11.00-12.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  12.00-13.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  13.00-14.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  14.00-15.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  15.00-16.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  16.00-17.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  17.00-18.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  18.00-19.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  19.00-20.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  20.00-21.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  21.00-22.00  sec  35.8 MBytes   300 Mbits/sec  27822  
+[  5]  22.00-23.00  sec  35.8 MBytes   300 Mbits/sec  27816  
+[  5]  23.00-24.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  24.00-25.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  25.00-26.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  26.00-27.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  27.00-28.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  28.00-29.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  29.00-30.00  sec  35.8 MBytes   300 Mbits/sec  27818  
+[  5]  30.00-31.00  sec  35.8 MBytes   300 Mbits/sec  27820  
+[  5]  31.00-32.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  32.00-33.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  33.00-34.00  sec  35.8 MBytes   300 Mbits/sec  27818  
+[  5]  34.00-35.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  35.00-36.00  sec  35.8 MBytes   300 Mbits/sec  27820  
+[  5]  36.00-37.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  37.00-38.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  38.00-39.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  39.00-40.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  40.00-41.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  41.00-42.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  42.00-43.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  43.00-44.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  44.00-45.00  sec  35.8 MBytes   300 Mbits/sec  27818  
+[  5]  45.00-46.00  sec  35.8 MBytes   300 Mbits/sec  27820  
+[  5]  46.00-47.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  47.00-48.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  48.00-49.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  49.00-50.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  50.00-51.00  sec  35.8 MBytes   300 Mbits/sec  27818  
+[  5]  51.00-52.00  sec  35.8 MBytes   300 Mbits/sec  27820  
+[  5]  52.00-53.00  sec  35.8 MBytes   300 Mbits/sec  27818  
+[  5]  53.00-54.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  54.00-55.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  55.00-56.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  56.00-57.00  sec  35.8 MBytes   300 Mbits/sec  27819  
+[  5]  57.00-58.00  sec  35.8 MBytes   300 Mbits/sec  27820  
+[  5]  58.00-59.00  sec  35.8 MBytes   300 Mbits/sec  27818  
+[  5]  59.00-60.00  sec  35.8 MBytes   300 Mbits/sec  27820  
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[ ID] Interval           Transfer     Bitrate         Jitter    Lost/Total Datagrams
+[  5]   0.00-60.00  sec  2.10 GBytes   300 Mbits/sec  0.000 ms  0/1669116 (0%)  sender
+[  5]   0.00-60.02  sec   742 MBytes   104 Mbits/sec  0.418 ms  1063711/1640930 (65%)  receiver
+
+iperf Done.
