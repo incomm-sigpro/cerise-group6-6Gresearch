@@ -2,7 +2,7 @@ import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ApiResponse, PaginatedResponse, User } from '../types';
 
-const API_BASE_URL = 'http://192.168.2.39:3000'; // IP local da máquina
+const API_BASE_URL = 'http://172.16.40.226:3000'; // IP local da máquina
 
 class ApiService {
   private api: AxiosInstance;

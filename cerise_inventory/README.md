@@ -2,6 +2,8 @@
 
 Sistema de inventário sendo desenvolvido para os laboratórios do CERISE, contendo backend, frontend web e aplicação mobile.
 
+![alt text](images/inventory_system/login_page.png)
+
 ## 📋 Sumário
 
 - [Cerise Inventory System](#cerise-inventory-system)
@@ -21,6 +23,8 @@ Sistema de inventário sendo desenvolvido para os laboratórios do CERISE, conte
 ## 🎯 Descrição
 
 O Cerise Inventory System é uma solução completa para gerenciamento de inventários, desenvolvida com arquitetura moderna e tecnologias atuais. O sistema permite o controle de inventários, categorias, usuários e corporações, oferecendo uma experiência consistente entre web e mobile.
+
+![alt text](images/inventory_system/inventory_page.png)
 
 ## 🏗️ Arquitetura
 
